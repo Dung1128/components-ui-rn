@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -52,7 +52,7 @@
     "react-native-safe-area-context": "^5.1.0",
     "react-native-screens": "^4.5.0",
     "react-native-vector-icons": "^9.2.0",
-    "use-latest-callback": "^0.1.5"
+    "use-latest-callback": "^0.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
