@@ -1,30 +1,25 @@
-import type { ComponentType } from 'react';
+import type { ComponentType } from "react";
 
-import { $DeepPartial, createTheming } from '@callstack/react-theme-provider';
-import color from 'color';
+import { $DeepPartial, createTheming } from "@callstack/react-theme-provider";
+import color from "color";
 
-import {
-  MD2DarkTheme,
-  MD2LightTheme,
-  MD3DarkTheme,
-  MD3LightTheme,
-} from '../styles/themes';
+import { DarkTheme, LightTheme } from "../styles/themes";
 import type {
   InternalTheme,
-  MD3Theme,
+  AppTheme,
   MD3AndroidColors,
   NavigationTheme,
-} from '../types';
+} from "../types";
 
-export const DefaultTheme = MD3LightTheme;
+export const DefaultTheme = LightTheme;
 
 export const {
   ThemeProvider,
   withTheme,
   useTheme: useAppTheme,
-} = createTheming<unknown>(MD3LightTheme);
+} = createTheming<unknown>(LightTheme);
 
-export function useTheme<T = MD3Theme>(overrides?: $DeepPartial<T>) {
+export function useTheme<T = AppTheme>(overrides?: $DeepPartial<T>) {
   return useAppTheme<T>(overrides);
 }
 
@@ -38,12 +33,12 @@ export const withInternalTheme = <Props extends { theme: InternalTheme }, C>(
 
 export const defaultThemesByVersion = {
   2: {
-    light: MD2LightTheme,
-    dark: MD2DarkTheme,
+    light: LightTheme,
+    dark: DarkTheme,
   },
   3: {
-    light: MD3LightTheme,
-    dark: MD3DarkTheme,
+    light: LightTheme,
+    dark: DarkTheme,
   },
 };
 
@@ -51,13 +46,12 @@ export const getTheme = <
   Scheme extends boolean = false,
   IsVersion3 extends boolean = true
 >(
-  isDark: Scheme = false as Scheme,
-  isV3: IsVersion3 = true as IsVersion3
+  isDark: Scheme = false as Scheme
 ): (typeof defaultThemesByVersion)[IsVersion3 extends true
   ? 3
-  : 2][Scheme extends true ? 'dark' : 'light'] => {
-  const themeVersion = isV3 ? 3 : 2;
-  const scheme = isDark ? 'dark' : 'light';
+  : 2][Scheme extends true ? "dark" : "light"] => {
+  const themeVersion = 3;
+  const scheme = isDark ? "dark" : "light";
 
   return defaultThemesByVersion[themeVersion][scheme];
 };
@@ -65,14 +59,14 @@ export const getTheme = <
 // eslint-disable-next-line no-redeclare
 export function adaptNavigationTheme(themes: {
   reactNavigationLight: NavigationTheme;
-  materialLight?: MD3Theme;
+  materialLight?: AppTheme;
 }): {
   LightTheme: NavigationTheme;
 };
 // eslint-disable-next-line no-redeclare
 export function adaptNavigationTheme(themes: {
   reactNavigationDark: NavigationTheme;
-  materialDark?: MD3Theme;
+  materialDark?: AppTheme;
 }): {
   DarkTheme: NavigationTheme;
 };
@@ -80,8 +74,8 @@ export function adaptNavigationTheme(themes: {
 export function adaptNavigationTheme(themes: {
   reactNavigationLight: NavigationTheme;
   reactNavigationDark: NavigationTheme;
-  materialLight?: MD3Theme;
-  materialDark?: MD3Theme;
+  materialLight?: AppTheme;
+  materialDark?: AppTheme;
 }): { LightTheme: NavigationTheme; DarkTheme: NavigationTheme };
 // eslint-disable-next-line no-redeclare
 export function adaptNavigationTheme(themes: any) {
@@ -94,29 +88,29 @@ export function adaptNavigationTheme(themes: any) {
 
   const getAdaptedTheme = (
     navigationTheme: NavigationTheme,
-    MD3Theme: MD3Theme
+    AppTheme: AppTheme
   ) => {
     return {
       ...navigationTheme,
       colors: {
         ...navigationTheme.colors,
-        primary: MD3Theme.colors.primary,
-        background: MD3Theme.colors.background,
-        card: MD3Theme.colors.elevation.level2,
-        text: MD3Theme.colors.onSurface,
-        border: MD3Theme.colors.outline,
-        notification: MD3Theme.colors.error,
+        primary: AppTheme.colors.primary,
+        background: AppTheme.colors.background,
+        card: AppTheme.colors.elevation.level2,
+        text: AppTheme.colors.onSurface,
+        border: AppTheme.colors.outline,
+        notification: AppTheme.colors.error,
       },
     };
   };
 
-  const MD3Themes = {
-    light: materialLight || MD3LightTheme,
-    dark: materialDark || MD3DarkTheme,
+  const AppThemes = {
+    light: materialLight || LightTheme,
+    dark: materialDark || DarkTheme,
   };
 
   if (reactNavigationLight && reactNavigationDark) {
-    const modes = ['light', 'dark'] as const;
+    const modes = ["light", "dark"] as const;
 
     const NavigationThemes = {
       light: reactNavigationLight,
@@ -127,7 +121,7 @@ export function adaptNavigationTheme(themes: any) {
       (prev, curr) => {
         return {
           ...prev,
-          [curr]: getAdaptedTheme(NavigationThemes[curr], MD3Themes[curr]),
+          [curr]: getAdaptedTheme(NavigationThemes[curr], AppThemes[curr]),
         };
       },
       {
@@ -144,17 +138,17 @@ export function adaptNavigationTheme(themes: any) {
 
   if (reactNavigationDark) {
     return {
-      DarkTheme: getAdaptedTheme(reactNavigationDark, MD3Themes.dark),
+      DarkTheme: getAdaptedTheme(reactNavigationDark, AppThemes.dark),
     };
   }
 
   return {
-    LightTheme: getAdaptedTheme(reactNavigationLight, MD3Themes.light),
+    LightTheme: getAdaptedTheme(reactNavigationLight, AppThemes.light),
   };
 }
 
 export const getDynamicThemeElevations = (scheme: MD3AndroidColors) => {
-  const elevationValues = ['transparent', 0.05, 0.08, 0.11, 0.12, 0.14];
+  const elevationValues = ["transparent", 0.05, 0.08, 0.11, 0.12, 0.14];
   return elevationValues.reduce((elevations, elevationValue, index) => {
     return {
       ...elevations,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Animated,
   Easing,
@@ -7,10 +7,10 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
-import { useInternalTheme } from '../core/theming';
-import type { ThemeProp } from '../types';
+import { useInternalTheme } from "../core/theming";
+import type { ThemeProp } from "../types";
 
 export type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
@@ -24,7 +24,7 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
    * Size of the indicator.
    */
-  size?: 'small' | 'large' | number;
+  size?: "small" | "large" | number;
   /**
    * Whether the indicator should hide when not animating.
    */
@@ -38,27 +38,11 @@ export type Props = React.ComponentPropsWithRef<typeof View> & {
 
 const DURATION = 2400;
 
-/**
- * Activity indicator is used to present progress of some activity in the app.
- * It can be used as a drop-in replacement for the ActivityIndicator shipped with React Native.
- *
- * ## Usage
- * ```js
- * import * as React from 'react';
- * import { ActivityIndicator, MD2Colors } from 'react-native-paper';
- *
- * const MyComponent = () => (
- *   <ActivityIndicator animating={true} color={MD2Colors.red800} />
- * );
- *
- * export default MyComponent;
- * ```
- */
 const ActivityIndicator = ({
   animating = true,
   color: indicatorColor,
   hidesWhenStopped = true,
-  size: indicatorSize = 'small',
+  size: indicatorSize = "small",
   style,
   theme: themeOverrides,
   ...rest
@@ -109,7 +93,7 @@ const ActivityIndicator = ({
         duration: DURATION,
         easing: Easing.linear,
         // Animated.loop does not work if useNativeDriver is true on web
-        useNativeDriver: Platform.OS !== 'web',
+        useNativeDriver: Platform.OS !== "web",
         toValue: 1,
         isInteraction: false,
       });
@@ -132,8 +116,8 @@ const ActivityIndicator = ({
 
   const color = indicatorColor || theme.colors?.primary;
   const size =
-    typeof indicatorSize === 'string'
-      ? indicatorSize === 'small'
+    typeof indicatorSize === "string"
+      ? indicatorSize === "small"
         ? 24
         : 48
       : indicatorSize
@@ -145,7 +129,7 @@ const ActivityIndicator = ({
   const containerStyle = {
     width: size,
     height: size / 2,
-    overflow: 'hidden' as const,
+    overflow: "hidden" as const,
   };
 
   return (
@@ -239,15 +223,15 @@ const ActivityIndicator = ({
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   layer: {
     ...StyleSheet.absoluteFillObject,
 
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

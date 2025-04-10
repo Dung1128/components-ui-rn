@@ -1,15 +1,7 @@
 import { Platform } from 'react-native';
-
+import { ThemeColors } from "../../styles/themes/tokens";
 import setColor from 'color';
 
-import {
-  grey400,
-  grey800,
-  grey50,
-  grey700,
-  white,
-  black,
-} from '../../styles/themes/v2/colors';
 import type { InternalTheme } from '../../types';
 
 type BaseProps = {
@@ -29,11 +21,7 @@ const getCheckedColor = ({
     return color;
   }
 
-  if (theme.isV3) {
-    return theme.colors.primary;
-  }
-
-  return theme.colors.accent;
+  return theme.colors.primary;
 };
 
 const getThumbTintColor = ({
@@ -50,9 +38,9 @@ const getThumbTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      return grey800;
+      return ThemeColors.neutral70;
     }
-    return grey400;
+    return ThemeColors.neutral70;;
   }
 
   if (value) {
@@ -60,9 +48,9 @@ const getThumbTintColor = ({
   }
 
   if (theme.dark) {
-    return grey400;
+    return ThemeColors.neutral40;
   }
-  return grey50;
+  return ThemeColors.neutral40;
 };
 
 const getOnTintColor = ({
@@ -79,12 +67,9 @@ const getOnTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      if (theme.isV3) {
-        return setColor(white).alpha(0.06).rgb().string();
-      }
-      return setColor(white).alpha(0.1).rgb().string();
+        return setColor(ThemeColors.primary100).alpha(0.06).rgb().string();
     }
-    return setColor(black).alpha(0.12).rgb().string();
+    return setColor(ThemeColors.primary0).alpha(0.12).rgb().string();
   }
 
   if (value) {
@@ -92,7 +77,7 @@ const getOnTintColor = ({
   }
 
   if (theme.dark) {
-    return grey700;
+    return ThemeColors.neutral70;
   }
   return 'rgb(178, 175, 177)';
 };

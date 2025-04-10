@@ -13,9 +13,7 @@ import {
 import TextInputAffix, {
   Props as TextInputAffixProps,
 } from "./Adornment/TextInputAffix";
-import TextInputIcon, {
-  Props as TextInputIconProps,
-} from "./Adornment/TextInputIcon";
+
 import TextInputFlat from "./TextInputFlat";
 import TextInputOutlined from "./TextInputOutlined";
 import type { RenderProps, TextInputLabelProp } from "./types";
@@ -178,7 +176,6 @@ interface CompoundedComponent
   extends React.ForwardRefExoticComponent<
     Props & React.RefAttributes<TextInputHandles>
   > {
-  Icon: React.FunctionComponent<TextInputIconProps>;
   Affix: React.FunctionComponent<Partial<TextInputAffixProps>>;
 }
 
@@ -563,7 +560,6 @@ const TextInput = forwardRef<TextInputHandles, Props>(
   }
 ) as CompoundedComponent;
 // @component ./Adornment/TextInputIcon.tsx
-TextInput.Icon = TextInputIcon;
 
 // @component ./Adornment/TextInputAffix.tsx
 // @ts-ignore Types of property 'theme' are incompatible.

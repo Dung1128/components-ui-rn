@@ -1,67 +1,45 @@
-import { Platform, PlatformOSType } from 'react-native';
+import { Platform, PlatformOSType } from "react-native";
 
-import { typescale } from './themes/v3/tokens';
-import type { Fonts, MD3Type, MD3Typescale, MD3TypescaleKey } from '../types';
+import { typescale } from "./themes/tokens";
+import type { Fonts, MD3Type, MD3Typescale, MD3TypescaleKey } from "../types";
 
 export const fontConfig = {
-  web: {
-    regular: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '400' as '400',
-    },
-    medium: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '500' as '500',
-    },
-    light: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '300' as '300',
-    },
-    thin: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '100' as '100',
-    },
-  },
   ios: {
     regular: {
-      fontFamily: 'System',
-      fontWeight: '400' as '400',
+      fontFamily: "System",
+      fontWeight: "400" as "400",
     },
     medium: {
-      fontFamily: 'System',
-      fontWeight: '500' as '500',
+      fontFamily: "System",
+      fontWeight: "500" as "500",
     },
     light: {
-      fontFamily: 'System',
-      fontWeight: '300' as '300',
+      fontFamily: "System",
+      fontWeight: "300" as "300",
     },
     thin: {
-      fontFamily: 'System',
-      fontWeight: '100' as '100',
+      fontFamily: "System",
+      fontWeight: "100" as "100",
     },
   },
   default: {
     regular: {
-      fontFamily: 'sans-serif',
-      fontWeight: 'normal' as 'normal',
+      fontFamily: "sans-serif",
+      fontWeight: "normal" as "normal",
     },
     medium: {
-      fontFamily: 'sans-serif-medium',
-      fontWeight: 'normal' as 'normal',
+      fontFamily: "sans-serif-medium",
+      fontWeight: "normal" as "normal",
     },
     light: {
-      fontFamily: 'sans-serif-light',
-      fontWeight: 'normal' as 'normal',
+      fontFamily: "sans-serif-light",
+      fontWeight: "normal" as "normal",
     },
     thin: {
-      fontFamily: 'sans-serif-thin',
-      fontWeight: 'normal' as 'normal',
+      fontFamily: "sans-serif-thin",
+      fontWeight: "normal" as "normal",
     },
   },
-};
-
-type MD2FontsConfig = {
-  [platform in PlatformOSType | 'default']?: Fonts;
 };
 
 type MD3FontsConfig =
@@ -73,11 +51,6 @@ type MD3FontsConfig =
     }
   | Partial<MD3Type>;
 
-function configureV2Fonts(config: MD2FontsConfig): Fonts {
-  const fonts = Platform.select({ ...fontConfig, ...config }) as Fonts;
-  return fonts;
-}
-
 function configureV3Fonts(
   config: MD3FontsConfig
 ): MD3Typescale | (MD3Typescale & { [key: string]: MD3Type }) {
@@ -86,7 +59,7 @@ function configureV3Fonts(
   }
 
   const isFlatConfig = Object.keys(config).every(
-    (key) => typeof config[key as keyof typeof config] !== 'object'
+    (key) => typeof config[key as keyof typeof config] !== "object"
   );
 
   if (isFlatConfig) {
@@ -111,33 +84,8 @@ function configureV3Fonts(
 }
 
 // eslint-disable-next-line no-redeclare
-export default function configureFonts(params: { isV3: false }): Fonts;
-// eslint-disable-next-line no-redeclare
-export default function configureFonts(params: {
-  config?: MD2FontsConfig;
-  isV3: false;
-}): Fonts;
-// eslint-disable-next-line no-redeclare
-export default function configureFonts(params?: {
-  config?: Partial<MD3Type>;
-  isV3?: true;
-}): MD3Typescale;
-// eslint-disable-next-line no-redeclare
-export default function configureFonts(params?: {
-  config?: Partial<Record<MD3TypescaleKey, Partial<MD3Type>>>;
-  isV3?: true;
-}): MD3Typescale;
-// eslint-disable-next-line no-redeclare
-export default function configureFonts(params: {
-  config: Record<string, MD3Type>;
-  isV3?: true;
-}): MD3Typescale & { [key: string]: MD3Type };
-// eslint-disable-next-line no-redeclare
 export default function configureFonts(params?: any) {
-  const { isV3 = true, config } = params || {};
+  const { config } = params || {};
 
-  if (isV3) {
-    return configureV3Fonts(config);
-  }
-  return configureV2Fonts(config);
+  return configureV3Fonts(config);
 }

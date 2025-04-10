@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Animated,
   View,
@@ -9,15 +9,15 @@ import {
   TextStyle,
   ColorValue,
   LayoutChangeEvent,
-} from 'react-native';
+} from "react-native";
 
-import { Outline } from './Addons/Outline';
-import { AdornmentType, AdornmentSide } from './Adornment/enums';
+import { Outline } from "./Addons/Outline";
+import { AdornmentType, AdornmentSide } from "./Adornment/enums";
 import TextInputAdornment, {
   getAdornmentConfig,
   getAdornmentStyleAdjustmentForNativeInput,
   TextInputAdornmentProps,
-} from './Adornment/TextInputAdornment';
+} from "./Adornment/TextInputAdornment";
 import {
   MAXIMIZED_LABEL_FONT_SIZE,
   MINIMIZED_LABEL_FONT_SIZE,
@@ -27,7 +27,7 @@ import {
   LABEL_PADDING_TOP,
   MIN_DENSE_HEIGHT_OUTLINED,
   LABEL_PADDING_TOP_DENSE,
-} from './constants';
+} from "./constants";
 import {
   calculateLabelTopPosition,
   calculateInputHeight,
@@ -37,10 +37,10 @@ import {
   calculateOutlinedIconAndAffixTopPosition,
   getOutlinedInputColors,
   getConstants,
-} from './helpers';
-import InputLabel from './Label/InputLabel';
-import LabelBackground from './Label/LabelBackground';
-import type { RenderProps, ChildTextInputProps } from './types';
+} from "./helpers";
+import InputLabel from "./Label/InputLabel";
+import LabelBackground from "./Label/LabelBackground";
+import type { RenderProps, ChildTextInputProps } from "./types";
 
 const TextInputOutlined = ({
   disabled = false,
@@ -74,19 +74,19 @@ const TextInputOutlined = ({
   left,
   right,
   placeholderTextColor,
-  testID = 'text-input-outlined',
+  testID = "text-input-outlined",
   contentStyle,
   scaledLabel,
   ...rest
 }: ChildTextInputProps) => {
   const adornmentConfig = getAdornmentConfig({ left, right });
 
-  const { colors, isV3, roundness } = theme;
-  const font = isV3 ? theme.fonts.bodyLarge : theme.fonts.regular;
+  const { colors, roundness } = theme;
+  const font = theme.fonts.bodyLarge;
   const hasActiveOutline = parentState.focused || error;
 
   const { INPUT_PADDING_HORIZONTAL, MIN_HEIGHT, ADORNMENT_OFFSET, MIN_WIDTH } =
-    getConstants(isV3);
+    getConstants();
 
   const {
     fontSize: fontSizeStyle,
@@ -99,7 +99,7 @@ const TextInputOutlined = ({
   } = (StyleSheet.flatten(style) || {}) as TextStyle;
   const fontSize = fontSizeStyle || MAXIMIZED_LABEL_FONT_SIZE;
   const lineHeight =
-    lineHeightStyle || (Platform.OS === 'web' ? fontSize * 1.2 : undefined);
+    lineHeightStyle || (Platform.OS === "web" ? fontSize * 1.2 : undefined);
 
   const {
     inputTextColor,
@@ -149,7 +149,7 @@ const TextInputOutlined = ({
   if (isAdornmentLeftIcon) {
     labelTranslationXOffset =
       (I18nManager.getConstants().isRTL ? -1 : 1) *
-      (ADORNMENT_SIZE + ADORNMENT_OFFSET - (isV3 ? 0 : 8));
+      (ADORNMENT_SIZE + ADORNMENT_OFFSET);
   }
 
   const minInputHeight =
@@ -163,9 +163,9 @@ const TextInputOutlined = ({
     paddingTop
   );
 
-  if (height && typeof height !== 'number') {
+  if (height && typeof height !== "number") {
     // eslint-disable-next-line
-    console.warn('Currently we support only numbers in height prop');
+    console.warn("Currently we support only numbers in height prop");
   }
 
   const paddingSettings = {
@@ -179,7 +179,7 @@ const TextInputOutlined = ({
     lineHeight,
     label,
     scale: fontScale,
-    isAndroid: Platform.OS === 'android',
+    isAndroid: Platform.OS === "android",
     styles: StyleSheet.flatten(
       dense ? styles.inputOutlinedDense : styles.inputOutlined
     ) as Padding,
@@ -201,17 +201,17 @@ const TextInputOutlined = ({
     : placeholderOpacityAnims[parentState.labelLayout.measured ? 1 : 0];
 
   const placeholderStyle = {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     paddingHorizontal: INPUT_PADDING_HORIZONTAL,
   };
 
   const placeholderTextColorBasedOnState = parentState.displayPlaceholder
     ? placeholderTextColor ?? placeholderColor
-    : 'transparent';
+    : "transparent";
 
   const labelBackgroundColor: ColorValue =
-    backgroundColor === 'transparent'
+    backgroundColor === "transparent"
       ? theme.colors.background
       : backgroundColor;
 
@@ -254,7 +254,6 @@ const TextInputOutlined = ({
           ? 1
           : 0
         : 1,
-    isV3,
   };
 
   const onLayoutChange = React.useCallback(
@@ -302,8 +301,7 @@ const TextInputOutlined = ({
       adornmentConfig,
       rightAffixWidth,
       leftAffixWidth,
-      mode: 'outlined',
-      isV3,
+      mode: "outlined",
     });
   const affixTopPosition = {
     [AdornmentSide.Left]: leftAffixTopPosition,
@@ -344,7 +342,6 @@ const TextInputOutlined = ({
           Otherwise the border will cut off the label on Android
           */}
       <Outline
-        isV3={isV3}
         style={outlineStyle}
         label={label}
         roundness={roundness}
@@ -387,11 +384,11 @@ const TextInputOutlined = ({
           editable: !disabled && editable,
           selectionColor,
           cursorColor:
-            typeof cursorColor === 'undefined' ? activeColor : cursorColor,
+            typeof cursorColor === "undefined" ? activeColor : cursorColor,
           placeholderTextColor: placeholderTextColorBasedOnState,
           onFocus,
           onBlur,
-          underlineColorAndroid: 'transparent',
+          underlineColorAndroid: "transparent",
           multiline,
           style: [
             styles.input,
@@ -403,12 +400,12 @@ const TextInputOutlined = ({
               lineHeight,
               fontWeight,
               color: inputTextColor,
-              textAlignVertical: multiline ? 'top' : 'center',
+              textAlignVertical: multiline ? "top" : "center",
               textAlign: textAlign
                 ? textAlign
                 : I18nManager.getConstants().isRTL
-                ? 'right'
-                : 'left',
+                ? "right"
+                : "left",
               paddingHorizontal: INPUT_PADDING_HORIZONTAL,
               minWidth: Math.min(
                 parentState.labelTextLayout.width +
@@ -416,7 +413,7 @@ const TextInputOutlined = ({
                 MIN_WIDTH
               ),
             },
-            Platform.OS === 'web' && { outline: 'none' },
+            Platform.OS === "web" && { outline: "none" },
             adornmentStyleAdjustmentForNativeInput,
             contentStyle,
           ],

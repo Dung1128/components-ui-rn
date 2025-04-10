@@ -10,7 +10,6 @@ import {
 import { TextInputLabelProp } from "../types";
 
 type OutlineProps = {
-  isV3: boolean;
   activeColor: string;
   backgroundColor: ColorValue | any;
   hasActiveOutline?: boolean;
@@ -22,7 +21,6 @@ type OutlineProps = {
 };
 
 export const Outline = ({
-  isV3,
   label,
   activeColor,
   backgroundColor,
@@ -42,7 +40,7 @@ export const Outline = ({
       {
         backgroundColor,
         borderRadius: roundness,
-        borderWidth: (isV3 ? hasActiveOutline : focused) ? 2 : 1,
+        borderWidth: hasActiveOutline ? 2 : 1,
         borderColor: hasActiveOutline ? activeColor : outlineColor,
       },
       style,

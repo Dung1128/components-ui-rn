@@ -9,7 +9,6 @@ import type {
 
 import { AdornmentSide, AdornmentType, InputMode } from "./enums";
 import TextInputAffix, { AffixAdornment } from "./TextInputAffix";
-import TextInputIcon, { IconAdornment } from "./TextInputIcon";
 import type {
   AdornmentConfig,
   AdornmentStyleAdjustmentForNativeInput,
@@ -34,8 +33,6 @@ export function getAdornmentConfig({
         let type;
         if (adornment.type === TextInputAffix) {
           type = AdornmentType.Affix;
-        } else if (adornment.type === TextInputIcon) {
-          type = AdornmentType.Icon;
         }
         adornmentConfig.push({
           side,
@@ -55,7 +52,6 @@ export function getAdornmentStyleAdjustmentForNativeInput({
   paddingHorizontal,
   inputOffset = 0,
   mode,
-  isV3,
 }: {
   inputOffset?: number;
   adornmentConfig: AdornmentConfig[];
@@ -63,9 +59,8 @@ export function getAdornmentStyleAdjustmentForNativeInput({
   rightAffixWidth: number;
   mode?: "outlined" | "flat";
   paddingHorizontal?: DimensionValue;
-  isV3?: boolean;
 }): AdornmentStyleAdjustmentForNativeInput | {} {
-  const { OUTLINED_INPUT_OFFSET, ADORNMENT_OFFSET } = getConstants(isV3);
+  const { OUTLINED_INPUT_OFFSET, ADORNMENT_OFFSET } = getConstants();
 
   if (adornmentConfig.length) {
     const adornmentStyleAdjustmentForNativeInput = adornmentConfig.map(
@@ -169,18 +164,7 @@ const TextInputAdornment: React.FunctionComponent<TextInputAdornmentProps> = ({
             paddingHorizontal,
             disabled,
           };
-          if (type === AdornmentType.Icon) {
-            return (
-              <IconAdornment
-                {...commonProps}
-                theme={theme}
-                key={side}
-                icon={inputAdornmentComponent}
-                topPosition={topPosition[AdornmentType.Icon]}
-                forceFocus={forceFocus}
-              />
-            );
-          } else if (type === AdornmentType.Affix) {
+          if (type === AdornmentType.Affix) {
             return (
               <AffixAdornment
                 {...commonProps}

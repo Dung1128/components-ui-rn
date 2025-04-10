@@ -28,22 +28,7 @@ export type Fonts = {
 
 type Mode = "adaptive" | "exact";
 
-export type MD2Colors = {
-  primary: string;
-  background: string;
-  surface: string;
-  accent: string;
-  error: string;
-  text: string;
-  onSurface: string;
-  disabled: string;
-  placeholder: string;
-  backdrop: string;
-  notification: string;
-  tooltip: string;
-};
-
-export type MD3Colors = {
+export type ThemeColors = {
   primary: string;
   primaryContainer: string;
   secondary: string;
@@ -125,21 +110,13 @@ export type ThemeBase = {
   };
 };
 
-export type MD3Theme = ThemeBase & {
+export type AppTheme = ThemeBase & {
   version: 3;
-  isV3: true;
-  colors: MD3Colors;
+  colors: ThemeColors;
   fonts: MD3Typescale;
 };
 
-export type MD2Theme = ThemeBase & {
-  version: 2;
-  isV3: false;
-  colors: MD2Colors;
-  fonts: Fonts;
-};
-
-export type InternalTheme = MD2Theme | MD3Theme;
+export type InternalTheme = AppTheme;
 
 // MD3 types
 export enum MD3TypescaleKey {

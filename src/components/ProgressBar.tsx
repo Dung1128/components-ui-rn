@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Animated,
   I18nManager,
@@ -8,12 +8,12 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
-import setColor from 'color';
+import setColor from "color";
 
-import { useInternalTheme } from '../core/theming';
-import type { ThemeProp } from '../types';
+import { useInternalTheme } from "../core/theming";
+import type { ThemeProp } from "../types";
 
 export type Props = React.ComponentPropsWithRef<typeof View> & {
   /**
@@ -63,10 +63,10 @@ const { isRTL } = I18nManager;
  * ## Usage
  * ```js
  * import * as React from 'react';
- * import { ProgressBar, MD3Colors } from 'react-native-paper';
+ * import { ProgressBar, ThemeColors } from 'react-native-paper';
  *
  * const MyComponent = () => (
- *   <ProgressBar progress={0.5} color={MD3Colors.error50} />
+ *   <ProgressBar progress={0.5} color={ThemeColors.error50} />
  * );
  *
  * export default MyComponent;
@@ -81,17 +81,17 @@ const ProgressBar = ({
   animatedValue,
   style,
   fillStyle,
-  testID = 'progress-bar',
+  testID = "progress-bar",
   ...rest
 }: Props) => {
-  const isWeb = Platform.OS === 'web';
+  const isWeb = Platform.OS === "web";
   const theme = useInternalTheme(themeOverrides);
   const { current: timer } = React.useRef<Animated.Value>(
     new Animated.Value(0)
   );
   const { current: fade } = React.useRef<Animated.Value>(new Animated.Value(0));
   const passedAnimatedValue =
-    React.useRef<Props['animatedValue']>(animatedValue);
+    React.useRef<Props["animatedValue"]>(animatedValue);
   const [width, setWidth] = React.useState<number>(0);
   const [prevWidth, setPrevWidth] = React.useState<number>(0);
 
@@ -120,7 +120,7 @@ const ProgressBar = ({
      * and we do early return.
      */
     const externalAnimation =
-      typeof passedAnimatedValue.current !== 'undefined' &&
+      typeof passedAnimatedValue.current !== "undefined" &&
       passedAnimatedValue.current >= 0;
 
     if (externalAnimation) {
@@ -191,9 +191,7 @@ const ProgressBar = ({
   };
 
   const tintColor = color || theme.colors?.primary;
-  const trackTintColor = theme.isV3
-    ? theme.colors.surfaceVariant
-    : setColor(tintColor).alpha(0.38).rgb().string();
+  const trackTintColor = theme.colors.surfaceVariant;
 
   return (
     <View
@@ -207,7 +205,6 @@ const ProgressBar = ({
           ? {}
           : { min: 0, max: 100, now: Math.round(progress * 100) }
       }
-      style={isWeb && styles.webContainer}
       testID={testID}
     >
       <Animated.View
@@ -278,12 +275,9 @@ const ProgressBar = ({
 const styles = StyleSheet.create({
   container: {
     height: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
-  webContainer: {
-    width: '100%',
-    height: '100%',
-  },
+
   progressBar: {
     flex: 1,
   },
