@@ -6,7 +6,7 @@ Thư viện UI Components cho React Native được phát triển bởi Dung1128
 
 ```bash
 npm install @dung1128/components-ui-rn
-# hoặc
+# or
 yarn add @dung1128/components-ui-rn
 ```
 
