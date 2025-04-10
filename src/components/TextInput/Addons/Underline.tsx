@@ -2,7 +2,7 @@ import * as React from "react";
 import { Animated, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 import { useInternalTheme } from "../../../core/theming";
-import { ThemeProp } from "@/components-v2/types";
+import { ThemeProp } from "@/types";
 
 type UnderlineProps = {
   parentState: {

@@ -1,22 +1,21 @@
-import React from 'react';
+import React from "react";
 import type {
   LayoutChangeEvent,
   TextStyle,
   StyleProp,
   Animated,
   DimensionValue,
-} from 'react-native';
+} from "react-native";
 
-import type { ThemeProp } from 'src/types';
-
-import { AdornmentSide, AdornmentType, InputMode } from './enums';
-import TextInputAffix, { AffixAdornment } from './TextInputAffix';
-import TextInputIcon, { IconAdornment } from './TextInputIcon';
+import { AdornmentSide, AdornmentType, InputMode } from "./enums";
+import TextInputAffix, { AffixAdornment } from "./TextInputAffix";
+import TextInputIcon, { IconAdornment } from "./TextInputIcon";
 import type {
   AdornmentConfig,
   AdornmentStyleAdjustmentForNativeInput,
-} from './types';
-import { getConstants } from '../helpers';
+} from "./types";
+import { getConstants } from "../helpers";
+import { ThemeProp } from "@/types";
 
 export function getAdornmentConfig({
   left,
@@ -62,7 +61,7 @@ export function getAdornmentStyleAdjustmentForNativeInput({
   adornmentConfig: AdornmentConfig[];
   leftAffixWidth: number;
   rightAffixWidth: number;
-  mode?: 'outlined' | 'flat';
+  mode?: "outlined" | "flat";
   paddingHorizontal?: DimensionValue;
   isV3?: boolean;
 }): AdornmentStyleAdjustmentForNativeInput | {} {
@@ -79,7 +78,7 @@ export function getAdornmentStyleAdjustmentForNativeInput({
         const paddingKey = `padding${captalize(side)}`;
         const affixWidth = isLeftSide ? leftAffixWidth : rightAffixWidth;
         const padding =
-          typeof paddingHorizontal === 'number'
+          typeof paddingHorizontal === "number"
             ? paddingHorizontal
             : inputModeAdornemntOffset;
         const offset = affixWidth + padding;

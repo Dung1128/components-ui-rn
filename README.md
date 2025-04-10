@@ -68,7 +68,6 @@ Thư viện bao gồm các components sau:
 - Snackbar
 - Surface
 - Switch
-- TouchableRipple
 
 ## Đóng góp
 

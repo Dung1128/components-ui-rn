@@ -1,6 +1,5 @@
 import AppbarComponent from './Appbar';
 import AppbarAction from './AppbarAction';
-import AppbarBackAction from './AppbarBackAction';
 import AppbarContent from './AppbarContent';
 import AppbarHeader from './AppbarHeader';
 
@@ -12,8 +11,6 @@ const Appbar = Object.assign(
     Content: AppbarContent,
     // @component ./AppbarAction.tsx
     Action: AppbarAction,
-    // @component ./AppbarBackAction.tsx
-    BackAction: AppbarBackAction,
     // @component ./AppbarHeader.tsx
     Header: AppbarHeader,
   }

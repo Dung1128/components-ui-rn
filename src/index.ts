@@ -52,7 +52,6 @@ export { default as Snackbar } from "./components/Snackbar";
 export { default as Surface } from "./components/Surface";
 export { default as Switch } from "./components/Switch/Switch";
 export { default as Appbar } from "./components/Appbar";
-export { default as TouchableRipple } from "./components/TouchableRipple/TouchableRipple";
 export { default as TextInput } from "./components/TextInput/TextInput";
 export { default as ToggleButton } from "./components/ToggleButton";
 export { default as SegmentedButtons } from "./components/SegmentedButtons/SegmentedButtons";
@@ -72,7 +71,6 @@ export type { Props as ActivityIndicatorProps } from "./components/ActivityIndic
 export type { Props as AnimatedFABProps } from "./components/FAB/AnimatedFAB";
 export type { Props as AppbarProps } from "./components/Appbar/Appbar";
 export type { Props as AppbarActionProps } from "./components/Appbar/AppbarAction";
-export type { Props as AppbarBackActionProps } from "./components/Appbar/AppbarBackAction";
 export type { Props as AppbarContentProps } from "./components/Appbar/AppbarContent";
 export type { Props as AppbarHeaderProps } from "./components/Appbar/AppbarHeader";
 export type { Props as AvatarIconProps } from "./components/Avatar/AvatarIcon";
@@ -143,7 +141,6 @@ export type { Props as TextInputIconProps } from "./components/TextInput/Adornme
 export type { Props as ToggleButtonProps } from "./components/ToggleButton/ToggleButton";
 export type { Props as ToggleButtonGroupProps } from "./components/ToggleButton/ToggleButtonGroup";
 export type { Props as ToggleButtonRowProps } from "./components/ToggleButton/ToggleButtonRow";
-export type { Props as TouchableRippleProps } from "./components/TouchableRipple/TouchableRipple";
 export type { Props as CaptionProps } from "./components/Typography/v2/Caption";
 export type { Props as HeadlineProps } from "./components/Typography/v2/Headline";
 export type { Props as ParagraphProps } from "./components/Typography/v2/Paragraph";

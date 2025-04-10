@@ -8,7 +8,6 @@ import {
 } from "react-native";
 
 import { TextInputLabelProp } from "../types";
-import colors from "@/theme/colors";
 
 type OutlineProps = {
   isV3: boolean;
@@ -29,7 +28,7 @@ export const Outline = ({
   backgroundColor,
   hasActiveOutline,
   focused,
-  outlineColor = colors.ink.INK20,
+  outlineColor = "#EAEBED",
   roundness,
   style,
 }: OutlineProps) => (

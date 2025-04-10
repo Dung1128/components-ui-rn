@@ -368,7 +368,7 @@ const getActiveColor = ({
     return color(theme.colors.text).alpha(0.54).rgb().string();
   }
 
-  return colors.blue.BLUE100;
+  return "#0088FF";
 };
 
 const getPlaceholderColor = ({ theme, disabled }: BaseProps) => {
