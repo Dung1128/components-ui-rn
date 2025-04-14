@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.9",
+    "@d11/react-native-fast-image": "^8.9.2",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/stack": "^7.1.1",
