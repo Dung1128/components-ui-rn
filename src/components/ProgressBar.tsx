@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
   container: {
     height: 4,
     overflow: "hidden",
+    borderRadius: 10,
   },
 
   progressBar: {

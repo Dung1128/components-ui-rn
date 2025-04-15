@@ -7,8 +7,8 @@ import { DarkTheme, LightTheme } from "../styles/themes";
 import type {
   InternalTheme,
   AppTheme,
-  MD3AndroidColors,
   NavigationTheme,
+  ThemeColors,
 } from "../types";
 
 export const DefaultTheme = LightTheme;
@@ -32,28 +32,16 @@ export const withInternalTheme = <Props extends { theme: InternalTheme }, C>(
 ) => withTheme<Props, C>(WrappedComponent);
 
 export const defaultThemesByVersion = {
-  2: {
-    light: LightTheme,
-    dark: DarkTheme,
-  },
-  3: {
-    light: LightTheme,
-    dark: DarkTheme,
-  },
+  light: LightTheme,
+  dark: DarkTheme,
 };
 
-export const getTheme = <
-  Scheme extends boolean = false,
-  IsVersion3 extends boolean = true
->(
+export const getTheme = <Scheme extends boolean = false>(
   isDark: Scheme = false as Scheme
-): (typeof defaultThemesByVersion)[IsVersion3 extends true
-  ? 3
-  : 2][Scheme extends true ? "dark" : "light"] => {
-  const themeVersion = 3;
+): (typeof defaultThemesByVersion)[Scheme extends true ? "dark" : "light"] => {
   const scheme = isDark ? "dark" : "light";
 
-  return defaultThemesByVersion[themeVersion][scheme];
+  return defaultThemesByVersion[scheme];
 };
 
 // eslint-disable-next-line no-redeclare
@@ -147,7 +135,7 @@ export function adaptNavigationTheme(themes: any) {
   };
 }
 
-export const getDynamicThemeElevations = (scheme: MD3AndroidColors) => {
+export const getDynamicThemeElevations = (scheme: ThemeColors) => {
   const elevationValues = ["transparent", 0.05, 0.08, 0.11, 0.12, 0.14];
   return elevationValues.reduce((elevations, elevationValue, index) => {
     return {

@@ -14,7 +14,7 @@ import type {
   AdornmentStyleAdjustmentForNativeInput,
 } from "./types";
 import { getConstants } from "../helpers";
-import { ThemeProp } from "@/types";
+import { ThemeProp } from "../../../types";
 
 export function getAdornmentConfig({
   left,

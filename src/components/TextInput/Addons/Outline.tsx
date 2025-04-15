@@ -27,7 +27,7 @@ export const Outline = ({
   hasActiveOutline,
   focused,
   outlineColor = "#EAEBED",
-  roundness,
+  roundness = 8,
   style,
 }: OutlineProps) => (
   <View

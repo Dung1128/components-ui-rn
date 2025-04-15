@@ -29,5 +29,5 @@ export default {
       exclude: ["**/__tests__", "**/*.test.tsx"],
     }),
   ],
-  external: ["react", "react-native"],
+  external: ["react", "react-native", "util"],
 };

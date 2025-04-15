@@ -8,7 +8,7 @@ const { palette, opacity } = tokens.md.ref;
 
 export const LightTheme: AppTheme = {
   dark: false,
-  roundness: 4,
+  roundness: 8,
   version: 3,
   colors: {
     primary: palette.primary40,

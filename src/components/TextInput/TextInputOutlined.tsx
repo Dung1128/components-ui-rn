@@ -413,7 +413,6 @@ const TextInputOutlined = ({
                 MIN_WIDTH
               ),
             },
-            Platform.OS === "web" && { outline: "none" },
             adornmentStyleAdjustmentForNativeInput,
             contentStyle,
           ],
