@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
