@@ -30,6 +30,7 @@ type Mode = "adaptive" | "exact";
 
 
 export type ThemeColors = {
+  text_primary: string;
   primary: string;
   primaryContainer: string;
   secondary: string;

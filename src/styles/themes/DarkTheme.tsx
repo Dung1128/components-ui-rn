@@ -12,6 +12,7 @@ export const DarkTheme: AppTheme = {
   mode: "adaptive",
   version: 3,
   colors: {
+    text_primary: palette.primary100,
     primary: palette.primary80,
     primaryContainer: palette.primary30,
     secondary: palette.secondary80,

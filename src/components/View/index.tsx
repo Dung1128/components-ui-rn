@@ -1,4 +1,5 @@
-import { useTheme } from "@react-navigation/native";
+import { useInternalTheme } from "@/core/theming";
+import { ThemeProp } from "@/types";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, ViewProps } from "react-native";
 
@@ -36,10 +37,11 @@ interface Props extends ViewProps {
   borderRadius?: number;
   borderWidth?: number;
   borderColor?: string;
+  theme?: ThemeProp;
 }
 const ViewCustom = (props: Props) => {
   const { children, onPress, activeOpacity = 0.8, style, ...rest } = props;
-  const { colors }: any = useTheme();
+  const theme = useInternalTheme();
 
   const getStyle = () => {
     const styleCustom: any = {};
@@ -154,9 +156,9 @@ const ViewCustom = (props: Props) => {
 
     if (useThemeColor) {
       if (useThemeColor === "light") {
-        styleCustom.backgroundColor = colors.backgroundLight || "white";
+        styleCustom.backgroundColor = theme.colors.background || "white";
       } else {
-        styleCustom.backgroundColor = colors.background || "white";
+        styleCustom.backgroundColor = theme.colors.background || "white";
       }
     }
     return StyleSheet.create({ styleCustom }).styleCustom;

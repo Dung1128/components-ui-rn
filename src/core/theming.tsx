@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import React from "react";
+import { useColorScheme } from "react-native";
 
 import { $DeepPartial, createTheming } from "@callstack/react-theme-provider";
 import color from "color";
@@ -13,19 +15,31 @@ import type {
 
 export const DefaultTheme = LightTheme;
 
-export const {
-  ThemeProvider,
+const {
+  ThemeProvider: BaseThemeProvider,
   withTheme,
   useTheme: useAppTheme,
 } = createTheming<unknown>(LightTheme);
+
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const theme = isDark ? DarkTheme : LightTheme;
+
+  return <BaseThemeProvider theme={theme}>{children}</BaseThemeProvider>;
+};
 
 export function useTheme<T = AppTheme>(overrides?: $DeepPartial<T>) {
   return useAppTheme<T>(overrides);
 }
 
-export const useInternalTheme = (
-  themeOverrides: $DeepPartial<InternalTheme> | undefined
-) => useAppTheme<InternalTheme>(themeOverrides);
+export const useInternalTheme = () => {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+  const theme = getTheme(isDark);
+
+  return theme;
+};
 
 export const withInternalTheme = <Props extends { theme: InternalTheme }, C>(
   WrappedComponent: ComponentType<Props & { theme: InternalTheme }> & C

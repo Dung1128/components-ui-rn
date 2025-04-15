@@ -124,12 +124,11 @@ const AffixAdornment: React.FunctionComponent<
 const TextInputAffix = ({
   text,
   textStyle: labelStyle,
-  theme: themeOverrides,
   onLayout: onTextLayout,
   onPress,
   accessibilityLabel = text,
 }: Props) => {
-  const theme = useInternalTheme(themeOverrides);
+  const theme = useInternalTheme();
   const { AFFIX_OFFSET } = getConstants();
 
   const {

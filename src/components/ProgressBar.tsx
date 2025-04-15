@@ -77,7 +77,6 @@ const ProgressBar = ({
   indeterminate,
   progress = 0,
   visible = true,
-  theme: themeOverrides,
   animatedValue,
   style,
   fillStyle,
@@ -85,7 +84,7 @@ const ProgressBar = ({
   ...rest
 }: Props) => {
   const isWeb = Platform.OS === "web";
-  const theme = useInternalTheme(themeOverrides);
+  const theme = useInternalTheme();
   const { current: timer } = React.useRef<Animated.Value>(
     new Animated.Value(0)
   );

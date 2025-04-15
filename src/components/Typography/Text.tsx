@@ -80,13 +80,10 @@ export type TextRef = React.ForwardedRef<{
  *
  * @extends Text props https://reactnative.dev/docs/text#props
  */
-const Text = (
-  { style, variant, theme: initialTheme, ...rest }: Props<string>,
-  ref: TextRef
-) => {
+const Text = ({ style, variant, ...rest }: Props<string>, ref: TextRef) => {
   const root = React.useRef<NativeText | null>(null);
   // FIXME: destructure it in TS 4.6+
-  const theme = useInternalTheme(initialTheme);
+  const theme = useInternalTheme();
   const writingDirection = I18nManager.getConstants().isRTL ? "rtl" : "ltr";
 
   React.useImperativeHandle(ref, () => ({

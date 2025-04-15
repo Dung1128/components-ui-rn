@@ -222,12 +222,11 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       editable = true,
       contentStyle,
       render = DefaultRenderer,
-      theme: themeOverrides,
       ...rest
     }: Props,
     ref
   ) => {
-    const theme = useInternalTheme(themeOverrides);
+    const theme = useInternalTheme();
     const isControlled = rest.value !== undefined;
     const validInputValue = isControlled ? rest.value : rest.defaultValue;
 

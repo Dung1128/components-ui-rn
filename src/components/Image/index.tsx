@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
   Image as RNImage,
   ImageBackground,
@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import FastImage, { ResizeMode } from "@d11/react-native-fast-image";
 import { memoDeepEqual } from "../../utils/function-utils";
-import images from "@/assets/images";
 
 interface PropsCustomImage extends ImageProps {
   useFastImage?: boolean;
@@ -47,8 +46,8 @@ const Image = (props: PropsCustomImage) => {
     disableDefaultImage
       ? source
       : hasError
-      ? images.image_default
-      : source || images.image_default
+      ? "../../assets/images/image_default.png"
+      : source || "../../assets/images/image_default.png"
   );
   const ImageComponent = children ? ImageBackground : RNImage;
 

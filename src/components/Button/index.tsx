@@ -63,10 +63,9 @@ const Button = ({
   bold = true,
   size = 16,
   medium = false,
-  theme: themeOverrides,
   ...props
 }: ButtonProps) => {
-  const theme = useInternalTheme(themeOverrides);
+  const theme = useInternalTheme();
   const { roundness } = theme;
 
   return (

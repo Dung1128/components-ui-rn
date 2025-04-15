@@ -1,9 +1,10 @@
 import React from "react";
 import { Text as TextRN, TextProps, StyleSheet, Platform } from "react-native";
 
-import { useTheme } from "@react-navigation/native";
 import { memoDeepEqual } from "../../utils/function-utils";
 import colors from "../../theme/colors";
+import { useInternalTheme } from "@/core/theming";
+import { ThemeProp } from "@/types";
 
 export interface IText extends TextProps {
   size?: number;
@@ -23,11 +24,13 @@ export interface IText extends TextProps {
   font?: any;
   lineHeight?: number;
   children?: any;
+  theme?: ThemeProp;
 }
 
 const Text = (props: IText) => {
-  const { colors: colorsTheme } = useTheme();
   const { children, onPress, ...rest } = props;
+  const theme = useInternalTheme();
+
   delete rest.style;
   const _getStyle = () => {
     const style: any = {
@@ -53,7 +56,7 @@ const Text = (props: IText) => {
       center,
       lineHeight,
     } = props;
-    style.color = colorsTheme.text || "black";
+    style.color = theme.colors.text_primary || "black";
     if (fontFamily) {
       style.fontFamily = fontFamily;
     }

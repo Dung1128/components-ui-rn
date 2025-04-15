@@ -321,7 +321,7 @@ const getInputTextColor = ({
     return theme.colors.onSurfaceDisabled;
   }
 
-  return theme.colors.onSurface;
+  return theme.colors.text_primary;
 };
 
 const getActiveColor = ({

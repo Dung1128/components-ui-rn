@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   NativeModules,
   Platform,
   StyleProp,
   Switch as NativeSwitch,
   ViewStyle,
-} from 'react-native';
+} from "react-native";
 
-import { getSwitchColor } from './utils';
-import { useInternalTheme } from '../../core/theming';
-import type { ThemeProp } from '../../types';
+import { getSwitchColor } from "./utils";
+import { useInternalTheme } from "../../core/theming";
+import type { ThemeProp } from "../../types";
 
 const version = NativeModules.PlatformConstants
   ? NativeModules.PlatformConstants.reactNativeVersion
@@ -58,15 +58,8 @@ export type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
  * export default MyComponent;
  * ```
  */
-const Switch = ({
-  value,
-  disabled,
-  onValueChange,
-  color,
-  theme: themeOverrides,
-  ...rest
-}: Props) => {
-  const theme = useInternalTheme(themeOverrides);
+const Switch = ({ value, disabled, onValueChange, color, ...rest }: Props) => {
+  const theme = useInternalTheme();
   const { checkedColor, onTintColor, thumbTintColor } = getSwitchColor({
     theme,
     disabled,
@@ -80,7 +73,7 @@ const Switch = ({
           onTintColor,
           thumbTintColor,
         }
-      : Platform.OS === 'web'
+      : Platform.OS === "web"
       ? {
           activeTrackColor: onTintColor,
           thumbColor: thumbTintColor,

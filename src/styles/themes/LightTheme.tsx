@@ -11,6 +11,7 @@ export const LightTheme: AppTheme = {
   roundness: 8,
   version: 3,
   colors: {
+    text_primary: palette.primary0,
     primary: palette.primary40,
     primaryContainer: palette.primary90,
     secondary: palette.secondary40,

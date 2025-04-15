@@ -44,10 +44,9 @@ const ActivityIndicator = ({
   hidesWhenStopped = true,
   size: indicatorSize = "small",
   style,
-  theme: themeOverrides,
   ...rest
 }: Props) => {
-  const theme = useInternalTheme(themeOverrides);
+  const theme = useInternalTheme();
   const { current: timer } = React.useRef<Animated.Value>(
     new Animated.Value(0)
   );

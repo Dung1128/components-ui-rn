@@ -2,7 +2,6 @@ export { ThemeColors } from "./styles/themes/tokens";
 
 export {
   useTheme,
-  withTheme,
   ThemeProvider,
   DefaultTheme,
   adaptNavigationTheme,

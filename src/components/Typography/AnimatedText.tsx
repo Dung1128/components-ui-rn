@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Animated,
   I18nManager,
@@ -6,12 +6,12 @@ import {
   StyleSheet,
   TextStyle,
   Text,
-} from 'react-native';
+} from "react-native";
 
-import type { VariantProp } from './types';
-import { useInternalTheme } from '../../core/theming';
-import type { ThemeProp } from '../../types';
-import { forwardRef } from '../../utils/forwardRef';
+import type { VariantProp } from "./types";
+import { useInternalTheme } from "../../core/theming";
+import type { ThemeProp } from "../../types";
+import { forwardRef } from "../../utils/forwardRef";
 
 type Props<T> = React.ComponentPropsWithRef<typeof Animated.Text> & {
   /**
@@ -42,20 +42,17 @@ type Props<T> = React.ComponentPropsWithRef<typeof Animated.Text> & {
  * @extends Text props https://reactnative.dev/docs/text#props
  */
 const AnimatedText = forwardRef<Text & HTMLElement, Props<never>>(
-  function AnimatedText(
-    { style, theme: themeOverrides, variant, ...rest },
-    ref
-  ) {
-    const theme = useInternalTheme(themeOverrides);
-    const writingDirection = I18nManager.getConstants().isRTL ? 'rtl' : 'ltr';
+  function AnimatedText({ style, variant, ...rest }, ref) {
+    const theme = useInternalTheme();
+    const writingDirection = I18nManager.getConstants().isRTL ? "rtl" : "ltr";
 
-    if (theme.isV3 && variant) {
+    if (variant) {
       const font = theme.fonts[variant];
-      if (typeof font !== 'object') {
+      if (typeof font !== "object") {
         throw new Error(
           `Variant ${variant} was not provided properly. Valid variants are ${Object.keys(
             theme.fonts
-          ).join(', ')}.`
+          ).join(", ")}.`
         );
       }
 
@@ -71,33 +68,13 @@ const AnimatedText = forwardRef<Text & HTMLElement, Props<never>>(
           ]}
         />
       );
-    } else {
-      const font = !theme.isV3 ? theme.fonts.regular : theme.fonts.bodyMedium;
-      const textStyle = {
-        ...font,
-        color: theme.isV3 ? theme.colors.onSurface : theme.colors.text,
-      };
-      return (
-        <Animated.Text
-          ref={ref}
-          {...rest}
-          style={[
-            styles.text,
-            textStyle,
-            {
-              writingDirection,
-            },
-            style,
-          ]}
-        />
-      );
     }
   }
 );
 
 const styles = StyleSheet.create({
   text: {
-    textAlign: 'left',
+    textAlign: "left",
   },
 });
 
