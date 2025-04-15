@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -32,7 +32,10 @@
   "license": "MIT",
   "peerDependencies": {
     "@callstack/react-theme-provider": "^3.0.0",
+    "@d11/react-native-fast-image": "*",
     "@react-native-community/masked-view": ">=0.1.11",
+    "@react-navigation/native": "*",
+    "@react-navigation/stack": "*",
     "react": ">=18.0.0",
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.9.0",
