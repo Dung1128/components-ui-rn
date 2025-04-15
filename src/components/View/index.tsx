@@ -1,7 +1,15 @@
 import { useInternalTheme } from "@/core/theming";
 import { ThemeProp } from "@/types";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View, ViewProps } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewProps,
+  StyleProp,
+  ViewStyle,
+  ColorValue,
+} from "react-native";
 
 interface Props extends ViewProps {
   row?: boolean;
@@ -10,9 +18,8 @@ interface Props extends ViewProps {
   justifyBetween?: boolean;
   alignCenter?: boolean;
   center?: boolean;
-  gap?: number;
-  color?: any;
-  backgroundColor?: any;
+  color?: ColorValue;
+  backgroundColor?: ColorValue;
   width?: number | `${number}%`;
   height?: number | `${number}%`;
   onPress?: () => void;
@@ -28,7 +35,7 @@ interface Props extends ViewProps {
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   alignEnd?: boolean;
   wrap?: boolean;

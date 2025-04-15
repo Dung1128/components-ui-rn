@@ -1,5 +1,12 @@
 import React from "react";
-import { Text as TextRN, TextProps, StyleSheet, Platform } from "react-native";
+import {
+  Text as TextRN,
+  TextProps,
+  StyleSheet,
+  Platform,
+  StyleProp,
+  TextStyle,
+} from "react-native";
 
 import { memoDeepEqual } from "../../utils/function-utils";
 import colors from "../../theme/colors";
@@ -8,7 +15,7 @@ import { ThemeProp } from "@/types";
 
 export interface IText extends TextProps {
   size?: number;
-  weight?: any;
+  weight?: TextStyle["fontWeight"];
   gray?: boolean;
   black?: boolean;
   white?: boolean;
@@ -19,11 +26,9 @@ export interface IText extends TextProps {
   italic?: boolean;
   color?: string;
   fontFamily?: string;
-  useFontConfig?: boolean;
   center?: boolean;
-  font?: any;
   lineHeight?: number;
-  children?: any;
+  children?: React.ReactNode;
   theme?: ThemeProp;
 }
 
@@ -33,7 +38,7 @@ const Text = (props: IText) => {
 
   delete rest.style;
   const _getStyle = () => {
-    const style: any = {
+    const style: StyleProp<TextStyle> = {
       fontWeight: "normal",
       color: colors.ink.INK100,
       fontFamily: "Inter-Regular",
@@ -42,26 +47,16 @@ const Text = (props: IText) => {
       size = 14,
       weight,
       bold,
-      gray,
-      white,
-      blue,
-      primary,
-      black,
       medium,
       italic,
       color,
-      font,
       fontFamily,
-      useFontConfig,
       center,
       lineHeight,
     } = props;
     style.color = theme.colors.text_primary || "black";
     if (fontFamily) {
       style.fontFamily = fontFamily;
-    }
-    if (font && useFontConfig) {
-      style.fontFamily = font;
     }
     if (size) {
       style.fontSize = size;
@@ -84,21 +79,7 @@ const Text = (props: IText) => {
         style.fontWeight = "600";
       }
     }
-    if (gray) {
-      style.color = colors.ink.INK40;
-    }
-    if (white) {
-      style.color = "#fff";
-    }
-    if (blue) {
-      style.color = colors.blue.BLUE100;
-    }
-    if (primary) {
-      style.color = colors.blue.BLUE100;
-    }
-    if (black) {
-      style.color = colors.ink.INK100;
-    }
+
     if (color) {
       style.color = color;
     }

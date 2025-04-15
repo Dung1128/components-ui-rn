@@ -31,8 +31,8 @@ export interface ButtonProps extends TouchableOpacityProps {
   title?: string;
   backgroundColor?: string;
   isLoading?: boolean;
-  left?: any;
-  right?: any;
+  left?: React.ReactNode;
+  right?: React.ReactNode;
   small?: boolean;
   margin?: Number;
   textProps?: IText;

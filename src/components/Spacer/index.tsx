@@ -4,11 +4,11 @@ import {
   DIMENSION_PADDING_MEDIUM,
   DIMENSION_PADDING_NORMAL,
 } from "../../theme/dimensions";
-
+import { StyleProp, ViewStyle } from "react-native";
 interface SpacerProps {
   width?: number;
   height?: number;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
 }
 
 const Spacer = ({

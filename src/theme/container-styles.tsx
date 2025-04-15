@@ -7,7 +7,6 @@ import {
 import white from "./white";
 import blue from "./blue";
 import ink from "./ink";
-import { isAndroid } from "@/utils";
 
 export default StyleSheet.create({
   container: { flex: 1 },
@@ -64,52 +63,52 @@ export default StyleSheet.create({
 
   //MARK: text size
   text10: {
-    fontSize: 10 + (isAndroid ? 1 : 2),
-    lineHeight: 12 + (isAndroid ? 2 : 4),
+    fontSize: 10 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 12 + (Platform.OS === "android" ? 2 : 4),
   },
   text12: {
-    fontSize: 12 + (isAndroid ? 1 : 2),
-    lineHeight: 16 + (isAndroid ? 2 : 4),
+    fontSize: 12 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 16 + (Platform.OS === "android" ? 2 : 4),
   },
   text14: {
-    fontSize: 14 + (isAndroid ? 1 : 2),
-    lineHeight: 20 + (isAndroid ? 2 : 4),
+    fontSize: 14 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 20 + (Platform.OS === "android" ? 2 : 4),
   },
   text16: {
-    fontSize: 16 + (isAndroid ? 1 : 2),
-    lineHeight: 24 + (isAndroid ? 2 : 4),
+    fontSize: 16 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 24 + (Platform.OS === "android" ? 2 : 4),
   },
   text18: {
-    fontSize: 18 + (isAndroid ? 1 : 2),
-    lineHeight: 28 + (isAndroid ? 1 : 2),
+    fontSize: 18 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 28 + (Platform.OS === "android" ? 1 : 2),
   },
   text20: {
-    fontSize: 20 + (isAndroid ? 1 : 2),
-    lineHeight: 28 + (isAndroid ? 1 : 2),
+    fontSize: 20 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 28 + (Platform.OS === "android" ? 1 : 2),
   },
   text22: {
-    fontSize: 22 + (isAndroid ? 1 : 2),
-    lineHeight: 30 + (isAndroid ? 1 : 2),
+    fontSize: 22 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 30 + (Platform.OS === "android" ? 1 : 2),
   },
   text24: {
-    fontSize: 24 + (isAndroid ? 1 : 2),
-    lineHeight: 32 + (isAndroid ? 1 : 2),
+    fontSize: 24 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 32 + (Platform.OS === "android" ? 1 : 2),
   },
   text26: {
-    fontSize: 26 + (isAndroid ? 1 : 2),
-    lineHeight: 34 + (isAndroid ? 1 : 2),
+    fontSize: 26 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 34 + (Platform.OS === "android" ? 1 : 2),
   },
   text28: {
-    fontSize: 28 + (isAndroid ? 1 : 2),
-    lineHeight: 36 + (isAndroid ? 1 : 2),
+    fontSize: 28 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 36 + (Platform.OS === "android" ? 1 : 2),
   },
   text30: {
-    fontSize: 30 + (isAndroid ? 1 : 2),
-    lineHeight: 38 + (isAndroid ? 1 : 2),
+    fontSize: 30 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 38 + (Platform.OS === "android" ? 1 : 2),
   },
   text32: {
-    fontSize: 32 + (isAndroid ? 1 : 2),
-    lineHeight: 40,
+    fontSize: 32 + (Platform.OS === "android" ? 1 : 2),
+    lineHeight: 40 + (Platform.OS === "android" ? 1 : 2),
   },
 
   //MARK:fonts

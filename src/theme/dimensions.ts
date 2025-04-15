@@ -10,13 +10,6 @@ export const BUTTON_HEIGHT = 48;
 export const BUTTON_HEIGHT_SMALL = 40;
 export const RADIO_BUTTON_HEIGHT = 20;
 
-export const DIMENSION_SIZE_TINY = 10;
-export const DIMENSION_SIZE_SMALL = 12;
-export const DIMENSION_SIZE_NORMAL = 14;
-export const DIMENSION_SIZE_MEDIUM = 16;
-export const DIMENSION_SIZE_LARGE = 18;
-export const DIMENSION_SIZE_EXTRA_LARGE = 20;
-
 export const DIMENSION_PADDING_TINY = 4;
 export const DIMENSION_PADDING_SMALLER = 6;
 export const DIMENSION_PADDING_SMALL = 8;
@@ -31,9 +24,3 @@ export const DIMENSION_RADIUS_LARGE = 16;
 export const DIMENSION_RADIUS_GIANT = 20;
 export const DIMENSION_RADIUS_CIRCULAR = 100;
 
-export const DIMENSION_GAP_TINY = 4;
-export const DIMENSION_GAP_SMALLER = 6;
-export const DIMENSION_GAP_SMALL = 8;
-export const DIMENSION_GAP_NORMAL = 12;
-export const DIMENSION_GAP_MEDIUM = 16;
-export const DIMENSION_GAP_LARGE = 20;

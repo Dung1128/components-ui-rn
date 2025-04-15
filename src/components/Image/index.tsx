@@ -13,8 +13,7 @@ import { memoDeepEqual } from "../../utils/function-utils";
 interface PropsCustomImage extends ImageProps {
   useFastImage?: boolean;
   disableDefaultImage?: boolean;
-  children?: any;
-  useRNImage?: any;
+  children?: React.ReactNode;
   resizeMode?: "cover" | "contain" | "stretch" | "center";
   source?: any;
   style?: StyleProp<ImageStyle>;
