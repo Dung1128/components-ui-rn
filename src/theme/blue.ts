@@ -1,14 +1,20 @@
-const BLUE500 = "#005299";
-const BLUE100 = "#0088FF";
-const BLUE80 = "#33A0FF";
-const BLUE60 = "#66B8FF";
-const BLUE40 = "#99CFFF";
-const BLUE20 = "#CCE7FF";
-const BLUE10 = "#E6F4FF";
-const BLUE5 = "#F2F9FF";
+const BLUE180 = "#0B1826";
+const BLUE160 = "#133457";
+const BLUE140 = "#144E8E";
+const BLUE120 = "#144E8E";
+const BLUE100 = "#0071ED";
+const BLUE80 = "#1F8DFF";
+const BLUE60 = "#4DA5FF";
+const BLUE40 = "#8CC9FE";
+const BLUE20 = "#B2DDFF";
+const BLUE10 = "#D9EEFF";
+const BLUE5 = "#F2F7FF";
 
 export default {
-  BLUE500,
+  BLUE180,
+  BLUE160,
+  BLUE140,
+  BLUE120,
   BLUE100,
   BLUE80,
   BLUE60,

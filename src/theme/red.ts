@@ -1,15 +1,19 @@
-const RED500 = "#762424";
-const RED100 = "#FF4D4D";
-const RED80 = "#FF7070";
-const RED60 = "#FF9494";
-const RED40 = "#FFB8B8";
-const RED20 = "#FFDBDB";
-const RED10 = "#FFEEEE";
-const RED5 = "#FFF6F6";
-const RED110 = "#E54747";
-const RED_STATUS = "#EE4747";
+const RED180 = "#460809";
+const RED160 = "#82181A";
+const RED140 = "#9F0712";
+const RED120 = "#C10007";
+const RED100 = "#E7000B";
+const RED80 = "#FB2C36";
+const RED60 = "#FF6467";
+const RED40 = "#FFA2A2";
+const RED20 = "#FFC9C9";
+const RED10 = "#FFE2E2";
+const RED5 = "#FFF3F2";
 export default {
-  RED500,
+  RED180,
+  RED160,
+  RED140,
+  RED120,
   RED100,
   RED80,
   RED60,
@@ -17,6 +21,4 @@ export default {
   RED20,
   RED10,
   RED5,
-  RED110,
-  RED_STATUS,
 };

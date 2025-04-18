@@ -18,6 +18,8 @@ export default {
       border: ink.INK10,
       gray: ink.INK60,
       backgroundLight: ink.INK80,
+
+      //new theme colors
     },
   },
   light: {
@@ -30,6 +32,8 @@ export default {
       border: ink.INK40,
       gray: ink.INK60,
       backgroundLight: ink.INK10,
+
+      //new theme colors
     },
   },
 };

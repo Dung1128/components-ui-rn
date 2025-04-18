@@ -1,15 +1,20 @@
 
- const YELLOW500 = "#66511E";
- const YELLOW100 = "#FFAE06";
- const YELLOW80 = "#FFCE6A";
- const YELLOW60 = "#FFCE6A";
- const YELLOW40 = "#FFDF9B";
- const YELLOW20 = "#FFEFCD";
- const YELLOW10 = "#FFF7E7";
- const YELLOW5 = "#FFFBF2";
- const YELLOW_STATUS = "#E49C06";
+ const YELLOW180 = "#432004";
+ const YELLOW160 = "#733E0A";
+ const YELLOW140 = "#894B00";
+ const YELLOW120 = "#A65F00";
+ const YELLOW100 = "#D08700";
+ const YELLOW80 = "#F0B100";
+ const YELLOW60 = "#FDC700";
+ const YELLOW40 = "#FFDF20";
+ const YELLOW20 = "#FFF085";
+ const YELLOW10 = "#FEF9C2";
+ const YELLOW5 = "#FEFCE8";
  export default {
-   YELLOW500,
+   YELLOW180,
+   YELLOW160,
+   YELLOW140,
+   YELLOW120,
    YELLOW100,
    YELLOW80,
    YELLOW60,
@@ -17,5 +22,4 @@
    YELLOW20,
    YELLOW10,
    YELLOW5,
-   YELLOW_STATUS,
  };
