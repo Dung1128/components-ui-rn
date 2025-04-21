@@ -9,6 +9,7 @@ const GREEN40 = "#5EE9B5";
 const GREEN20 = "#A4F4CF";
  const GREEN10 = "#D0FAE5";
  const GREEN5 = "#ECFDF5";
+ const GREEN_STATUS = "#0DB473";
 
  export default {
    GREEN180,
@@ -22,4 +23,5 @@ const GREEN20 = "#A4F4CF";
    GREEN20,
    GREEN10,
    GREEN5,
+   GREEN_STATUS,
  };

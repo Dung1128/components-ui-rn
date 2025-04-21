@@ -9,6 +9,7 @@ const RED40 = "#FFA2A2";
 const RED20 = "#FFC9C9";
 const RED10 = "#FFE2E2";
 const RED5 = "#FFF3F2";
+const RED_STATUS = "#EE4747";
 export default {
   RED180,
   RED160,
@@ -21,4 +22,5 @@ export default {
   RED20,
   RED10,
   RED5,
+  RED_STATUS,
 };

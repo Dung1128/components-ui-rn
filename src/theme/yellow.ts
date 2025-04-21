@@ -10,6 +10,7 @@
  const YELLOW20 = "#FFF085";
  const YELLOW10 = "#FEF9C2";
  const YELLOW5 = "#FEFCE8";
+ const YELLOW_STATUS = "#E49C06"; 
  export default {
    YELLOW180,
    YELLOW160,
@@ -22,4 +23,5 @@
    YELLOW20,
    YELLOW10,
    YELLOW5,
+   YELLOW_STATUS,
  };
