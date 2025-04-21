@@ -309,10 +309,10 @@ const getInputTextColor = ({
   }
 
   if (disabled) {
-    return theme.colors.onSurfaceDisabled;
+    return theme.colors.textDisabled;
   }
 
-  return theme.colors.text_primary;
+  return theme.colors.textDefault;
 };
 
 const getActiveColor = ({
@@ -332,7 +332,7 @@ const getActiveColor = ({
   const modeColor = isFlat ? activeUnderlineColor : activeOutlineColor;
 
   if (error) {
-    return theme.colors.error;
+    return theme.colors.textErrorDefault;
   }
 
   if (modeColor) {
@@ -340,18 +340,18 @@ const getActiveColor = ({
   }
 
   if (disabled) {
-    return theme.colors.onSurfaceDisabled;
+    return theme.colors.textDisabled;
   }
 
-  return "#0088FF";
+  return theme.colors.textBrandDefault;
 };
 
 const getPlaceholderColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return theme.colors.onSurfaceDisabled;
+    return theme.colors.textDisabled;
   }
 
-  return theme.colors.onSurfaceVariant;
+  return theme.colors.textPlaceholder;
 };
 
 const getSelectionColor = ({
@@ -374,9 +374,9 @@ const getSelectionColor = ({
 
 const getFlatBackgroundColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return color(theme.colors.onSurface).alpha(0.04).rgb().string();
+    return theme.colors.surfacePrimaryDisabled;
   } else {
-    return "WHITE";
+    return theme.colors.surfacePrimaryDefault;
   }
 };
 
@@ -390,10 +390,10 @@ const getFlatUnderlineColor = ({
   }
 
   if (disabled) {
-    return theme.colors.onSurfaceDisabled;
+    return theme.colors.surfacePrimaryDisabled;
   }
 
-  return theme.colors.onSurfaceVariant;
+  return theme.colors.surfacePrimaryDefault;
 };
 
 const getOutlinedOutlineInputColor = ({
@@ -412,7 +412,7 @@ const getOutlinedOutlineInputColor = ({
     return theme.colors.surfaceDisabled;
   }
 
-  return theme.colors.outline;
+  return theme.colors.borderPrimaryDefault;
 };
 
 export const getFlatInputColors = ({
@@ -452,7 +452,7 @@ export const getFlatInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseFlatColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.error,
+    errorColor: theme.colors.textErrorDefault,
     backgroundColor: getFlatBackgroundColor(baseFlatColorProps),
   };
 };
@@ -494,7 +494,7 @@ export const getOutlinedInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseOutlinedColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.error,
+    errorColor: theme.colors.textErrorDefault,
   };
 };
 
