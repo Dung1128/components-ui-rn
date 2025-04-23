@@ -9,8 +9,16 @@
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/addon-essentials"],
-  framework: "@storybook/react",
-  core: {
-    builder: "webpack5",
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+  webpackFinal: async (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "react-native$": "react-native-web",
+    };
+    config.resolve.extensions.push(".web.js", ".web.ts", ".web.tsx");
+    return config;
   },
 };

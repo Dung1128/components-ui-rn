@@ -23,7 +23,8 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@/components-v2/*": ["components/*"]
+      "@/components-v2/*": ["components/*"],
+      "react-native": ["node_modules/react-native-web"]
     },
     "jsx": "react",
     "esModuleInterop": true,
