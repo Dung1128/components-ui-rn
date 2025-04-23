@@ -19,7 +19,7 @@ import {
   BORDER_RADIUS_6,
   BORDER_WIDTH_1,
   SPACE_8,
-} from "../../theme/dimensions";
+} from "@/theme/dimensions";
 import ScaleButton from "../ScaleButton";
 import Text, { IText } from "../Text";
 import View from "../View";
@@ -48,7 +48,6 @@ export interface ButtonProps extends TouchableOpacityProps {
   theme?: ThemeProp;
 }
 const Button = ({
-  children,
   style,
   title,
   border,
@@ -125,11 +124,11 @@ const Button = ({
               numberOfLines={1}
               white={!border}
               primary={border}
-              color={textColor}
+              color={textColor || colors.textOnFillDefault}
               size={size}
               bold={bold}
               medium={medium}
-              style={[disabledTextStyle, textStyle]}
+              style={[disabled && disabledTextStyle, textStyle]}
               {...textProps}
             >
               {title}
@@ -160,7 +159,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   small: {
-    paddingHorizontal: SPACE_16 * 1.5,
     height: BUTTON_HEIGHT_SMALL,
   },
 });

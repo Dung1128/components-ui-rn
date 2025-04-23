@@ -1,8 +1,5 @@
 import { Platform, StyleSheet } from "react-native";
-import {
-  DIMENSION_PADDING_MEDIUM,
-  DIMENSION_PADDING_SMALL,
-} from "./dimensions";
+import { SPACE_16, DIMENSION_PADDING_SMALL } from "./dimensions";
 
 import white from "./white";
 import blue from "./blue";
@@ -13,7 +10,7 @@ export default StyleSheet.create({
   containerBg: { flex: 1, backgroundColor: white.WHITE100 },
   containerBgWhite: { flex: 1, backgroundColor: "#fff" },
   center: {
-    paddingHorizontal: DIMENSION_PADDING_MEDIUM,
+    paddingHorizontal: SPACE_16,
     alignItems: "center",
     justifyContent: "center",
   },

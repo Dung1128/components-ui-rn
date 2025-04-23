@@ -1,9 +1,6 @@
 import React from "react";
 import View from "../View";
-import {
-  DIMENSION_PADDING_MEDIUM,
-  DIMENSION_PADDING_NORMAL,
-} from "../../theme/dimensions";
+import { SPACE_16, SPACE_12 } from "../../theme/dimensions";
 import { StyleProp, ViewStyle } from "react-native";
 interface SpacerProps {
   width?: number;
@@ -13,8 +10,8 @@ interface SpacerProps {
 
 const Spacer = ({
   style,
-  width = DIMENSION_PADDING_MEDIUM,
-  height = DIMENSION_PADDING_NORMAL,
+  width = SPACE_16,
+  height = SPACE_12,
 }: SpacerProps) => {
   return <View width={width} height={height} style={[style]} />;
 };
