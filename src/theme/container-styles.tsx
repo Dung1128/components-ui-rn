@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from "react-native";
-import { SPACE_16, DIMENSION_PADDING_SMALL } from "./dimensions";
+import { SPACE_16, SPACE_8 } from "./dimensions";
 
 import white from "./white";
 import blue from "./blue";
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     backgroundColor: white.WHITE100,
-    marginHorizontal: DIMENSION_PADDING_SMALL,
+    marginHorizontal: SPACE_8,
   },
   shadow: {
     shadowColor: "black",

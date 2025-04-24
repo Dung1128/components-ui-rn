@@ -1,5 +1,5 @@
-import { useInternalTheme } from "@/core/theming";
-import { ThemeProp } from "@/types";
+import { useInternalTheme } from "../../core/theming";
+import { ThemeProp } from "../../types";
 import React from "react";
 import {
   StyleSheet,

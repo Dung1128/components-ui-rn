@@ -1,11 +1,11 @@
 import React from "react";
 import View from "../View";
 import { SPACE_16, SPACE_12 } from "../../theme/dimensions";
-import { StyleProp, ViewStyle } from "react-native";
+
 interface SpacerProps {
   width?: number;
   height?: number;
-  style?: StyleProp<ViewStyle>;
+  style?: any;
 }
 
 const Spacer = ({

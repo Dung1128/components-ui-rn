@@ -21,7 +21,7 @@ const getCheckedColor = ({
     return color;
   }
 
-  return theme.colors.surfaceBrandDefault;
+  return theme.colors.primary;
 };
 
 const getThumbTintColor = ({
@@ -38,7 +38,7 @@ const getThumbTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      return theme.colors.surfacePrimaryDisabled;
+      return ThemeColors.neutral70;
     }
     return ThemeColors.neutral70;;
   }

@@ -19,7 +19,7 @@ import {
   BORDER_RADIUS_6,
   BORDER_WIDTH_1,
   SPACE_8,
-} from "@/theme/dimensions";
+} from "../../theme/dimensions";
 import ScaleButton from "../ScaleButton";
 import Text, { IText } from "../Text";
 import View from "../View";

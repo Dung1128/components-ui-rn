@@ -7,7 +7,6 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-  ActivityIndicator as RNActivityIndicator,
 } from "react-native";
 
 import { useInternalTheme } from "../core/theming";
@@ -45,6 +44,7 @@ const ActivityIndicator = ({
   hidesWhenStopped = true,
   size: indicatorSize = "small",
   style,
+  theme: themeOverrides,
   ...rest
 }: Props) => {
   const theme = useInternalTheme();
@@ -131,10 +131,6 @@ const ActivityIndicator = ({
     height: size / 2,
     overflow: "hidden" as const,
   };
-
-  if (Platform.OS === "ios") {
-    return <RNActivityIndicator size={size} color={color} />;
-  }
 
   return (
     <View

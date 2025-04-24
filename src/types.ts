@@ -28,7 +28,6 @@ export type Fonts = {
 
 type Mode = "adaptive" | "exact";
 
-
 export type ThemeColors = {
   text_primary: string;
   primary: string;
@@ -71,6 +70,8 @@ export type ThemeColors = {
   backgroundSecondary: string;
   borderBrandDefault: string;
   borderCriticalDefault: string;
+  borderCriticalHover: string;
+  borderCriticalPressed: string;
   borderErrorDefault: string;
   borderInfoDefault: string;
   borderPrimaryDefault: string;
@@ -186,9 +187,9 @@ export type ThemeColors = {
   textWarningDisabled: string;
   textWarningHovered: string;
   textWarningPressed: string;
+  selectBackgroundDisabled: string;
+  selectIconDisabled:string
 };
-
-
 
 export type ThemeProp = $DeepPartial<InternalTheme>;
 
@@ -208,8 +209,7 @@ export type AppTheme = ThemeBase & {
   fonts: MD3Typescale;
 };
 
-
-export type InternalTheme =  AppTheme;
+export type InternalTheme = AppTheme;
 
 // MD3 types
 export enum MD3TypescaleKey {

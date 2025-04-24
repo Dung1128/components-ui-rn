@@ -124,6 +124,7 @@ const AffixAdornment: React.FunctionComponent<
 const TextInputAffix = ({
   text,
   textStyle: labelStyle,
+  theme: themeOverrides,
   onLayout: onTextLayout,
   onPress,
   accessibilityLabel = text,

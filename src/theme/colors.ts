@@ -1,4 +1,3 @@
-
 import blue from "./blue";
 import green from "./green";
 import icon from "./icon";
@@ -19,14 +18,4 @@ export default {
   orange,
   yellow,
   icon,
-  secondary: "#03dac6",
-  error: "#b00020",
-  background: "#ffffff",
-  surface: "#ffffff",
-  text: "#000000",
-  onPrimary: "#ffffff",
-  onSecondary: "#000000",
-  onError: "#ffffff",
-  onBackground: "#000000",
-  onSurface: "#000000",
 };

@@ -7,6 +7,15 @@ import type { AdornmentConfig } from "./Adornment/types";
 import {
   MIN_WIDTH,
   ADORNMENT_SIZE,
+  MD2_ADORNMENT_OFFSET,
+  MD2_AFFIX_OFFSET,
+  MD2_FLAT_INPUT_OFFSET,
+  MD2_ICON_OFFSET,
+  MD2_INPUT_PADDING_HORIZONTAL,
+  MD2_LABEL_PADDING_HORIZONTAL,
+  MD2_LABEL_PADDING_TOP,
+  MD2_MIN_HEIGHT,
+  MD2_OUTLINED_INPUT_OFFSET,
   MD3_ADORNMENT_OFFSET,
   MD3_AFFIX_OFFSET,
   MD3_FLAT_INPUT_OFFSET,
@@ -309,10 +318,10 @@ const getInputTextColor = ({
   }
 
   if (disabled) {
-    return theme.colors.textDisabled;
+    return theme.colors.onSurfaceDisabled;
   }
 
-  return theme.colors.textDefault;
+  return theme.colors.onSurface;
 };
 
 const getActiveColor = ({
@@ -332,7 +341,7 @@ const getActiveColor = ({
   const modeColor = isFlat ? activeUnderlineColor : activeOutlineColor;
 
   if (error) {
-    return theme.colors.textErrorDefault;
+    return theme.colors.error;
   }
 
   if (modeColor) {
@@ -340,18 +349,18 @@ const getActiveColor = ({
   }
 
   if (disabled) {
-    return theme.colors.textDisabled;
+    return theme.colors.onSurfaceDisabled;
   }
 
-  return theme.colors.textBrandDefault;
+  return "#0088FF";
 };
 
 const getPlaceholderColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return theme.colors.textDisabled;
+    return theme.colors.onSurfaceDisabled;
   }
 
-  return theme.colors.textPlaceholder;
+  return theme.colors.onSurfaceVariant;
 };
 
 const getSelectionColor = ({
@@ -374,9 +383,9 @@ const getSelectionColor = ({
 
 const getFlatBackgroundColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return theme.colors.surfacePrimaryDisabled;
+    return color(theme.colors.onSurface).alpha(0.04).rgb().string();
   } else {
-    return theme.colors.surfacePrimaryDefault;
+    return "WHITE";
   }
 };
 
@@ -390,10 +399,10 @@ const getFlatUnderlineColor = ({
   }
 
   if (disabled) {
-    return theme.colors.surfacePrimaryDisabled;
+    return theme.colors.onSurfaceDisabled;
   }
 
-  return theme.colors.surfacePrimaryDefault;
+  return theme.colors.onSurfaceVariant;
 };
 
 const getOutlinedOutlineInputColor = ({
@@ -412,7 +421,7 @@ const getOutlinedOutlineInputColor = ({
     return theme.colors.surfaceDisabled;
   }
 
-  return theme.colors.borderPrimaryDefault;
+  return theme.colors.outline;
 };
 
 export const getFlatInputColors = ({
@@ -452,7 +461,7 @@ export const getFlatInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseFlatColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.textErrorDefault,
+    errorColor: theme.colors.error,
     backgroundColor: getFlatBackgroundColor(baseFlatColorProps),
   };
 };
@@ -494,7 +503,7 @@ export const getOutlinedInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseOutlinedColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.textErrorDefault,
+    errorColor: theme.colors.error,
   };
 };
 

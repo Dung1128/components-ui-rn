@@ -9,6 +9,7 @@ import {
   Animated,
 } from "react-native";
 
+import { Underline } from "./Addons/Underline";
 import { AdornmentSide, AdornmentType, InputMode } from "./Adornment/enums";
 import TextInputAdornment, {
   TextInputAdornmentProps,
@@ -140,6 +141,7 @@ const TextInputFlat = ({
   const {
     inputTextColor,
     activeColor,
+    underlineColorCustom,
     placeholderColor,
     errorColor,
     backgroundColor,

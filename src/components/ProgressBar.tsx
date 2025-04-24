@@ -77,6 +77,7 @@ const ProgressBar = ({
   indeterminate,
   progress = 0,
   visible = true,
+  theme: themeOverrides,
   animatedValue,
   style,
   fillStyle,

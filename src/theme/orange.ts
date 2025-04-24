@@ -1,25 +1,24 @@
-
- const ORANGE180 = "#441306";
- const ORANGE160 = "#7E2A0C";
- const ORANGE140 = "#9F2D00";
- const ORANGE120 = "#CA3500";
- const ORANGE100 = "#F54900";
- const ORANGE80 = "#FF6900";
- const ORANGE60 = "#FF8904";
- const ORANGE40 = "#FFB86A";
- const ORANGE20 = "#FFD6A7";
- const ORANGE10 = "#FFEDD4";
- const ORANGE5 = "#FFF7ED";
- export default {
-   ORANGE180,
-   ORANGE160,
-   ORANGE140,
-   ORANGE120,
-   ORANGE100,
-   ORANGE80,
-   ORANGE60,
-   ORANGE40,
-   ORANGE20,
-   ORANGE10,
-   ORANGE5,
- };
+const ORANGE180 = "#441306";
+const ORANGE160 = "#7E2A0C";
+const ORANGE140 = "#9F2D00";
+const ORANGE120 = "#CA3500";
+const ORANGE100 = "#F54900";
+const ORANGE80 = "#FF6900";
+const ORANGE60 = "#FF8904";
+const ORANGE40 = "#FFB86A";
+const ORANGE20 = "#FFD6A7";
+const ORANGE10 = "#FFEDD4";
+const ORANGE5 = "#FFF7ED";
+export default {
+  ORANGE180,
+  ORANGE160,
+  ORANGE140,
+  ORANGE120,
+  ORANGE100,
+  ORANGE80,
+  ORANGE60,
+  ORANGE40,
+  ORANGE20,
+  ORANGE10,
+  ORANGE5,
+};

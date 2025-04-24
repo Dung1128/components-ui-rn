@@ -58,7 +58,14 @@ export type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
  * export default MyComponent;
  * ```
  */
-const Switch = ({ value, disabled, onValueChange, color, ...rest }: Props) => {
+const Switch = ({
+  value,
+  disabled,
+  onValueChange,
+  color,
+  theme: themeOverrides,
+  ...rest
+}: Props) => {
   const theme = useInternalTheme();
   const { checkedColor, onTintColor, thumbTintColor } = getSwitchColor({
     theme,

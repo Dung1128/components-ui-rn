@@ -14,7 +14,13 @@ type Props = React.ComponentProps<typeof Text> & {
   theme?: ThemeProp;
 };
 
-const StyledText = ({ alpha = 1, family, style, ...rest }: Props) => {
+const StyledText = ({
+  alpha = 1,
+  family,
+  style,
+  theme: themeOverrides,
+  ...rest
+}: Props) => {
   const theme = useInternalTheme();
 
   const textColor = color(theme.colors.onSurface).alpha(alpha).rgb().string();

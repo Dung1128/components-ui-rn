@@ -222,6 +222,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       editable = true,
       contentStyle,
       render = DefaultRenderer,
+      theme: themeOverrides,
       ...rest
     }: Props,
     ref

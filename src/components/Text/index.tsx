@@ -1,21 +1,14 @@
 import React from "react";
-import {
-  Text as TextRN,
-  TextProps,
-  StyleSheet,
-  Platform,
-  StyleProp,
-  TextStyle,
-} from "react-native";
+import { Text as TextRN, TextProps, StyleSheet, Platform } from "react-native";
 
 import { memoDeepEqual } from "../../utils/function-utils";
 import colors from "../../theme/colors";
-import { useInternalTheme } from "@/core/theming";
-import { ThemeProp } from "@/types";
+import { useInternalTheme } from "../../core/theming";
+import { ThemeProp } from "../../types";
 
 export interface IText extends TextProps {
   size?: number;
-  weight?: TextStyle["fontWeight"];
+  weight?: any;
   gray?: boolean;
   black?: boolean;
   white?: boolean;
@@ -26,19 +19,21 @@ export interface IText extends TextProps {
   italic?: boolean;
   color?: string;
   fontFamily?: string;
+  useFontConfig?: boolean;
   center?: boolean;
+  font?: any;
   lineHeight?: number;
-  children?: React.ReactNode;
+  children?: any;
   theme?: ThemeProp;
 }
 
 const Text = (props: IText) => {
-  const { children, onPress, ...rest } = props;
+  const { children, onPress, theme: themeOverrides, ...rest } = props;
   const theme = useInternalTheme();
 
   delete rest.style;
   const _getStyle = () => {
-    const style: StyleProp<TextStyle> = {
+    const style: any = {
       fontWeight: "normal",
       color: colors.ink.INK100,
       fontFamily: "Inter-Regular",
@@ -47,16 +42,27 @@ const Text = (props: IText) => {
       size = 14,
       weight,
       bold,
+      gray,
+      white,
+      blue,
+      primary,
+      black,
       medium,
       italic,
       color,
+      font,
       fontFamily,
+      useFontConfig,
       center,
       lineHeight,
     } = props;
     style.color = theme.colors.text_primary || "black";
+    console.log(theme.colors.text_primary);
     if (fontFamily) {
       style.fontFamily = fontFamily;
+    }
+    if (font && useFontConfig) {
+      style.fontFamily = font;
     }
     if (size) {
       style.fontSize = size;
@@ -79,7 +85,21 @@ const Text = (props: IText) => {
         style.fontWeight = "600";
       }
     }
-
+    if (gray) {
+      style.color = colors.ink.INK40;
+    }
+    if (white) {
+      style.color = "#fff";
+    }
+    if (blue) {
+      style.color = colors.blue.BLUE100;
+    }
+    if (primary) {
+      style.color = colors.blue.BLUE100;
+    }
+    if (black) {
+      style.color = colors.ink.INK100;
+    }
     if (color) {
       style.color = color;
     }
