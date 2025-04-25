@@ -16,6 +16,8 @@ export { default as ProgressBar } from "./components/ProgressBar";
 export { default as Switch } from "./components/Switch/Switch";
 export { default as TextInput } from "./components/TextInput/TextInput";
 export { default as Button } from "./components/Button";
+export { default as ButtonIcon } from "./components/ButtonIcon";
+export { default as FloatingButton } from "./components/FloatingButton";
 export { default as Text } from "./components/Text";
 export { default as View } from "./components/View";
 export { default as Spacer } from "./components/Spacer";
