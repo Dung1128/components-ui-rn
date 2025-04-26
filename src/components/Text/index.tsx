@@ -57,7 +57,6 @@ const Text = (props: IText) => {
       lineHeight,
     } = props;
     style.color = theme.colors.text_primary || "black";
-    console.log(theme.colors.text_primary);
     if (fontFamily) {
       style.fontFamily = fontFamily;
     }

@@ -2,10 +2,10 @@ import React from "react";
 
 interface ToastRef {
   show: (params: {
-    message: string;
+    message?: string;
     duration?: number;
     position?: "top" | "bottom";
-    type?: "success" | "fail";
+    type?: "success" | "info" | "warning" | "error";
     onPress?: () => void;
     title?: string;
   }) => void;
@@ -21,10 +21,10 @@ export const showToast = ({
   onPress = () => {},
   title,
 }: {
-  message: string;
+  message?: string;
   duration?: number;
   position?: "top" | "bottom";
-  type?: "success" | "fail";
+  type?: "success" | "info" | "warning" | "error";
   onPress?: () => void;
   title?: string;
 }) => {

@@ -45,8 +45,8 @@ const Image = (props: PropsCustomImage) => {
     disableDefaultImage
       ? source
       : hasError
-      ? "../../assets/images/image_default.png"
-      : source || "../../assets/images/image_default.png"
+      ? require("./assets/images/image_default.png")
+      : source || require("./assets/images/image_default.png")
   );
   const ImageComponent = children ? ImageBackground : RNImage;
 

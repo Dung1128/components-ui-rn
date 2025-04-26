@@ -72,6 +72,13 @@ export type ThemeColors = {
   borderCriticalDefault: string;
   borderCriticalHover: string;
   borderCriticalPressed: string;
+  borderCriticalInverseDefault: string;
+  borderCriticalInverseHover: string;
+  borderCriticalInversePressed: string;
+  borderErrorInverseDefault: string;
+  borderPrimaryFocused: string;
+  borderWarningInverseDefault: string;
+  borderSuccessInverseDefault: string;
   borderErrorDefault: string;
   borderInfoDefault: string;
   borderPrimaryDefault: string;
@@ -188,7 +195,7 @@ export type ThemeColors = {
   textWarningHovered: string;
   textWarningPressed: string;
   selectBackgroundDisabled: string;
-  selectIconDisabled:string
+  selectIconDisabled: string;
 };
 
 export type ThemeProp = $DeepPartial<InternalTheme>;

@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import image from "rollup-plugin-image";
 import pkg from "./package.json";
+import copy from "rollup-plugin-copy";
 
 export default {
   input: "src/index.ts",
@@ -27,6 +28,9 @@ export default {
     typescript({
       tsconfig: "./tsconfig.json",
       exclude: ["**/__tests__", "**/*.test.tsx"],
+    }),
+    copy({
+      targets: [{ src: "src/assets/**/*", dest: "dist/assets" }],
     }),
   ],
   external: ["react", "react-native", "util"],

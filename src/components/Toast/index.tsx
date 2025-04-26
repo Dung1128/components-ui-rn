@@ -1,8 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { DEVICE_WIDTH, SPACE_16, SPACE_8 } from "../../theme/dimensions";
+import {
+  DEVICE_WIDTH,
+  SPACE_16,
+  SPACE_8,
+  SPACE_12,
+} from "../../theme/dimensions";
 import React, { useImperativeHandle, useRef, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image as RNImage } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Text from "../Text";
 import View from "../View";
@@ -20,11 +25,11 @@ type Position = (typeof POSITION)[keyof typeof POSITION];
 type ToastType = "success" | "error" | "info" | "warning";
 
 interface Notification {
-  message: string;
+  message?: string;
   duration?: number;
   position?: Position;
   type?: ToastType;
-  title?: string;
+  title: string;
   onPress?: () => void;
 }
 
@@ -102,7 +107,7 @@ const Toast = memoWithRef(
       title = "Thông báo",
       duration = 1000,
     }: Notification) => {
-      setMessage(message);
+      setMessage(message || "");
       setOptions({ position, type, onPress, title });
 
       viewVisibleAnimatedRef.current?.show?.(() => {
@@ -131,13 +136,28 @@ const Toast = memoWithRef(
         case "success":
           return colors.surfaceSuccessDefault;
         case "error":
-          return colors.surfaceErrorDisabled;
+          return colors.surfaceErrorDefault;
         case "info":
           return colors.surfacePrimaryInverseDefault;
         case "warning":
           return colors.surfaceWarningDefault;
         default:
           return colors.surfaceSuccessDefault;
+      }
+    };
+
+    const getSourceIcon = () => {
+      switch (options.type) {
+        case "success":
+          return require("./assets/images/success.png");
+        case "error":
+          return require("./assets/images/error.png");
+        case "info":
+          return require("./assets/images/info.png");
+        case "warning":
+          return require("./assets/images/warning.png");
+        default:
+          return require("./assets/images/success.png");
       }
     };
 
@@ -175,16 +195,25 @@ const Toast = memoWithRef(
             },
           ]}
         >
-          <Text bold color={colors.textOnFillDefault}>
-            {options.title}
-          </Text>
-          <Text
-            color={colors.textOnFillDefault}
-            numberOfLines={4}
-            style={!options.title && styles.wrapMess}
-          >
-            {message}
-          </Text>
+          <View row style={{ alignItems: "flex-start" }}>
+            <View>
+              <RNImage source={getSourceIcon()} style={styles.img} />
+            </View>
+            <View full paddingLeft={SPACE_8}>
+              <Text bold color={colors.textOnFillDefault}>
+                {options.title}
+              </Text>
+              {message.toString().length > 0 && (
+                <Text
+                  color={colors.textOnFillDefault}
+                  numberOfLines={4}
+                  style={!options.title && styles.wrapMess}
+                >
+                  {message}
+                </Text>
+              )}
+            </View>
+          </View>
         </View>
       </ViewVisibleAnimated>
     );
@@ -197,7 +226,7 @@ const styles = StyleSheet.create({
   wrapMess: { marginLeft: SPACE_8, flex: 1 },
   wrapContent: {
     borderRadius: 12,
-    padding: SPACE_16,
+    padding: SPACE_12,
     width: DEVICE_WIDTH - SPACE_16 * 2,
     marginHorizontal: SPACE_16,
   },
@@ -207,5 +236,9 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: "center",
     width: DEVICE_WIDTH,
+  },
+  img: {
+    width: 20,
+    height: 20,
   },
 });
