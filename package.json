@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.67",
+  "version": "1.0.68",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -95,6 +95,7 @@
     "react-native": "^0.78.0",
     "react-native-storybook-loader": "^2.0.5",
     "react-native-svg": "^15.11.2",
+    "react-native-svg-transformer": "^1.5.1",
     "react-native-web": "^0.20.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.60.0",
