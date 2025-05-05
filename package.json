@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.74",
+  "version": "1.0.75",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -93,7 +93,6 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.60.0",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-image": "^1.0.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.8.3",
     "webpack": "^5.99.5"
