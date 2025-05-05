@@ -35,6 +35,7 @@ export const SPACE_CARD_GAP = SPACE_12;
 export const BORDER_RADIUS_6 = 6;
 export const BORDER_RADIUS_8 = 8;
 export const BORDER_RADIUS_12 = 12;
+export const BORDER_RADIUS_ROUNDED = 36;
 
 //MARK: Border width
 export const BORDER_WIDTH_05 = StyleSheet.hairlineWidth; //0.3-0.5

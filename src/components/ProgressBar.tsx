@@ -57,21 +57,6 @@ const INDETERMINATE_DURATION = 2000;
 const INDETERMINATE_MAX_WIDTH = 0.6;
 const { isRTL } = I18nManager;
 
-/**
- * Progress bar is an indicator used to present progress of some activity in the app.
- *
- * ## Usage
- * ```js
- * import * as React from 'react';
- * import { ProgressBar, ThemeColors } from 'react-native-paper';
- *
- * const MyComponent = () => (
- *   <ProgressBar progress={0.5} color={ThemeColors.error50} />
- * );
- *
- * export default MyComponent;
- * ```
- */
 const ProgressBar = ({
   color,
   indeterminate,

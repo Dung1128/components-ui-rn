@@ -15,7 +15,7 @@ interface PropsCustomImage extends ImageProps {
   disableDefaultImage?: boolean;
   children?: React.ReactNode;
   resizeMode?: "cover" | "contain" | "stretch" | "center";
-  source?: any;
+  source: any;
   style?: StyleProp<ImageStyle>;
   loadingColor?: string;
   showLoading?: boolean;

@@ -1,0 +1,104 @@
+import React, { useMemo } from "react";
+import { StyleProp, TextStyle, TouchableOpacity, View } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useInternalTheme } from "../../core/theming";
+import { BORDER_RADIUS_8 } from "../../theme/dimensions";
+import SvgIcon from "../IconSvg";
+import IconCheckboxActive from "../../icons/IconCheckboxActive";
+import IconCheckbox from "../../icons/IconCheckbox";
+
+export type IconType =
+  | "FontAwesome"
+  | "Image"
+  | "MaterialIcons"
+  | "Feather"
+  | "MaterialCommunityIcons"
+  | "Svg";
+
+export interface IconProps {
+  name: "IconCheckboxActive" | "IconCheckbox";
+  backgroundColor?: string;
+  size?: number;
+  color?: string;
+  style?: StyleProp<TextStyle>;
+  showBackground?: boolean;
+  onPress?: () => void;
+  type?: IconType;
+  tintColor?: string;
+  animatedProps?: Record<string, unknown>;
+}
+
+const getIconComponent = (type: IconType) => {
+  switch (type) {
+    case "MaterialIcons":
+      return MaterialIcons;
+    case "MaterialCommunityIcons":
+      return MaterialCommunityIcons;
+    case "FontAwesome":
+    default:
+      return FontAwesome;
+  }
+};
+
+const Icon: React.FC<IconProps> = ({
+  name,
+  size = 14,
+  color,
+  style,
+  showBackground,
+  backgroundColor,
+  onPress,
+  type = "FontAwesome",
+  tintColor,
+  ...rest
+}) => {
+  const theme = useInternalTheme();
+  const { colors } = theme;
+
+  const IconComponent = useMemo(() => getIconComponent(type), [type]);
+
+  const renderIcon = () => {
+    if (type === "Svg") {
+      return (
+        <SvgIcon
+          name={
+            name === "IconCheckboxActive" ? IconCheckboxActive : IconCheckbox
+          }
+          width={size}
+          height={size}
+          color={color || colors.iconPrimaryDefault}
+        />
+      );
+    }
+
+    return (
+      <IconComponent
+        name={name as string}
+        size={size}
+        color={color || colors.iconPrimaryDefault}
+        {...rest}
+      />
+    );
+  };
+
+  return (
+    <TouchableOpacity disabled={!onPress} onPress={onPress}>
+      <View
+        style={[
+          {
+            width: size,
+            height: size,
+            borderRadius: BORDER_RADIUS_8,
+          },
+          style,
+        ]}
+      >
+        {renderIcon()}
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export default React.memo(Icon);

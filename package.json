@@ -1,6 +1,6 @@
 {
   "name": "@dung1128/components-ui-rn",
-  "version": "1.0.83",
+  "version": "1.0.84",
   "description": "React Native UI Components Library V2 for Dungnt",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -19,8 +19,7 @@
     "storybook-generate": "sb-rn-get-stories",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "storybook-native": "storybook start -p 7007",
-    "build:icons": "node scripts/convert-svgs.js"
+    "storybook-native": "storybook start -p 7007"
   },
   "repository": {
     "type": "git",

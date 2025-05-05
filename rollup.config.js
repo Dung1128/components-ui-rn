@@ -2,7 +2,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import image from "rollup-plugin-image";
 import pkg from "./package.json";
 import copy from "rollup-plugin-copy";
 
@@ -24,7 +23,6 @@ export default {
     peerDepsExternal(),
     resolve(),
     commonjs(),
-    image(),
     typescript({
       tsconfig: "./tsconfig.json",
       exclude: ["**/__tests__", "**/*.test.tsx"],
@@ -33,5 +31,5 @@ export default {
       targets: [{ src: "src/assets/**/*", dest: "dist/assets" }],
     }),
   ],
-  external: ["react", "react-native", "util"],
+  external: ["react", "react-native", "util", /\.svg$/],
 };

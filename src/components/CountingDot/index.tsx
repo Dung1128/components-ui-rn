@@ -4,10 +4,11 @@ import Text from "../Text";
 import { BORDER_RADIUS_12, SPACE_2, SPACE_4 } from "../../theme/dimensions";
 import { useInternalTheme } from "../../core/theming";
 import { StyleProp, ViewStyle, StyleSheet } from "react-native";
+import containerStyles from "../../theme/container-styles";
 
 interface CountingDotProps {
   children?: React.ReactNode;
-  value: string;
+  value: string | number;
   borderColor?: string;
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
@@ -30,13 +31,18 @@ const CountingDot = ({
   return (
     <View row>
       <View
+        center
         borderRadius={BORDER_RADIUS_12}
         backgroundColor={backgroundColor || colors.surfaceCriticalDefault}
         paddingHorizontal={SPACE_4}
         paddingVertical={SPACE_2}
         style={[styles.container, style]}
       >
-        <Text size={10} color={textColor || colors.textOnFillDefault}>
+        <Text
+          size={10}
+          style={styles.textMedium}
+          color={textColor || colors.textOnFillDefault}
+        >
           {value}
         </Text>
       </View>
@@ -45,6 +51,7 @@ const CountingDot = ({
 };
 
 const styles = StyleSheet.create({
+  ...containerStyles,
   container: {
     minWidth: 16,
     minHeight: 16,
