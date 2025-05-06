@@ -7,8 +7,6 @@ import ink from "./ink";
 
 export default StyleSheet.create({
   container: { flex: 1 },
-  containerBg: { flex: 1, backgroundColor: white.WHITE100 },
-  containerBgWhite: { flex: 1, backgroundColor: "#fff" },
   center: {
     paddingHorizontal: SPACE_16,
     alignItems: "center",

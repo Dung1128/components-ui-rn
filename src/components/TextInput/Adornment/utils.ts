@@ -9,9 +9,9 @@ type BaseProps = {
 
 export function getTextColor({ theme, disabled }: BaseProps) {
     if (disabled) {
-      return theme.colors.onSurfaceDisabled;
+      return theme.colors.surfaceCriticalDisabled;
     }
-    return theme.colors.onSurfaceVariant;
+    return theme.colors.textSecondary;
  
 }
 
@@ -34,8 +34,8 @@ export function getIconColor({
 
 
   if (disabled) {
-    return theme.colors.onSurfaceDisabled;
+    return theme.colors.surfaceCriticalDisabled;
   }
 
-  return theme.colors.onSurfaceVariant;
+  return theme.colors.textSecondary;
 }

@@ -29,42 +29,8 @@ export type Fonts = {
 type Mode = "adaptive" | "exact";
 
 export type ThemeColors = {
-  text_primary: string;
-  primary: string;
-  primaryContainer: string;
-  secondary: string;
-  secondaryContainer: string;
-  tertiary: string;
-  tertiaryContainer: string;
-  surface: string;
-  surfaceVariant: string;
-  surfaceDisabled: string;
-  background: string;
-  error: string;
-  errorContainer: string;
-  onPrimary: string;
-  onPrimaryContainer: string;
-  onSecondary: string;
-  onSecondaryContainer: string;
-  onTertiary: string;
-  onTertiaryContainer: string;
-  onSurface: string;
-  onSurfaceVariant: string;
-  onSurfaceDisabled: string;
-  onError: string;
-  onErrorContainer: string;
-  onBackground: string;
-  outline: string;
-  outlineVariant: string;
-  inverseSurface: string;
-  inverseOnSurface: string;
-  inversePrimary: string;
-  shadow: string;
-  scrim: string;
-  backdrop: string;
-  elevation: MD3ElevationColors;
-  //new theme colors
 
+  elevation: MD3ElevationColors;
   //background
   backgroundPrimary: string;
   backgroundSecondary: string;

@@ -86,7 +86,7 @@ const Text = (
 ) => {
   const root = React.useRef<NativeText | null>(null);
   // FIXME: destructure it in TS 4.6+
-  const theme = useInternalTheme(initialTheme);
+  const theme = useInternalTheme();
   const writingDirection = I18nManager.getConstants().isRTL ? "rtl" : "ltr";
 
   React.useImperativeHandle(ref, () => ({
@@ -149,7 +149,7 @@ const Text = (
         ref={root}
         style={[
           styles.text,
-          { writingDirection, color: theme.colors.onSurface },
+          { writingDirection, color: theme.colors.backgroundPrimary },
           textStyle,
         ]}
         {...rest}
@@ -159,7 +159,7 @@ const Text = (
     const font = theme.fonts.default;
     const textStyle = {
       ...font,
-      color: theme.colors?.onSurface,
+      color: theme.colors?.backgroundPrimary,
     };
     return (
       <NativeText

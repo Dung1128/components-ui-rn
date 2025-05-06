@@ -117,7 +117,11 @@ const Button = ({
           {left && <Spacer width={SPACE_8} />}
           {isLoading ? (
             <ActivityIndicator
-              color={textStyle?.color || textProps?.color || colors.onPrimary}
+              color={
+                textStyle?.color ||
+                textProps?.color ||
+                colors.borderBrandDefault
+              }
             />
           ) : (
             <Text

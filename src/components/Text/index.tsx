@@ -56,7 +56,7 @@ const Text = (props: IText) => {
       center,
       lineHeight,
     } = props;
-    style.color = theme.colors.text_primary || "black";
+    style.color = theme.colors.textDefault || "black";
     if (fontFamily) {
       style.fontFamily = fontFamily;
     }

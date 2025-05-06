@@ -21,7 +21,7 @@ const getCheckedColor = ({
     return color;
   }
 
-  return theme.colors.primary;
+  return theme.colors.surfaceBrandDefault;
 };
 
 const getThumbTintColor = ({

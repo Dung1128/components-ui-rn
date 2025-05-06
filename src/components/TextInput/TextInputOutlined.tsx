@@ -93,7 +93,7 @@ const TextInputOutlined = ({
     fontWeight,
     lineHeight: lineHeightStyle,
     height,
-    backgroundColor = colors?.background,
+    backgroundColor = colors?.backgroundPrimary,
     textAlign,
     ...viewStyle
   } = (StyleSheet.flatten(style) || {}) as TextStyle;
@@ -212,7 +212,7 @@ const TextInputOutlined = ({
 
   const labelBackgroundColor: ColorValue =
     backgroundColor === "transparent"
-      ? theme.colors.background
+      ? theme.colors.backgroundPrimary
       : backgroundColor;
 
   const labelProps = {

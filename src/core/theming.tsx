@@ -96,12 +96,12 @@ export function adaptNavigationTheme(themes: any) {
       ...navigationTheme,
       colors: {
         ...navigationTheme.colors,
-        primary: AppTheme.colors.primary,
-        background: AppTheme.colors.background,
+        primary: AppTheme.colors.surfaceBrandDefault,
+        background: AppTheme.colors.backgroundPrimary,
         card: AppTheme.colors.elevation.level2,
-        text: AppTheme.colors.onSurface,
-        border: AppTheme.colors.outline,
-        notification: AppTheme.colors.error,
+        text: AppTheme.colors.backgroundPrimary,
+        border: AppTheme.colors.borderPrimaryDefault,
+        notification: AppTheme.colors.surfaceErrorDefault,
       },
     };
   };
@@ -149,18 +149,18 @@ export function adaptNavigationTheme(themes: any) {
   };
 }
 
-export const getDynamicThemeElevations = (scheme: ThemeColors) => {
-  const elevationValues = ["transparent", 0.05, 0.08, 0.11, 0.12, 0.14];
-  return elevationValues.reduce((elevations, elevationValue, index) => {
-    return {
-      ...elevations,
-      [`level${index}`]:
-        index === 0
-          ? elevationValue
-          : color(scheme.surface)
-              .mix(color(scheme.primary), elevationValue as number)
-              .rgb()
-              .string(),
-    };
-  }, {});
-};
+// export const getDynamicThemeElevations = (scheme: ThemeColors) => {
+//   const elevationValues = ["transparent", 0.05, 0.08, 0.11, 0.12, 0.14];
+//   return elevationValues.reduce((elevations, elevationValue, index) => {
+//     return {
+//       ...elevations,
+//       [`level${index}`]:
+//         index === 0
+//           ? elevationValue
+//           : color(scheme.surface)
+//               .mix(color(scheme.primary), elevationValue as number)
+//               .rgb()
+//               .string(),
+//     };
+//   }, {});
+// };

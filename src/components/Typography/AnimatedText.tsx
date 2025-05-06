@@ -63,7 +63,7 @@ const AnimatedText = forwardRef<Text & HTMLElement, Props<never>>(
           style={[
             font,
             styles.text,
-            { writingDirection, color: theme.colors.onSurface },
+            { writingDirection, color: theme.colors.backgroundPrimary },
             style,
           ]}
         />

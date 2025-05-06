@@ -23,7 +23,10 @@ const StyledText = ({
 }: Props) => {
   const theme = useInternalTheme();
 
-  const textColor = color(theme.colors.onSurface).alpha(alpha).rgb().string();
+  const textColor = color(theme.colors.backgroundPrimary)
+    .alpha(alpha)
+    .rgb()
+    .string();
   const writingDirection = I18nManager.getConstants().isRTL ? "rtl" : "ltr";
 
   return (

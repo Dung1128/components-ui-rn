@@ -9,7 +9,7 @@ export const isAnimatedValue = (
 
 export default function overlay<T extends Animated.Value | number>(
   elevation: T,
-  surfaceColor: string = DarkTheme.colors?.surface
+  surfaceColor: string = DarkTheme.colors?.backgroundPrimary
 ): T extends number ? string : Animated.AnimatedInterpolation<number | string> {
   if (isAnimatedValue(elevation)) {
     const inputRange = [0, 1, 2, 3, 8, 24];

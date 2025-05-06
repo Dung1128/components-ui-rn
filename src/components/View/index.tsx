@@ -163,9 +163,9 @@ const ViewCustom = (props: Props) => {
 
     if (useThemeColor) {
       if (useThemeColor === "light") {
-        styleCustom.backgroundColor = theme.colors.background || "white";
+        styleCustom.backgroundColor = theme.colors.backgroundPrimary || "white";
       } else {
-        styleCustom.backgroundColor = theme.colors.background || "white";
+        styleCustom.backgroundColor = theme.colors.backgroundPrimary || "white";
       }
     }
     return StyleSheet.create({ styleCustom }).styleCustom;
