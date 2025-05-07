@@ -3,15 +3,9 @@ import React from "react";
 import { useColorScheme } from "react-native";
 
 import { $DeepPartial, createTheming } from "@callstack/react-theme-provider";
-import color from "color";
 
 import { DarkTheme, LightTheme } from "../styles/themes";
-import type {
-  InternalTheme,
-  AppTheme,
-  NavigationTheme,
-  ThemeColors,
-} from "../types";
+import type { InternalTheme, AppTheme, NavigationTheme } from "../types";
 
 export const DefaultTheme = LightTheme;
 
@@ -148,19 +142,3 @@ export function adaptNavigationTheme(themes: any) {
     LightTheme: getAdaptedTheme(reactNavigationLight, AppThemes.light),
   };
 }
-
-// export const getDynamicThemeElevations = (scheme: ThemeColors) => {
-//   const elevationValues = ["transparent", 0.05, 0.08, 0.11, 0.12, 0.14];
-//   return elevationValues.reduce((elevations, elevationValue, index) => {
-//     return {
-//       ...elevations,
-//       [`level${index}`]:
-//         index === 0
-//           ? elevationValue
-//           : color(scheme.surface)
-//               .mix(color(scheme.primary), elevationValue as number)
-//               .rgb()
-//               .string(),
-//     };
-//   }, {});
-// };

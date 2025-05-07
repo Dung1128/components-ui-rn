@@ -7,10 +7,10 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
+import ScaleButton from "../ScaleButton";
 import {
   BORDER_RADIUS_6,
   BORDER_WIDTH_1,
@@ -47,12 +47,12 @@ const ButtonIcon = ({
   props,
 }: ButtonIconProps) => {
   const { colors } = useInternalTheme();
-  const Component = TouchableOpacity;
   return (
-    <Component
+    <ScaleButton
       activeOpacity={0.8}
-      disabled={disabled || isLoading || !onPress}
       onPress={onPress}
+      {...props}
+      disabled={disabled || false}
     >
       <View
         style={[
@@ -87,7 +87,7 @@ const ButtonIcon = ({
       >
         {isLoading ? <ActivityIndicator size={"small"} /> : children}
       </View>
-    </Component>
+    </ScaleButton>
   );
 };
 

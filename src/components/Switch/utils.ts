@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import { ThemeColors } from "../../styles/themes/tokens";
 import setColor from 'color';
 
 import type { InternalTheme } from '../../types';
@@ -38,9 +37,9 @@ const getThumbTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      return ThemeColors.neutral70;
+      return theme.colors.backgroundPrimary;
     }
-    return ThemeColors.neutral70;;
+    return theme.colors.backgroundPrimary;;
   }
 
   if (value) {
@@ -48,9 +47,9 @@ const getThumbTintColor = ({
   }
 
   if (theme.dark) {
-    return ThemeColors.neutral40;
+    return theme.colors.backgroundPrimary;
   }
-  return ThemeColors.neutral40;
+  return theme.colors.backgroundPrimary;
 };
 
 const getOnTintColor = ({
@@ -67,9 +66,9 @@ const getOnTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-        return setColor(ThemeColors.primary100).alpha(0.06).rgb().string();
+        return setColor(theme.colors.backgroundPrimary).alpha(0.06).rgb().string();
     }
-    return setColor(ThemeColors.primary0).alpha(0.12).rgb().string();
+    return setColor(theme.colors.backgroundPrimary).alpha(0.12).rgb().string();
   }
 
   if (value) {
@@ -77,9 +76,9 @@ const getOnTintColor = ({
   }
 
   if (theme.dark) {
-    return ThemeColors.neutral70;
+    return theme.colors.backgroundPrimary;
   }
-  return 'rgb(178, 175, 177)';
+  return theme.colors.backgroundPrimary;
 };
 
 export const getSwitchColor = ({

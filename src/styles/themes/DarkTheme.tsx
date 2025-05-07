@@ -16,11 +16,11 @@ export const DarkTheme: AppTheme = {
   colors: {
     elevation: {
       level0: "transparent",
-      level1: "rgb(37, 35, 42)", // palette.primary80, alpha 0.05
-      level2: "rgb(44, 40, 49)", // palette.primary80, alpha 0.08
-      level3: "rgb(49, 44, 56)", // palette.primary80, alpha 0.11
-      level4: "rgb(51, 46, 58)", // palette.primary80, alpha 0.12
-      level5: "rgb(52, 49, 63)", // palette.primary80, alpha 0.14
+      level1: "rgb(37, 35, 42)",
+      level2: "rgb(44, 40, 49)",
+      level3: "rgb(49, 44, 56)",
+      level4: "rgb(51, 46, 58)",
+      level5: "rgb(52, 49, 63)",
     },
     //new theme colors
     backgroundPrimary: ink.INK5,
