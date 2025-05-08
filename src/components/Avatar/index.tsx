@@ -2,7 +2,13 @@ import React from "react";
 import View from "../View";
 import Text from "../Text";
 import { useInternalTheme } from "../../core/theming";
-import { StyleProp, ViewStyle, StyleSheet } from "react-native";
+import {
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+  TextStyle,
+  ImageStyle,
+} from "react-native";
 import Image from "../Image";
 interface AvatarProps {
   children?: React.ReactNode;
@@ -14,6 +20,8 @@ interface AvatarProps {
   size: 64 | 48 | 24;
   source?: string;
   onPress?: () => void;
+  textStyle?: StyleProp<TextStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
 }
 
 const Avatar = ({
@@ -25,6 +33,8 @@ const Avatar = ({
   size = 64,
   source,
   onPress,
+  textStyle,
+  imageStyle,
 }: AvatarProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
@@ -69,13 +79,13 @@ const Avatar = ({
           useFastImage
           resizeMode="cover"
           source={source}
-          style={{ width: size, height: size }}
+          style={[{ width: size, height: size }, imageStyle]}
         />
       ) : (
         <Text
           size={getSize(size)}
-          style={{ fontWeight: "500" }}
           color={textColor || colors.textSecondary}
+          style={textStyle || { fontWeight: "500" }}
         >
           {getInitials(name)}
         </Text>

@@ -8,7 +8,7 @@ import {
   SPACE_4,
 } from "../../theme/dimensions";
 import { useInternalTheme } from "../../core/theming";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle, TextStyle } from "react-native";
 interface BadgeProps {
   children?: React.ReactNode;
   value: string;
@@ -16,6 +16,7 @@ interface BadgeProps {
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
   textColor?: string;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 const Badge = ({
@@ -25,6 +26,7 @@ const Badge = ({
   backgroundColor,
   style,
   textColor,
+  textStyle,
 }: BadgeProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
@@ -43,7 +45,11 @@ const Badge = ({
         paddingVertical={SPACE_4}
         style={style}
       >
-        <Text size={12} color={textColor || colors.textSecondary}>
+        <Text
+          size={12}
+          color={textColor || colors.textSecondary}
+          style={textStyle}
+        >
           {value}
         </Text>
       </View>

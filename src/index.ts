@@ -26,6 +26,9 @@ export { default as Badge } from "./components/Badge";
 export { default as CountingDot } from "./components/CountingDot";
 export { default as ChipBar } from "./components/ChipBar";
 export { default as Checkbox } from "./components/Checkbox";
+export { default as RadioButton } from "./components/RadioButton";
+export { default as Avatar } from "./components/Avatar";
+export { default as SelectionField } from "./components/SelectionField";
 
 // Types
 export type { Props as ActivityIndicatorProps } from "./components/ActivityIndicator";

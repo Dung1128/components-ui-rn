@@ -1,25 +1,23 @@
-import { useInternalTheme } from "../../core/theming";
-import { ThemeProp } from "../../types";
+import { useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   StyleSheet,
   TouchableOpacity,
   View,
-  ViewProps,
   StyleProp,
   ViewStyle,
-  ColorValue,
 } from "react-native";
 
-interface Props extends ViewProps {
+interface ViewProps {
   row?: boolean;
   full?: boolean;
   justifyCenter?: boolean;
   justifyBetween?: boolean;
   alignCenter?: boolean;
   center?: boolean;
-  color?: ColorValue;
-  backgroundColor?: ColorValue;
+  gap?: number;
+  color?: any;
+  backgroundColor?: any;
   width?: number | `${number}%`;
   height?: number | `${number}%`;
   onPress?: () => void;
@@ -44,42 +42,43 @@ interface Props extends ViewProps {
   borderRadius?: number;
   borderWidth?: number;
   borderColor?: string;
-  theme?: ThemeProp;
 }
-const ViewCustom = (props: Props) => {
-  const { children, onPress, activeOpacity = 0.8, style, ...rest } = props;
-  const theme = useInternalTheme();
+const ViewCustom = ({
+  row,
+  full,
+  justifyCenter,
+  justifyBetween,
+  alignCenter,
+  center,
+  color,
+  backgroundColor,
+  width,
+  height,
+  padding,
+  paddingHorizontal,
+  paddingVertical,
+  useThemeColor,
+  marginHorizontal,
+  marginVertical,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  alignEnd,
+  wrap,
+  borderBottomWidth,
+  borderBottomColor,
+  borderRadius,
+  borderWidth,
+  borderColor,
+  style,
+  onPress,
+  activeOpacity,
+  children,
+}: ViewProps) => {
+  const { colors }: any = useTheme();
 
   const getStyle = () => {
     const styleCustom: any = {};
-    const {
-      row,
-      full,
-      justifyCenter,
-      justifyBetween,
-      alignCenter,
-      center,
-      color,
-      backgroundColor,
-      width,
-      height,
-      padding,
-      paddingHorizontal,
-      paddingVertical,
-      useThemeColor,
-      marginHorizontal,
-      marginVertical,
-      paddingLeft,
-      paddingRight,
-      paddingTop,
-      alignEnd,
-      wrap,
-      borderBottomWidth,
-      borderBottomColor,
-      borderRadius,
-      borderWidth,
-      borderColor,
-    } = rest;
 
     if (row) {
       styleCustom.flexDirection = "row";
@@ -163,9 +162,9 @@ const ViewCustom = (props: Props) => {
 
     if (useThemeColor) {
       if (useThemeColor === "light") {
-        styleCustom.backgroundColor = theme.colors.backgroundPrimary || "white";
+        styleCustom.backgroundColor = colors.backgroundLight || "white";
       } else {
-        styleCustom.backgroundColor = theme.colors.backgroundPrimary || "white";
+        styleCustom.backgroundColor = colors.background || "white";
       }
     }
     return StyleSheet.create({ styleCustom }).styleCustom;
@@ -179,7 +178,6 @@ const ViewCustom = (props: Props) => {
       activeOpacity={activeOpacity}
       onPress={onPress}
       style={[defaultStyle, style]}
-      {...rest}
     >
       {children}
     </Component>

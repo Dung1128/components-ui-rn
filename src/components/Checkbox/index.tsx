@@ -15,6 +15,7 @@ interface CheckboxProps {
   disabled?: boolean;
   leftIcon?: React.ReactNode;
   checked?: boolean;
+  iconSize?: number;
 }
 
 const useCheckboxColor = (isActive: boolean, disabled: boolean) => {
@@ -40,6 +41,7 @@ const Checkbox = ({
   disabled = false,
   leftIcon,
   checked = false,
+  iconSize = 24,
 }: CheckboxProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
@@ -66,7 +68,7 @@ const Checkbox = ({
           <Icon
             name={isActive ? "IconCheckboxActive" : "IconCheckbox"}
             type="Svg"
-            size={24}
+            size={iconSize}
             color={checkboxColor}
           />
         </View>

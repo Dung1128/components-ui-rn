@@ -3,7 +3,7 @@ import View from "../View";
 import Text from "../Text";
 import { BORDER_RADIUS_12, SPACE_2, SPACE_4 } from "../../theme/dimensions";
 import { useInternalTheme } from "../../core/theming";
-import { StyleProp, ViewStyle, StyleSheet } from "react-native";
+import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import containerStyles from "../../theme/container-styles";
 
 interface CountingDotProps {
@@ -13,6 +13,7 @@ interface CountingDotProps {
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
   textColor?: string;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 const CountingDot = ({
@@ -21,6 +22,7 @@ const CountingDot = ({
   backgroundColor,
   style,
   textColor,
+  textStyle,
 }: CountingDotProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
@@ -40,7 +42,7 @@ const CountingDot = ({
       >
         <Text
           size={10}
-          style={styles.textMedium}
+          style={[styles.textMedium, textStyle]}
           color={textColor || colors.textOnFillDefault}
         >
           {value}
