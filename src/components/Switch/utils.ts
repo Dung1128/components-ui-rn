@@ -1,7 +1,6 @@
-import { Platform } from 'react-native';
-import setColor from 'color';
+import { Platform } from "react-native";
 
-import type { InternalTheme } from '../../types';
+import type { InternalTheme } from "../../types";
 
 type BaseProps = {
   theme: InternalTheme;
@@ -29,7 +28,7 @@ const getThumbTintColor = ({
   value,
   checkedColor,
 }: BaseProps & { checkedColor: string }) => {
-  const isIOS = Platform.OS === 'ios';
+  const isIOS = Platform.OS === "ios";
 
   if (isIOS) {
     return undefined;
@@ -39,7 +38,7 @@ const getThumbTintColor = ({
     if (theme.dark) {
       return theme.colors.backgroundPrimary;
     }
-    return theme.colors.backgroundPrimary;;
+    return theme.colors.backgroundPrimary;
   }
 
   if (value) {
@@ -58,7 +57,7 @@ const getOnTintColor = ({
   value,
   checkedColor,
 }: BaseProps & { checkedColor: string }) => {
-  const isIOS = Platform.OS === 'ios';
+  const isIOS = Platform.OS === "ios";
 
   if (isIOS) {
     return checkedColor;
@@ -66,13 +65,13 @@ const getOnTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-        return setColor(theme.colors.backgroundPrimary).alpha(0.06).rgb().string();
+      return theme.colors.backgroundPrimary;
     }
-    return setColor(theme.colors.backgroundPrimary).alpha(0.12).rgb().string();
+    return theme.colors.backgroundPrimary;
   }
 
   if (value) {
-    return setColor(checkedColor).alpha(0.5).rgb().string();
+    return checkedColor;
   }
 
   if (theme.dark) {

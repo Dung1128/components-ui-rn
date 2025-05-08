@@ -1,15 +1,47 @@
 import React, { forwardRef, memo } from "react";
 import { Animated } from "react-native";
-import deepEqual from "deep-equal";
+import isEqual from "lodash/isEqual";
+
+// Helper function to check if value is Date object
+function isDateObject(value: any): boolean {
+  return value instanceof Date && !isNaN(value.getTime());
+}
+
+// Wrapper function for deepEqual to handle Date object comparison
+export function deepEqualWithDate(a: any, b: any): boolean {
+  // Handle Date object comparison
+  if (isDateObject(a) !== isDateObject(b)) {
+    return false;
+  }
+  if (isDateObject(a) && isDateObject(b)) {
+    return a.getTime() === b.getTime();
+  }
+  return isEqual(a, b);
+}
+
+// Wrapper function for deepEqual to handle arguments object comparison
+export function deepEqualWithArguments(a: any, b: any): boolean {
+  // Handle arguments object comparison
+  if (isArguments(a) !== isArguments(b)) {
+    return false;
+  }
+  return deepEqualWithDate(a, b);
+}
+
+// Helper function to check if value is arguments object
+function isArguments(value: any): boolean {
+  return Object.prototype.toString.call(value) === "[object Arguments]";
+}
+
 export function memoDeepEqual<T>(component: React.ComponentType<T>) {
   return memo(component, (prevProps, nextProps) =>
-    deepEqual(prevProps, nextProps)
+    deepEqualWithArguments(prevProps, nextProps)
   );
 }
 
 export const memoWithRef = (component: any) => {
   return memo(forwardRef(component), (prevProps, nextProps) =>
-    deepEqual(prevProps, nextProps)
+    isEqual(prevProps, nextProps)
   );
 };
 

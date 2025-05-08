@@ -7,18 +7,17 @@ import {
   StyleProp,
   ViewStyle,
   TouchableOpacityProps,
-  ActivityIndicator,
   TextStyle,
 } from "react-native";
 
 import {
   BUTTON_HEIGHT,
   BUTTON_HEIGHT_SMALL,
-  SPACE_16,
   SPACE_12,
   BORDER_RADIUS_6,
   BORDER_WIDTH_1,
-  SPACE_8,
+  SPACE_6,
+  SPACE_4,
 } from "@/theme/dimensions";
 import ScaleButton from "../ScaleButton";
 import Text, { IText } from "../Text";
@@ -26,74 +25,55 @@ import View from "../View";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
 import Spacer from "../Spacer";
+import Icon from "../Icon";
+import containerStyles from "../../theme/container-styles";
 
-export interface ButtonProps extends TouchableOpacityProps {
+export interface SelectionFieldProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
-  border?: boolean;
   borderColor?: string;
-  title?: string;
-  backgroundColor?: string;
-  isLoading?: boolean;
+  content?: string;
+  label?: string;
+  error?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  small?: boolean;
-  margin?: Number;
   textProps?: IText;
   textColor?: string;
-  bold?: boolean;
+  labelColor?: string;
   size?: number;
   textStyle?: TextStyle;
-  medium?: boolean;
-  mode?: "outlined" | "contained" | "transparent";
+  labelStyle?: TextStyle;
+  disabled?: boolean;
   onPress?: (res?: any) => void;
   theme?: ThemeProp;
 }
-const Button = ({
+const SelectionField = ({
   style,
-  title,
-  border,
+  content = "content",
+  label = "label",
+  error = "",
   borderColor,
-  isLoading,
   left,
   right,
-  small,
-  margin,
   textStyle,
+  labelStyle,
   textProps,
   onPress,
-  disabled,
-  backgroundColor,
+  disabled = false,
   textColor,
-  bold = true,
+  labelColor,
   size = 16,
-  medium = false,
-  mode = "contained",
   theme: themeOverrides,
   ...props
-}: ButtonProps) => {
+}: SelectionFieldProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
 
   const disabledTextStyle = {
-    color: colors.textBrandDisabled,
-  };
-
-  const renderButtonStyle = () => {
-    switch (mode) {
-      case "outlined":
-        return [styles.border, { borderColor: colors.borderBrandDefault }];
-      case "contained":
-        return [{ backgroundColor: colors.surfaceBrandDefault }];
-      case "transparent":
-        return [
-          { borderColor: colors.borderBrandDefault },
-          { backgroundColor: "transparent" },
-        ];
-    }
+    color: colors.textSecondary,
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <ScaleButton
         activeOpacity={0.8}
         onPress={onPress}
@@ -102,17 +82,13 @@ const Button = ({
       >
         <View
           style={[
-            styles.button,
+            styles.container,
             {
               borderRadius: BORDER_RADIUS_6,
             },
-            {
-              backgroundColor: colors.surfaceBrandDefault,
-            },
+
+            [styles.border, { borderColor: colors.borderBrandDefault }],
             borderColor && { borderColor: borderColor },
-            backgroundColor && { backgroundColor: backgroundColor },
-            renderButtonStyle(),
-            small && styles.small,
             disabled && [
               styles.disabled,
               {
@@ -120,62 +96,74 @@ const Button = ({
                 backgroundColor: colors.surfacePrimaryDisabled,
               },
             ],
-            isLoading && { justifyContent: "center" },
+            error.length > 0 && [
+              {
+                borderColor: colors.borderErrorDefault,
+                backgroundColor: colors.surfacePrimaryDefault,
+              },
+            ],
             style,
           ]}
-          disabled={isLoading}
         >
-          <Spacer width={left ? SPACE_12 : SPACE_16} />
-          {!isLoading && left}
-          {left && <Spacer width={SPACE_8} />}
-          {isLoading ? (
-            <ActivityIndicator
-              color={
-                textStyle?.color ||
-                textProps?.color ||
-                colors.borderBrandDefault
-              }
-            />
-          ) : (
+          <Spacer width={SPACE_12} />
+
+          <View full>
+            <Text
+              color={labelColor || colors.textSecondary}
+              style={[
+                styles.text12,
+                disabled && {
+                  color: colors.textPlaceholder,
+                },
+                error.length > 0 && {
+                  color: colors.textErrorDefault,
+                },
+              ]}
+            >
+              {label}
+            </Text>
             <Text
               numberOfLines={1}
-              color={textColor || colors.textOnFillDefault}
+              color={textColor || colors.textDefault}
               size={size}
-              bold={bold}
-              medium={medium}
               style={[disabled && disabledTextStyle, textStyle]}
               {...textProps}
             >
-              {title}
+              {content}
             </Text>
-          )}
-          {right && <Spacer width={SPACE_8} />}
-          {!isLoading && right}
-          <Spacer width={right ? SPACE_12 : SPACE_16} />
+          </View>
+
+          {right || <Icon name="IconArrowDown" type="Svg" size={24} />}
+          <Spacer width={SPACE_12} />
         </View>
       </ScaleButton>
+      {error.length > 0 && (
+        <View paddingHorizontal={SPACE_12} paddingVertical={SPACE_4}>
+          <Text style={styles.text12} color={colors.textErrorDefault}>
+            {error}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
+  ...containerStyles,
   disabled: { opacity: 0.6 },
-  button: {
-    height: BUTTON_HEIGHT,
+  container: {
+    minHeight: BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingVertical: SPACE_6,
   },
   border: {
     borderWidth: BORDER_WIDTH_1,
-    backgroundColor: "transparent",
   },
   small: {
     height: BUTTON_HEIGHT_SMALL,
   },
 });
 
-export default React.memo(Button);
+export default React.memo(SelectionField);

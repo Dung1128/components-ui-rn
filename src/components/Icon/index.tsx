@@ -8,7 +8,10 @@ import { BORDER_RADIUS_8 } from "../../theme/dimensions";
 import SvgIcon from "../IconSvg";
 import IconCheckboxActive from "../../icons/IconCheckboxActive";
 import IconCheckbox from "../../icons/IconCheckbox";
-
+import IconRadio from "@/icons/IconRadio";
+import IconRadioActive from "@/icons/IconRadioActive";
+import IconRadioDisable from "@/icons/IconRadioDisable";
+import IconArrowDown from "@/icons/IconArrowDown";
 export type IconType =
   | "FontAwesome"
   | "Image"
@@ -18,7 +21,13 @@ export type IconType =
   | "Svg";
 
 export interface IconProps {
-  name: "IconCheckboxActive" | "IconCheckbox";
+  name:
+    | "IconCheckboxActive"
+    | "IconCheckbox"
+    | "IconRadio"
+    | "IconRadioActive"
+    | "IconRadioDisable"
+    | "IconArrowDown";
   backgroundColor?: string;
   size?: number;
   color?: string;
@@ -59,13 +68,30 @@ const Icon: React.FC<IconProps> = ({
 
   const IconComponent = useMemo(() => getIconComponent(type), [type]);
 
+  const renderName = () => {
+    switch (name) {
+      case "IconCheckboxActive":
+        return IconCheckboxActive;
+      case "IconCheckbox":
+        return IconCheckbox;
+      case "IconRadio":
+        return IconRadio;
+      case "IconRadioActive":
+        return IconRadioActive;
+      case "IconRadioDisable":
+        return IconRadioDisable;
+      case "IconArrowDown":
+        return IconArrowDown;
+      default:
+        return IconCheckbox;
+    }
+  };
+
   const renderIcon = () => {
     if (type === "Svg") {
       return (
         <SvgIcon
-          name={
-            name === "IconCheckboxActive" ? IconCheckboxActive : IconCheckbox
-          }
+          name={renderName()}
           width={size}
           height={size}
           color={color || colors.iconPrimaryDefault}

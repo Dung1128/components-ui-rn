@@ -6,7 +6,7 @@ import {
   Switch as NativeSwitch,
   ViewStyle,
 } from "react-native";
-
+import View from "../View";
 import { getSwitchColor } from "./utils";
 import { useInternalTheme } from "../../core/theming";
 import type { ThemeProp } from "../../types";
@@ -95,13 +95,15 @@ const Switch = ({
         };
 
   return (
-    <NativeSwitch
-      value={value}
-      disabled={disabled}
-      onValueChange={disabled ? undefined : onValueChange}
-      {...props}
-      {...rest}
-    />
+    <View row>
+      <NativeSwitch
+        value={value}
+        disabled={disabled}
+        onValueChange={disabled ? undefined : onValueChange}
+        {...props}
+        {...rest}
+      />
+    </View>
   );
 };
 
