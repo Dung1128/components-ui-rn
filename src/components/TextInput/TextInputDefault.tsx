@@ -123,7 +123,7 @@ const TextInputDefault = ({
           },
         ]}
       >
-        {left && <View paddingLeft={SPACE_12}>{left}</View>}
+        {<View paddingLeft={SPACE_12}>{left}</View>}
         {left && <Spacer width={SPACE_8} />}
         {render?.({
           ...rest,
@@ -154,6 +154,7 @@ const TextInputDefault = ({
                 : I18nManager.getConstants().isRTL
                 ? "right"
                 : "left",
+              height: height ? height : 48,
             },
             contentStyle,
           ],
@@ -162,7 +163,9 @@ const TextInputDefault = ({
           <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
             <Icon name={"IconClearText"} type="Svg" size={24} />
           </TouchableOpacity>
-        ) : null}
+        ) : (
+          <Spacer width={SPACE_12} />
+        )}
         {right && <Spacer width={SPACE_8} />}
         {right && <View paddingRight={SPACE_12}>{right}</View>}
       </View>
