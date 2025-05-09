@@ -1,6 +1,7 @@
-import { ThemeProp } from "../../../types";
 import * as React from "react";
 import { Animated, StyleSheet, StyleProp, ViewStyle } from "react-native";
+
+import { ThemeProp } from "../../../types";
 
 type UnderlineProps = {
   parentState: {

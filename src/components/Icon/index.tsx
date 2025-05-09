@@ -8,10 +8,12 @@ import { BORDER_RADIUS_8 } from "../../theme/dimensions";
 import SvgIcon from "../IconSvg";
 import IconCheckboxActive from "../../icons/IconCheckboxActive";
 import IconCheckbox from "../../icons/IconCheckbox";
-import IconRadio from "@/icons/IconRadio";
-import IconRadioActive from "@/icons/IconRadioActive";
-import IconRadioDisable from "@/icons/IconRadioDisable";
-import IconArrowDown from "@/icons/IconArrowDown";
+import IconRadio from "../../icons/IconRadio";
+import IconRadioActive from "../../icons/IconRadioActive";
+import IconRadioDisable from "../../icons/IconRadioDisable";
+import IconArrowDown from "../../icons/IconArrowDown";
+import IconClearText from "../../icons/IconClearText";
+
 export type IconType =
   | "FontAwesome"
   | "Image"
@@ -27,7 +29,8 @@ export interface IconProps {
     | "IconRadio"
     | "IconRadioActive"
     | "IconRadioDisable"
-    | "IconArrowDown";
+    | "IconArrowDown"
+    | "IconClearText";
   backgroundColor?: string;
   size?: number;
   color?: string;
@@ -82,6 +85,8 @@ const Icon: React.FC<IconProps> = ({
         return IconRadioDisable;
       case "IconArrowDown":
         return IconArrowDown;
+      case "IconClearText":
+        return IconClearText;
       default:
         return IconCheckbox;
     }

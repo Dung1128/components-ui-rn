@@ -169,10 +169,10 @@ const Toast = memoWithRef(
         style={[
           styles.container,
           options.position === POSITION.BOTTOM && {
-            bottom: bottom,
+            bottom: bottom ? bottom : SPACE_16,
           },
           options.position === POSITION.TOP && {
-            top: top,
+            top: top ? top : SPACE_16,
           },
         ]}
       >

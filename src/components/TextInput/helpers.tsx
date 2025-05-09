@@ -280,11 +280,10 @@ export const calculateFlatInputHorizontalPadding = ({
 }: {
   adornmentConfig: AdornmentConfig[];
 }) => {
-  const { LABEL_PADDING_HORIZONTAL, ADORNMENT_OFFSET, FLAT_INPUT_OFFSET } =
-    getConstants();
+  const { ADORNMENT_OFFSET, FLAT_INPUT_OFFSET } = getConstants();
 
-  let paddingLeft = LABEL_PADDING_HORIZONTAL;
-  let paddingRight = LABEL_PADDING_HORIZONTAL;
+  let paddingLeft = 0;
+  let paddingRight = 0;
 
   adornmentConfig.forEach(({ type, side }) => {
     if (type === AdornmentType.Icon && side === AdornmentSide.Left) {
@@ -318,10 +317,10 @@ const getInputTextColor = ({
   }
 
   if (disabled) {
-    return theme.colors.surfaceCriticalDisabled;
+    return theme.colors.textSecondary;
   }
 
-  return theme.colors.backgroundPrimary;
+  return theme.colors.textDefault;
 };
 
 const getActiveColor = ({
@@ -352,12 +351,12 @@ const getActiveColor = ({
     return theme.colors.surfaceCriticalDisabled;
   }
 
-  return "#0088FF";
+  return theme.colors.surfaceBrandDefault;
 };
 
 const getPlaceholderColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return theme.colors.surfaceCriticalDisabled;
+    return theme.colors.textPlaceholder;
   }
 
   return theme.colors.textSecondary;
@@ -383,9 +382,9 @@ const getSelectionColor = ({
 
 const getFlatBackgroundColor = ({ theme, disabled }: BaseProps) => {
   if (disabled) {
-    return color(theme.colors.backgroundPrimary).alpha(0.04).rgb().string();
+    return theme.colors.surfacePrimaryDisabled;
   } else {
-    return "WHITE";
+    return theme.colors.surfacePrimaryDefault;
   }
 };
 
@@ -399,10 +398,10 @@ const getFlatUnderlineColor = ({
   }
 
   if (disabled) {
-    return theme.colors.surfaceCriticalDisabled;
+    return theme.colors.surfacePrimaryDisabled;
   }
 
-  return theme.colors.textSecondary;
+  return theme.colors.surfacePrimaryDefault;
 };
 
 const getOutlinedOutlineInputColor = ({

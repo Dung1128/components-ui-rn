@@ -93,6 +93,7 @@ export type ChildTextInputProps = {
   onLabelTextLayout: (event: NativeSyntheticEvent<TextLayoutEventData>) => void;
   onLeftAffixLayoutChange: (event: LayoutChangeEvent) => void;
   onRightAffixLayoutChange: (event: LayoutChangeEvent) => void;
+  clearButton?: boolean;
 } & $Omit<TextInputTypesWithoutMode, "theme"> & { theme: InternalTheme };
 
 export type LabelProps = {

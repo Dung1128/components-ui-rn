@@ -1,4 +1,3 @@
-import color from 'color';
 
 import type { InternalTheme } from '../../../types';
 
@@ -9,9 +8,9 @@ type BaseProps = {
 
 export function getTextColor({ theme, disabled }: BaseProps) {
     if (disabled) {
-      return theme.colors.surfaceCriticalDisabled;
+      return theme.colors.textSecondary;
     }
-    return theme.colors.textSecondary;
+    return theme.colors.textDefault;
  
 }
 
@@ -32,10 +31,9 @@ export function getIconColor({
   }
 
 
-
   if (disabled) {
-    return theme.colors.surfaceCriticalDisabled;
+    return theme.colors.textBrandDefault;
   }
 
-  return theme.colors.textSecondary;
+  return theme.colors.textDefault;
 }

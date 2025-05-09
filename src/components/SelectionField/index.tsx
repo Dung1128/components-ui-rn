@@ -49,7 +49,7 @@ export interface SelectionFieldProps extends TouchableOpacityProps {
 const SelectionField = ({
   style,
   content = "content",
-  label = "label",
+  label = "",
   error = "",
   borderColor,
   left,
@@ -108,20 +108,22 @@ const SelectionField = ({
           <Spacer width={SPACE_12} />
 
           <View full>
-            <Text
-              color={labelColor || colors.textSecondary}
-              style={[
-                styles.text12,
-                disabled && {
-                  color: colors.textPlaceholder,
-                },
-                error.length > 0 && {
-                  color: colors.textErrorDefault,
-                },
-              ]}
-            >
-              {label}
-            </Text>
+            {label.toString() !== "" && (
+              <Text
+                color={labelColor || colors.textSecondary}
+                style={[
+                  styles.text12,
+                  disabled && {
+                    color: colors.textPlaceholder,
+                  },
+                  error.length > 0 && {
+                    color: colors.textErrorDefault,
+                  },
+                ]}
+              >
+                {label}
+              </Text>
+            )}
             <Text
               numberOfLines={1}
               color={textColor || colors.textDefault}
@@ -133,7 +135,7 @@ const SelectionField = ({
             </Text>
           </View>
 
-          {right || <Icon name="IconArrowDown" type="Svg" size={24} />}
+          {right || <Icon name={"IconArrowDown"} type="Svg" size={24} />}
           <Spacer width={SPACE_12} />
         </View>
       </ScaleButton>

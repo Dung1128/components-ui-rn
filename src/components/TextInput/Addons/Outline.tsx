@@ -38,10 +38,10 @@ export const Outline = ({
       !label && styles.noLabelOutline,
       // eslint-disable-next-line react-native/no-inline-styles
       {
-        backgroundColor,
-        borderRadius: roundness,
-        borderWidth: hasActiveOutline ? 2 : 1,
-        borderColor: hasActiveOutline ? activeColor : outlineColor,
+        // backgroundColor,
+        // borderRadius: roundness,
+        // borderWidth: 1,
+        // borderColor: hasActiveOutline ? activeColor : outlineColor,
       },
       style,
     ]}

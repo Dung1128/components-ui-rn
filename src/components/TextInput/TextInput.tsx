@@ -15,7 +15,7 @@ import TextInputAffix, {
 } from "./Adornment/TextInputAffix";
 
 import TextInputFlat from "./TextInputFlat";
-import TextInputOutlined from "./TextInputOutlined";
+import TextInputDefault from "./TextInputDefault";
 import type { RenderProps, TextInputLabelProp } from "./types";
 import { useInternalTheme } from "../../core/theming";
 import type { ThemeProp } from "../../types";
@@ -26,15 +26,7 @@ const BLUR_ANIMATION_DURATION = 180;
 const FOCUS_ANIMATION_DURATION = 150;
 
 export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
-  /**
-   * Mode of the TextInput.
-   * - `flat` - flat input with an underline.
-   * - `outlined` - input with an outline.
-   *
-   * In `outlined` mode, the background color of the label is derived from `colors?.background` in theme or the `backgroundColor` style.
-   * This component render TextInputOutlined or TextInputFlat based on that props
-   */
-  mode?: "flat" | "outlined";
+  mode?: "flat" | "default";
   left?: React.ReactNode;
   right?: React.ReactNode;
   /**
@@ -88,6 +80,8 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
    * Color of the text in the input.
    */
   textColor?: string;
+
+  placeholderTextColor?: string;
   /**
    * Sets min height with densed layout. For `TextInput` in `flat` mode
    * height is `64dp` or in dense layout - `52dp` with label or `40dp` without label.
@@ -170,6 +164,8 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
    * Example: `borderRadius`, `borderColor`
    */
   underlineStyle?: StyleProp<ViewStyle>;
+  minHeight?: number;
+  clearButton?: boolean;
 };
 
 interface CompoundedComponent
@@ -223,6 +219,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       contentStyle,
       render = DefaultRenderer,
       theme: themeOverrides,
+      placeholderTextColor,
+      clearButton,
       ...rest
     }: Props,
     ref
@@ -472,9 +470,9 @@ const TextInput = forwardRef<TextInputHandles, Props>(
 
     const scaledLabel = !!(value || focused);
 
-    if (mode === "outlined") {
+    if (mode === "default") {
       return (
-        <TextInputOutlined
+        <TextInputDefault
           dense={dense}
           disabled={disabled}
           error={errorProp}
@@ -484,6 +482,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           {...rest}
           theme={theme}
           value={value}
+          placeholderTextColor={placeholderTextColor}
+          clearButton={clearButton}
           parentState={{
             labeled,
             error,
@@ -523,6 +523,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         error={errorProp}
         multiline={multiline}
         editable={editable}
+        clearButton={clearButton}
         render={render}
         {...rest}
         theme={theme}

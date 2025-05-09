@@ -1,5 +1,5 @@
 export const MAXIMIZED_LABEL_FONT_SIZE = 14;
-export const MINIMIZED_LABEL_FONT_SIZE = 9;
+export const MINIMIZED_LABEL_FONT_SIZE = 12;
 export const LABEL_WIGGLE_X_OFFSET = 4;
 
 export const ADORNMENT_SIZE = 24;

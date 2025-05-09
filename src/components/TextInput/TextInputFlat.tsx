@@ -7,19 +7,11 @@ import {
   TextStyle,
   View,
   Animated,
+  TouchableOpacity,
 } from "react-native";
 
-import { Underline } from "./Addons/Underline";
-import { AdornmentSide, AdornmentType, InputMode } from "./Adornment/enums";
-import TextInputAdornment, {
-  TextInputAdornmentProps,
-} from "./Adornment/TextInputAdornment";
+import { getAdornmentConfig } from "./Adornment/TextInputAdornment";
 import {
-  getAdornmentConfig,
-  getAdornmentStyleAdjustmentForNativeInput,
-} from "./Adornment/TextInputAdornment";
-import {
-  ADORNMENT_SIZE,
   LABEL_PADDING_TOP_DENSE,
   LABEL_WIGGLE_X_OFFSET,
   MAXIMIZED_LABEL_FONT_SIZE,
@@ -30,7 +22,6 @@ import {
 } from "./constants";
 import {
   adjustPaddingFlat,
-  calculateFlatAffixTopPosition,
   calculateFlatInputHorizontalPadding,
   calculateInputHeight,
   calculateLabelTopPosition,
@@ -42,6 +33,9 @@ import {
 import InputLabel from "./Label/InputLabel";
 import type { ChildTextInputProps, RenderProps } from "./types";
 import { Outline } from "./Addons/Outline";
+import Spacer from "../Spacer";
+import { BORDER_RADIUS_6, SPACE_12, SPACE_8 } from "@/theme/dimensions";
+import Icon from "../Icon";
 
 const TextInputFlat = ({
   disabled = false,
@@ -73,20 +67,36 @@ const TextInputFlat = ({
   left,
   right,
   placeholderTextColor,
-  testID = "text-input-flat",
+  clearButton,
   contentStyle,
   scaledLabel,
   outlineStyle,
   outlineColor,
+  value,
   ...rest
 }: ChildTextInputProps) => {
+  const [inputValue, setInputValue] = React.useState(value || "");
+
+  React.useEffect(() => {
+    setInputValue(value || "");
+  }, [value]);
+
+  const handleChangeText = (text: string) => {
+    setInputValue(text);
+    onChangeText?.(text);
+  };
+
+  const handleClear = () => {
+    setInputValue("");
+    onChangeText?.("");
+  };
+
   const isAndroid = Platform.OS === "android";
   const { roundness } = theme;
   const font = theme.fonts.bodyLarge;
   const hasActiveOutline = parentState.focused || error;
 
-  const { LABEL_PADDING_TOP, FLAT_INPUT_OFFSET, MIN_HEIGHT, MIN_WIDTH } =
-    getConstants();
+  const { LABEL_PADDING_TOP, FLAT_INPUT_OFFSET, MIN_HEIGHT } = getConstants();
 
   const {
     fontSize: fontSizeStyle,
@@ -118,30 +128,9 @@ const TextInputFlat = ({
     paddingRight = paddingHorizontal as number;
   }
 
-  const { leftLayout, rightLayout } = parentState;
-
-  const rightAffixWidth = right
-    ? rightLayout.width || ADORNMENT_SIZE
-    : ADORNMENT_SIZE;
-
-  const leftAffixWidth = left
-    ? leftLayout.width || ADORNMENT_SIZE
-    : ADORNMENT_SIZE;
-
-  const adornmentStyleAdjustmentForNativeInput =
-    getAdornmentStyleAdjustmentForNativeInput({
-      adornmentConfig,
-      rightAffixWidth,
-      leftAffixWidth,
-      paddingHorizontal,
-      inputOffset: FLAT_INPUT_OFFSET,
-      mode: InputMode.Flat,
-    });
-
   const {
     inputTextColor,
     activeColor,
-    underlineColorCustom,
     placeholderColor,
     errorColor,
     backgroundColor,
@@ -241,28 +230,6 @@ const TextInputFlat = ({
     height ||
     (dense ? (label ? MIN_DENSE_HEIGHT_WL : MIN_DENSE_HEIGHT) : MIN_HEIGHT);
 
-  const flatHeight =
-    inputHeight +
-    (!height ? (dense ? LABEL_PADDING_TOP_DENSE : LABEL_PADDING_TOP) : 0);
-
-  const iconTopPosition = (flatHeight - ADORNMENT_SIZE) / 2;
-
-  const leftAffixTopPosition = leftLayout.height
-    ? calculateFlatAffixTopPosition({
-        height: flatHeight,
-        ...paddingFlat,
-        affixHeight: leftLayout.height,
-      })
-    : null;
-
-  const rightAffixTopPosition = rightLayout.height
-    ? calculateFlatAffixTopPosition({
-        height: flatHeight,
-        ...paddingFlat,
-        affixHeight: rightLayout.height,
-      })
-    : null;
-
   const labelProps = {
     label,
     onLayoutAnimatedText,
@@ -295,7 +262,6 @@ const TextInputFlat = ({
     errorColor,
     roundness,
     maxFontSizeMultiplier: rest.maxFontSizeMultiplier,
-    testID,
     contentStyle,
     inputContainerLayout: parentState.inputContainerLayout,
     labelTextLayout: parentState.labelTextLayout,
@@ -307,40 +273,35 @@ const TextInputFlat = ({
         : 1,
   };
 
-  const affixTopPosition = {
-    [AdornmentSide.Left]: leftAffixTopPosition,
-    [AdornmentSide.Right]: rightAffixTopPosition,
+  const getBorderColor = () => {
+    if (disabled) {
+      return theme.colors.surfacePrimaryDisabled;
+    } else if (parentState.focused) {
+      return activeColor;
+    } else {
+      return theme.colors.borderPrimaryDefault;
+    }
   };
-  const onAffixChange = {
-    [AdornmentSide.Left]: onLeftAffixLayoutChange,
-    [AdornmentSide.Right]: onRightAffixLayoutChange,
-  };
-
-  let adornmentProps: TextInputAdornmentProps = {
-    paddingHorizontal,
-    adornmentConfig,
-    forceFocus,
-    topPosition: {
-      [AdornmentType.Affix]: affixTopPosition,
-      [AdornmentType.Icon]: iconTopPosition,
-    },
-    onAffixChange,
-    isTextInputFocused: parentState.focused,
-    maxFontSizeMultiplier: rest.maxFontSizeMultiplier,
-    disabled,
-  };
-  if (adornmentConfig.length) {
-    adornmentProps = {
-      ...adornmentProps,
-      left,
-      right,
-      textStyle: { ...font, fontSize, lineHeight, fontWeight },
-      visible: parentState.labeled,
-    };
-  }
 
   return (
-    <View style={[containerStyle, viewStyle]}>
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        borderRadius: BORDER_RADIUS_6,
+        borderWidth: 1,
+        borderColor: getBorderColor(),
+        height: 48,
+        overflow: "hidden",
+        backgroundColor: disabled
+          ? theme.colors.surfacePrimaryDisabled
+          : theme.colors.surfacePrimaryDefault,
+      }}
+    >
+      <View style={{ flexDirection: "row" }}>
+        {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
+        {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
+      </View>
       <Outline
         style={outlineStyle}
         label={label}
@@ -351,30 +312,19 @@ const TextInputFlat = ({
         outlineColor={outlineColor}
         backgroundColor={backgroundColor}
       />
-      {/* <Underline
-        style={underlineStyle}
-        hasActiveOutline={hasActiveOutline}
-        parentState={parentState}
-        underlineColorCustom={underlineColorCustom}
-        error={error}
-        colors={colors}
-        activeColor={activeColor}
-        theme={theme}
-      /> */}
+
       <View
         onLayout={onInputLayout}
         style={[
           styles.labelContainer,
           {
             minHeight,
+            flex: 1,
           },
         ]}
       >
         {!isAndroid && multiline && !!label && !disabled && (
-          // Workaround for: https://github.com/callstack/react-native-paper/issues/2799
-          // Patch for a multiline TextInput with fixed height, which allow to avoid covering input label with its value.
           <View
-            testID="patch-container"
             pointerEvents="none"
             style={[
               StyleSheet.absoluteFill,
@@ -404,7 +354,8 @@ const TextInputFlat = ({
         {render?.({
           ...rest,
           ref: innerRef,
-          onChangeText,
+          onChangeText: handleChangeText,
+          value: inputValue,
           placeholder: rest.placeholder,
           editable: !disabled && editable,
           selectionColor,
@@ -417,11 +368,11 @@ const TextInputFlat = ({
           multiline,
           style: [
             styles.input,
-            multiline && height ? { height: flatHeight } : {},
-            paddingFlat,
+            // paddingFlat,
             {
               paddingLeft,
               paddingRight,
+              paddingTop: SPACE_12,
               ...font,
               fontSize,
               lineHeight,
@@ -433,19 +384,21 @@ const TextInputFlat = ({
                 : I18nManager.getConstants().isRTL
                 ? "right"
                 : "left",
-              minWidth: Math.min(
-                parentState.labelTextLayout.width + 2 * FLAT_INPUT_OFFSET,
-                MIN_WIDTH
-              ),
             },
             Platform.OS === "web" && { outline: "none" },
-            adornmentStyleAdjustmentForNativeInput,
             contentStyle,
           ],
-          testID,
-        })}
+        } as RenderProps)}
       </View>
-      <TextInputAdornment {...adornmentProps} />
+      {!disabled && clearButton && inputValue ? (
+        <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
+          <Icon name={"IconClearText"} type="Svg" size={24} />
+        </TouchableOpacity>
+      ) : null}
+      <View style={{ flexDirection: "row" }}>
+        {right ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
+        {right && <View style={{ paddingRight: SPACE_12 }}>{right}</View>}
+      </View>
     </View>
   );
 };
@@ -460,11 +413,12 @@ const styles = StyleSheet.create({
   labelContainer: {
     paddingTop: 0,
     paddingBottom: 0,
-    flexGrow: 1,
+    // flex: 1,
   },
   input: {
-    margin: 0,
-    flexGrow: 1,
+    // margin: 0,
+    flex: 1,
+    height: 48,
   },
   inputFlat: {
     paddingTop: 24,
@@ -481,5 +435,8 @@ const styles = StyleSheet.create({
   densePatchContainer: {
     height: 22,
     zIndex: 2,
+  },
+  clearButton: {
+    padding: SPACE_8,
   },
 });
