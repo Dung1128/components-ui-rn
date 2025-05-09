@@ -3,7 +3,7 @@
 
 Component sử dụng các thuộc tính đã được định nghĩa sẵn, ngoài ra người dùng có thể custom lại style
 
-```json
+```
     style: custom style riêng cho component
     title: Tiêu đề của button
     borderColor
