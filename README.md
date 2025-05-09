@@ -44,35 +44,26 @@ function MyComponent() {
 
 Thư viện bao gồm các components sau:
 
-- Button
-- Card
-- Text
-- TextInput
-- ActivityIndicator
-- Avatar
-- Badge
-- Banner
-- BottomNavigation
-- Checkbox
-- Chip
-- Dialog
-- Divider
-- FAB
-- IconButton
-- Menu
-- Modal
-- Portal
-- ProgressBar
-- RadioButton
-- Searchbar
-- Snackbar
-- Surface
-- Switch
-
+- [Button](Button.md)
+- [ButtonIcon](ButtonIcon.md)
+- [Text](Text.md)
+- [TextInput](TextInput.md)
+- [Avatar](Avatar.md)
+- [Badge](Badge.md)
+- [Checkbox](Checkbox.md)
+- [ChipBar](ChipBar.md)
+- [RadioButton](RadioButton.md)
+- [Switch](Switch.md)
+- [CountingDot](CountingDot.md)
+- [FloatingButton](FloatingButton.md)
+- [Image](Image.md)
+- [Spacer](Spacer.md)
+- [View](View.md)
+<!-- 
 ## Đóng góp
 
-Chúng tôi rất hoan nghênh mọi đóng góp! Vui lòng xem [hướng dẫn đóng góp](CONTRIBUTING.md) để biết thêm chi tiết.
+Chúng tôi rất hoan nghênh mọi đóng góp! Vui lòng xem [hướng dẫn đóng góp](CONTRIBUTING.md) để biết thêm chi tiết. -->
 
 ## Giấy phép
 
-MIT 
+Sapo.vn 
