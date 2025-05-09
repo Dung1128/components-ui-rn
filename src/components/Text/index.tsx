@@ -1,6 +1,5 @@
 import React from "react";
-import { Text as TextRN, TextProps, StyleSheet } from "react-native";
-
+import { Text as TextRN, TextProps, StyleSheet, Platform } from "react-native";
 import { memoDeepEqual } from "../../utils/function-utils";
 import colors from "../../theme/colors";
 import { useInternalTheme } from "../../core/theming";
@@ -10,6 +9,8 @@ export interface IText extends TextProps {
   size?: number;
   color?: string;
   center?: boolean;
+  bold?: boolean;
+  medium?: boolean;
   children?: any;
   theme?: ThemeProp;
 }
@@ -25,7 +26,7 @@ const Text = (props: IText) => {
       color: colors.ink.INK100,
       fontFamily: "Inter-Regular",
     };
-    const { size = 14, center, color } = props;
+    const { size = 14, center, color, bold, medium } = props;
     style.color = theme.colors.textDefault || "black";
     if (size) {
       style.fontSize = size;
@@ -35,6 +36,18 @@ const Text = (props: IText) => {
     }
     if (center) {
       style.textAlign = "center";
+    }
+    if (bold) {
+      style.fontFamily = "Inter-Bold";
+      if (Platform.OS === "ios") {
+        style.fontWeight = "bold";
+      }
+    }
+    if (medium) {
+      style.fontFamily = "Inter-SemiBold";
+      if (Platform.OS === "ios") {
+        style.fontWeight = "600";
+      }
     }
     return StyleSheet.create({ style }).style;
   };

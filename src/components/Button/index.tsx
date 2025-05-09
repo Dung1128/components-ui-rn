@@ -21,7 +21,7 @@ import {
   SPACE_8,
 } from "@/theme/dimensions";
 import ScaleButton from "../ScaleButton";
-import Text, { IText } from "../Text";
+import Text from "../Text";
 import View from "../View";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
@@ -29,7 +29,6 @@ import Spacer from "../Spacer";
 
 export interface ButtonProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
-  border?: boolean;
   borderColor?: string;
   title?: string;
   backgroundColor?: string;
@@ -37,8 +36,6 @@ export interface ButtonProps extends TouchableOpacityProps {
   left?: React.ReactNode;
   right?: React.ReactNode;
   small?: boolean;
-  margin?: Number;
-  textProps?: IText;
   textColor?: string;
   bold?: boolean;
   size?: number;
@@ -51,15 +48,12 @@ export interface ButtonProps extends TouchableOpacityProps {
 const Button = ({
   style,
   title,
-  border,
   borderColor,
   isLoading,
   left,
   right,
   small,
-  margin,
   textStyle,
-  textProps,
   onPress,
   disabled,
   backgroundColor,
@@ -130,11 +124,7 @@ const Button = ({
           {left && <Spacer width={SPACE_8} />}
           {isLoading ? (
             <ActivityIndicator
-              color={
-                textStyle?.color ||
-                textProps?.color ||
-                colors.borderBrandDefault
-              }
+              color={textStyle?.color || colors.borderBrandDefault}
             />
           ) : (
             <Text
@@ -144,7 +134,6 @@ const Button = ({
               bold={bold}
               medium={medium}
               style={[disabled && disabledTextStyle, textStyle]}
-              {...textProps}
             >
               {title}
             </Text>
