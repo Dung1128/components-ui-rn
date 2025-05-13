@@ -10,15 +10,7 @@ import {
   TextStyle,
 } from "react-native";
 
-import {
-  BUTTON_HEIGHT,
-  BUTTON_HEIGHT_SMALL,
-  SPACE_12,
-  BORDER_RADIUS_6,
-  BORDER_WIDTH_1,
-  SPACE_6,
-  SPACE_4,
-} from "@/theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import ScaleButton from "../ScaleButton";
 import Text, { IText } from "../Text";
 import View from "../View";
@@ -84,7 +76,7 @@ const SelectionField = ({
           style={[
             styles.container,
             {
-              borderRadius: BORDER_RADIUS_6,
+              borderRadius: CONSTANTS.BORDER_RADIUS_6,
             },
 
             [styles.border, { borderColor: colors.borderBrandDefault }],
@@ -105,7 +97,7 @@ const SelectionField = ({
             style,
           ]}
         >
-          <Spacer width={SPACE_12} />
+          <Spacer width={CONSTANTS.SPACE_12} />
 
           <View full>
             {label.toString() !== "" && (
@@ -136,11 +128,14 @@ const SelectionField = ({
           </View>
 
           {right || <Icon name={"IconArrowDown"} type="Svg" size={24} />}
-          <Spacer width={SPACE_12} />
+          <Spacer width={CONSTANTS.SPACE_12} />
         </View>
       </ScaleButton>
       {error.length > 0 && (
-        <View paddingHorizontal={SPACE_12} paddingVertical={SPACE_4}>
+        <View
+          paddingHorizontal={CONSTANTS.SPACE_12}
+          paddingVertical={CONSTANTS.SPACE_4}
+        >
           <Text style={styles.text12} color={colors.textErrorDefault}>
             {error}
           </Text>
@@ -154,17 +149,17 @@ const styles = StyleSheet.create({
   ...containerStyles,
   disabled: { opacity: 0.6 },
   container: {
-    minHeight: BUTTON_HEIGHT,
+    minHeight: CONSTANTS.BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: SPACE_6,
+    paddingVertical: CONSTANTS.SPACE_6,
   },
   border: {
-    borderWidth: BORDER_WIDTH_1,
+    borderWidth: CONSTANTS.BORDER_WIDTH_1,
   },
   small: {
-    height: BUTTON_HEIGHT_SMALL,
+    height: CONSTANTS.BUTTON_HEIGHT_SMALL,
   },
 });
 

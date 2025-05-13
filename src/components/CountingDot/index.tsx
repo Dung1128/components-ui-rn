@@ -1,7 +1,7 @@
 import React from "react";
 import View from "../View";
 import Text from "../Text";
-import { BORDER_RADIUS_12, SPACE_2, SPACE_4 } from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import { useInternalTheme } from "../../core/theming";
 import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import containerStyles from "../../theme/container-styles";
@@ -34,10 +34,10 @@ const CountingDot = ({
     <View row>
       <View
         center
-        borderRadius={BORDER_RADIUS_12}
+        borderRadius={CONSTANTS.BORDER_RADIUS_12}
         backgroundColor={backgroundColor || colors.surfaceCriticalDefault}
-        paddingHorizontal={SPACE_4}
-        paddingVertical={SPACE_2}
+        paddingHorizontal={CONSTANTS.SPACE_4}
+        paddingVertical={CONSTANTS.SPACE_2}
         style={[styles.container, style]}
       >
         <Text

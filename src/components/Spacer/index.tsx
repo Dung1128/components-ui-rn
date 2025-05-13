@@ -1,6 +1,6 @@
 import React from "react";
 import View from "../View";
-import { SPACE_16, SPACE_12 } from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import { StyleProp, ViewStyle } from "react-native";
 interface SpacerProps {
   width?: number;
@@ -10,8 +10,8 @@ interface SpacerProps {
 
 const Spacer = ({
   style,
-  width = SPACE_16,
-  height = SPACE_12,
+  width = CONSTANTS.SPACE_16,
+  height = CONSTANTS.SPACE_12,
 }: SpacerProps) => {
   return <View width={width} height={height} style={[style]} />;
 };

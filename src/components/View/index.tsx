@@ -1,4 +1,3 @@
-import { useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   StyleSheet,
@@ -24,7 +23,6 @@ interface ViewProps {
   padding?: number;
   paddingHorizontal?: number;
   paddingVertical?: number;
-  useThemeColor?: boolean | "light";
   disabled?: boolean;
   activeOpacity?: number;
   paddingBottom?: number;
@@ -57,7 +55,6 @@ const ViewCustom = ({
   padding,
   paddingHorizontal,
   paddingVertical,
-  useThemeColor,
   marginHorizontal,
   marginVertical,
   paddingLeft,
@@ -75,8 +72,6 @@ const ViewCustom = ({
   activeOpacity,
   children,
 }: ViewProps) => {
-  const { colors }: any = useTheme();
-
   const getStyle = () => {
     const styleCustom: any = {};
 
@@ -160,13 +155,6 @@ const ViewCustom = ({
       styleCustom.borderColor = borderColor;
     }
 
-    if (useThemeColor) {
-      if (useThemeColor === "light") {
-        styleCustom.backgroundColor = colors.backgroundLight || "white";
-      } else {
-        styleCustom.backgroundColor = colors.background || "white";
-      }
-    }
     return StyleSheet.create({ styleCustom }).styleCustom;
   };
 

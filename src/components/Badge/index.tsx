@@ -1,12 +1,7 @@
 import React from "react";
 import View from "../View";
 import Text from "../Text";
-import {
-  BORDER_RADIUS_12,
-  BORDER_WIDTH_1,
-  SPACE_8,
-  SPACE_4,
-} from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import { useInternalTheme } from "../../core/theming";
 import { StyleProp, ViewStyle, TextStyle } from "react-native";
 interface BadgeProps {
@@ -37,12 +32,12 @@ const Badge = ({
   return (
     <View row>
       <View
-        borderRadius={BORDER_RADIUS_12}
-        borderWidth={BORDER_WIDTH_1}
+        borderRadius={CONSTANTS.BORDER_RADIUS_12}
+        borderWidth={CONSTANTS.BORDER_WIDTH_1}
         borderColor={borderColor || colors.borderPrimaryDefault}
         backgroundColor={backgroundColor || colors.surfaceSecondaryDefault}
-        paddingHorizontal={SPACE_8}
-        paddingVertical={SPACE_4}
+        paddingHorizontal={CONSTANTS.SPACE_8}
+        paddingVertical={CONSTANTS.SPACE_4}
         style={style}
       >
         <Text

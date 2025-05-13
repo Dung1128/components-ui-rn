@@ -4,7 +4,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useInternalTheme } from "../../core/theming";
-import { BORDER_RADIUS_8 } from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import SvgIcon from "../IconSvg";
 import IconCheckboxActive from "../../icons/IconCheckboxActive";
 import IconCheckbox from "../../icons/IconCheckbox";
@@ -121,7 +121,7 @@ const Icon: React.FC<IconProps> = ({
           {
             width: size,
             height: size,
-            borderRadius: BORDER_RADIUS_8,
+            borderRadius: CONSTANTS.BORDER_RADIUS_8,
           },
           style,
         ]}

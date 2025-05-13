@@ -23,7 +23,7 @@ export const DarkTheme: AppTheme = {
       level5: "rgb(52, 49, 63)",
     },
     //new theme colors
-    backgroundPrimary: ink.INK5,
+    backgroundPrimary: ink.INK100,
     backgroundSecondary: white.WHITE100,
     borderBrandDefault: blue.BLUE100,
     borderCriticalDefault: red.RED100,
@@ -104,7 +104,7 @@ export const DarkTheme: AppTheme = {
     surfaceWarningInverseHover: yellow.YELLOW20,
     surfaceWarningInversePressed: yellow.YELLOW40,
     surfaceWarningPressed: yellow.YELLOW120,
-    textDefault: ink.INK100,
+    textDefault: ink.INK5,
     textDisabled: ink.INK20,
     textPlaceholder: ink.INK40,
     textSecondary: ink.INK60,

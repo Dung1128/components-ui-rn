@@ -11,11 +11,7 @@ import {
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
 import ScaleButton from "../ScaleButton";
-import {
-  BORDER_RADIUS_6,
-  BORDER_WIDTH_1,
-  BUTTON_HEIGHT,
-} from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import { useInternalTheme } from "../../core/theming";
 
 export interface ButtonIconProps {
@@ -38,7 +34,7 @@ const ButtonIcon = ({
   onPress,
   style,
   hiddenBackground = false,
-  size = BUTTON_HEIGHT,
+  size = CONSTANTS.BUTTON_HEIGHT,
   border,
   children,
   circle,
@@ -69,7 +65,7 @@ const ButtonIcon = ({
             height: size,
           },
           border && {
-            borderWidth: BORDER_WIDTH_1,
+            borderWidth: CONSTANTS.BORDER_WIDTH_1,
             borderColor: borderColor || colors.borderBrandDefault,
             backgroundColor: backgroundColor || colors.surfacePrimaryDefault,
           },
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: BORDER_RADIUS_6,
+    borderRadius: CONSTANTS.BORDER_RADIUS_6,
   },
 });
 

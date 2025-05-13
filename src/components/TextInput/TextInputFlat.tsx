@@ -34,7 +34,7 @@ import InputLabel from "./Label/InputLabel";
 import type { ChildTextInputProps, RenderProps } from "./types";
 import { Outline } from "./Addons/Outline";
 import Spacer from "../Spacer";
-import { BORDER_RADIUS_6, SPACE_12, SPACE_8 } from "@/theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import Icon from "../Icon";
 
 const TextInputFlat = ({
@@ -52,6 +52,7 @@ const TextInputFlat = ({
   style,
   theme,
   render = (props: RenderProps) => <NativeTextInput {...props} />,
+  multiline = false,
   parentState,
   innerRef,
   onFocus,
@@ -171,12 +172,40 @@ const TextInputFlat = ({
 
   const inputHeight = calculateInputHeight(labelHeight, height, minInputHeight);
 
-  const topPosition = calculateLabelTopPosition(labelHeight, inputHeight);
+  const topPosition = calculateLabelTopPosition(
+    labelHeight,
+    inputHeight,
+    multiline && height ? 0 : !height ? minInputHeight / 2 : 0
+  );
 
   if (height && typeof height !== "number") {
     // eslint-disable-next-line
     console.warn("Currently we support only numbers in height prop");
   }
+
+  const paddingSettings = {
+    height: height ? +height : null,
+    labelHalfHeight,
+    offset: FLAT_INPUT_OFFSET,
+    multiline: multiline ? multiline : null,
+    dense: dense ? dense : null,
+    topPosition,
+    fontSize,
+    lineHeight,
+    label,
+    scale: fontScale,
+    isAndroid,
+    styles: StyleSheet.flatten(
+      dense ? styles.inputFlatDense : styles.inputFlat
+    ) as Padding,
+  };
+
+  const pad = calculatePadding(paddingSettings);
+
+  const paddingFlat = adjustPaddingFlat({
+    ...paddingSettings,
+    pad,
+  });
 
   const baseLabelTranslateY =
     -labelHalfHeight - (topPosition + MINIMIZED_LABEL_Y_OFFSET);
@@ -259,7 +288,7 @@ const TextInputFlat = ({
       style={{
         flexDirection: "row",
         alignItems: "center",
-        borderRadius: BORDER_RADIUS_6,
+        borderRadius: CONSTANTS.BORDER_RADIUS_6,
         borderWidth: 1,
         borderColor: getBorderColor(),
         height: 48,
@@ -270,8 +299,14 @@ const TextInputFlat = ({
       }}
     >
       <View style={{ flexDirection: "row" }}>
-        {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
-        {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
+        {left && (
+          <View style={{ paddingLeft: CONSTANTS.SPACE_12 }}>{left}</View>
+        )}
+        {left ? (
+          <Spacer width={CONSTANTS.SPACE_8} />
+        ) : (
+          <Spacer width={CONSTANTS.SPACE_12} />
+        )}
       </View>
       <Outline
         style={outlineStyle}
@@ -294,6 +329,21 @@ const TextInputFlat = ({
           },
         ]}
       >
+        {!isAndroid && multiline && !!label && !disabled && (
+          <View
+            pointerEvents="none"
+            style={[
+              StyleSheet.absoluteFill,
+              dense ? styles.densePatchContainer : styles.patchContainer,
+              {
+                backgroundColor:
+                  viewStyle.backgroundColor || containerStyle.backgroundColor,
+                left: paddingLeft,
+                right: paddingRight,
+              },
+            ]}
+          />
+        )}
         {label ? (
           <InputLabel
             labeled={parentState.labeled}
@@ -321,18 +371,20 @@ const TextInputFlat = ({
           onFocus,
           onBlur,
           underlineColorAndroid: "transparent",
+          multiline,
           style: [
             styles.input,
             // paddingFlat,
             {
               paddingLeft,
               paddingRight,
-              paddingTop: SPACE_12,
+              paddingTop: CONSTANTS.SPACE_12,
               ...font,
               fontSize,
               lineHeight,
               fontWeight,
               color: inputTextColor,
+              textAlignVertical: multiline ? "top" : "center",
               textAlign: textAlign
                 ? textAlign
                 : I18nManager.getConstants().isRTL
@@ -346,14 +398,16 @@ const TextInputFlat = ({
       </View>
       {!disabled && clearButton && inputValue ? (
         <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
-          <Icon name={"IconClearText"} type="Svg" size={24} />
+          <Icon name="IconClearText" type="Svg" size={24} />
         </TouchableOpacity>
       ) : (
-        <Spacer width={SPACE_12} />
+        <Spacer width={CONSTANTS.SPACE_12} />
       )}
       <View style={{ flexDirection: "row" }}>
-        {right && <Spacer width={SPACE_8} />}
-        {right && <View style={{ paddingRight: SPACE_12 }}>{right}</View>}
+        {right && <Spacer width={CONSTANTS.SPACE_8} />}
+        {right && (
+          <View style={{ paddingRight: CONSTANTS.SPACE_12 }}>{right}</View>
+        )}
       </View>
     </View>
   );
@@ -393,6 +447,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   clearButton: {
-    padding: SPACE_8,
+    padding: CONSTANTS.SPACE_8,
   },
 });

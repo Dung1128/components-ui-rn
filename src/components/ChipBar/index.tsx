@@ -1,12 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import View from "../View";
-import {
-  BORDER_RADIUS_ROUNDED,
-  SPACE_12,
-  SPACE_8,
-  SPACE_4,
-} from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import Text from "../Text";
 import { useInternalTheme } from "../../core/theming";
 import containerStyles from "../../theme/container-styles";
@@ -22,11 +17,12 @@ interface ChipBarProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   badge?: number;
+  isActive?: boolean;
 }
 
 const ChipBar = ({
   style,
-  borderRadius = BORDER_RADIUS_ROUNDED,
+  borderRadius = CONSTANTS.BORDER_RADIUS_ROUNDED,
   title = "content",
   textStyle,
   onPress,
@@ -34,14 +30,19 @@ const ChipBar = ({
   leftIcon,
   rightIcon,
   badge = 0,
+  isActive = false,
 }: ChipBarProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
-  const [isActive, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(isActive);
 
   const handlePressChipBar = useCallback(() => {
-    setActive(!isActive);
+    setActive(!active);
     onPress?.();
+  }, [active]);
+
+  useEffect(() => {
+    setActive(isActive);
   }, [isActive]);
 
   return (
@@ -49,8 +50,8 @@ const ChipBar = ({
       <View
         row
         disabled={disabled}
-        paddingHorizontal={SPACE_12}
-        paddingVertical={SPACE_8}
+        paddingHorizontal={CONSTANTS.SPACE_12}
+        paddingVertical={CONSTANTS.SPACE_8}
         borderRadius={borderRadius}
         borderWidth={1}
         alignCenter
@@ -63,18 +64,18 @@ const ChipBar = ({
         ]}
         onPress={handlePressChipBar}
         borderColor={
-          isActive ? colors.borderBrandDefault : colors.borderPrimaryDefault
+          active ? colors.borderBrandDefault : colors.borderPrimaryDefault
         }
         backgroundColor={
-          isActive
+          active
             ? colors.surfaceBrandInverseDefault
             : colors.backgroundSecondary
         }
       >
-        {leftIcon && <View paddingRight={SPACE_4}>{leftIcon}</View>}
+        {leftIcon && <View paddingRight={CONSTANTS.SPACE_4}>{leftIcon}</View>}
         <View>
           <Text
-            color={isActive ? colors.textBrandDefault : colors.textDefault}
+            color={active ? colors.textBrandDefault : colors.textDefault}
             style={[
               styles.text14,
               styles.textMedium,
@@ -87,7 +88,7 @@ const ChipBar = ({
             {title}
           </Text>
         </View>
-        {rightIcon && <View paddingLeft={SPACE_4}>{rightIcon}</View>}
+        {rightIcon && <View paddingLeft={CONSTANTS.SPACE_4}>{rightIcon}</View>}
       </View>
       {badge > 0 && (
         <View style={styles.badgeContainer}>

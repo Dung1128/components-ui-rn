@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
-import { BUTTON_HEIGHT } from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import { useInternalTheme } from "../../core/theming";
 
 export interface FloatingButtonProps {
@@ -33,7 +33,7 @@ const FloatingButton = ({
   onPress,
   style,
   hiddenBackground = false,
-  size = BUTTON_HEIGHT,
+  size = CONSTANTS.BUTTON_HEIGHT,
   children,
   backgroundColor,
   props,

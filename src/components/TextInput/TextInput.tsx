@@ -157,12 +157,7 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
    * Overrides style when mode is set to `outlined`
    * Example: `borderRadius`, `borderColor`
    */
-  outlineStyle?: StyleProp<ViewStyle>;
-  /**
-   * Pass style to override the default style of underlined wrapper.
-   * Overrides style when mode is set to `flat`
-   * Example: `borderRadius`, `borderColor`
-   */
+
   underlineStyle?: StyleProp<ViewStyle>;
   minHeight?: number;
   clearButton?: boolean;
@@ -210,7 +205,7 @@ const DefaultRenderer = (props: RenderProps) => <NativeTextInput {...props} />;
 const TextInput = forwardRef<TextInputHandles, Props>(
   (
     {
-      mode = "flat",
+      mode = "default",
       dense = false,
       disabled = false,
       error: errorProp = false,
@@ -521,7 +516,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         dense={dense}
         disabled={disabled}
         error={errorProp}
-        multiline={multiline}
+        multiline={false}
         editable={editable}
         clearButton={clearButton}
         render={render}

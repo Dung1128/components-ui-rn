@@ -11,15 +11,7 @@ import {
   TextStyle,
 } from "react-native";
 
-import {
-  BUTTON_HEIGHT,
-  BUTTON_HEIGHT_SMALL,
-  SPACE_16,
-  SPACE_12,
-  BORDER_RADIUS_6,
-  BORDER_WIDTH_1,
-  SPACE_8,
-} from "@/theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import ScaleButton from "../ScaleButton";
 import Text from "../Text";
 import View from "../View";
@@ -98,7 +90,7 @@ const Button = ({
           style={[
             styles.button,
             {
-              borderRadius: BORDER_RADIUS_6,
+              borderRadius: CONSTANTS.BORDER_RADIUS_6,
             },
             {
               backgroundColor: colors.surfaceBrandDefault,
@@ -119,9 +111,9 @@ const Button = ({
           ]}
           disabled={isLoading}
         >
-          <Spacer width={left ? SPACE_12 : SPACE_16} />
+          <Spacer width={left ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
           {!isLoading && left}
-          {left && <Spacer width={SPACE_8} />}
+          {left && <Spacer width={CONSTANTS.SPACE_8} />}
           {isLoading ? (
             <ActivityIndicator
               color={textStyle?.color || colors.borderBrandDefault}
@@ -138,9 +130,9 @@ const Button = ({
               {title}
             </Text>
           )}
-          {right && <Spacer width={SPACE_8} />}
+          {right && <Spacer width={CONSTANTS.SPACE_8} />}
           {!isLoading && right}
-          <Spacer width={right ? SPACE_12 : SPACE_16} />
+          <Spacer width={right ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
         </View>
       </ScaleButton>
     </View>
@@ -153,17 +145,17 @@ const styles = StyleSheet.create({
   },
   disabled: { opacity: 0.6 },
   button: {
-    height: BUTTON_HEIGHT,
+    height: CONSTANTS.BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   border: {
-    borderWidth: BORDER_WIDTH_1,
+    borderWidth: CONSTANTS.BORDER_WIDTH_1,
     backgroundColor: "transparent",
   },
   small: {
-    height: BUTTON_HEIGHT_SMALL,
+    height: CONSTANTS.BUTTON_HEIGHT_SMALL,
   },
 });
 

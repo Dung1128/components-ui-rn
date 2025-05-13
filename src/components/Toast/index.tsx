@@ -1,11 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import {
-  DEVICE_WIDTH,
-  SPACE_16,
-  SPACE_8,
-  SPACE_12,
-} from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import React, { useImperativeHandle, useRef, useState } from "react";
 import { StyleSheet, Image as RNImage } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -169,10 +164,10 @@ const Toast = memoWithRef(
         style={[
           styles.container,
           options.position === POSITION.BOTTOM && {
-            bottom: bottom ? bottom : SPACE_16,
+            bottom: bottom ? bottom : CONSTANTS.SPACE_16,
           },
           options.position === POSITION.TOP && {
-            top: top ? top : SPACE_16,
+            top: top ? top : CONSTANTS.SPACE_16,
           },
         ]}
       >
@@ -199,7 +194,7 @@ const Toast = memoWithRef(
             <View>
               <RNImage source={getSourceIcon()} style={styles.img} />
             </View>
-            <View full paddingLeft={SPACE_8}>
+            <View full paddingLeft={CONSTANTS.SPACE_8}>
               <Text bold color={colors.textOnFillDefault}>
                 {options.title}
               </Text>
@@ -223,19 +218,19 @@ const Toast = memoWithRef(
 export default Toast;
 
 const styles = StyleSheet.create({
-  wrapMess: { marginLeft: SPACE_8, flex: 1 },
+  wrapMess: { marginLeft: CONSTANTS.SPACE_8, flex: 1 },
   wrapContent: {
-    borderRadius: 12,
-    padding: SPACE_12,
-    width: DEVICE_WIDTH - SPACE_16 * 2,
-    marginHorizontal: SPACE_16,
+    borderRadius: CONSTANTS.BORDER_RADIUS_12,
+    padding: CONSTANTS.SPACE_12,
+    width: CONSTANTS.DEVICE_WIDTH - CONSTANTS.SPACE_16 * 2,
+    marginHorizontal: CONSTANTS.SPACE_16,
   },
   container: {
     position: "absolute",
     left: 0,
     right: 0,
     alignItems: "center",
-    width: DEVICE_WIDTH,
+    width: CONSTANTS.DEVICE_WIDTH,
   },
   img: {
     width: 20,

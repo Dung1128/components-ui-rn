@@ -1,4 +1,5 @@
 export { ThemeColors } from "./styles/themes/tokens";
+export { CONSTANTS } from "./styles/themes/tokens";
 export {
   useTheme,
   ThemeProvider,

@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import View from "../View";
 import { MAXIMIZED_LABEL_FONT_SIZE } from "./constants";
-import { getOutlinedInputColors, getConstants } from "./helpers";
+import { getOutlinedInputColors } from "./helpers";
 import type { RenderProps, ChildTextInputProps } from "./types";
-import { BORDER_RADIUS_6, SPACE_12, SPACE_8 } from "@/theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import Spacer from "../Spacer";
 import Icon from "../Icon";
 
@@ -113,7 +113,7 @@ const TextInputDefault = ({
         alignCenter
         style={[
           {
-            borderRadius: BORDER_RADIUS_6,
+            borderRadius: CONSTANTS.BORDER_RADIUS_6,
             borderWidth: 1,
             borderColor: getBorderColor(),
             overflow: "hidden",
@@ -123,8 +123,8 @@ const TextInputDefault = ({
           },
         ]}
       >
-        {<View paddingLeft={SPACE_12}>{left}</View>}
-        {left && <Spacer width={SPACE_8} />}
+        {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}
+        {left && <Spacer width={CONSTANTS.SPACE_8} />}
         {render?.({
           ...rest,
           ref: innerRef,
@@ -164,10 +164,10 @@ const TextInputDefault = ({
             <Icon name={"IconClearText"} type="Svg" size={24} />
           </TouchableOpacity>
         ) : (
-          <Spacer width={SPACE_12} />
+          <Spacer width={CONSTANTS.SPACE_12} />
         )}
-        {right && <Spacer width={SPACE_8} />}
-        {right && <View paddingRight={SPACE_12}>{right}</View>}
+        {right && <Spacer width={CONSTANTS.SPACE_8} />}
+        {right && <View paddingRight={CONSTANTS.SPACE_12}>{right}</View>}
       </View>
     </View>
   );
@@ -182,6 +182,6 @@ const styles = StyleSheet.create({
     height: 48,
   },
   clearButton: {
-    padding: SPACE_8,
+    padding: CONSTANTS.SPACE_8,
   },
 });

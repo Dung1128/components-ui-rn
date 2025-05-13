@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import View from "../View";
-import { SPACE_8 } from "../../theme/dimensions";
+import { CONSTANTS } from "../../styles/themes/tokens";
 import Text from "../Text";
 import { useInternalTheme } from "../../core/theming";
 import containerStyles from "../../theme/container-styles";
@@ -53,6 +53,10 @@ const Checkbox = ({
     onPress?.();
   }, [isActive, onPress]);
 
+  useEffect(() => {
+    setActive(checked);
+  }, [checked]);
+
   return (
     <View
       row
@@ -62,9 +66,9 @@ const Checkbox = ({
       onPress={handlePressChipBar}
     >
       {leftIcon ? (
-        <View paddingRight={SPACE_8}>{leftIcon}</View>
+        <View paddingRight={CONSTANTS.SPACE_8}>{leftIcon}</View>
       ) : (
-        <View paddingRight={SPACE_8}>
+        <View paddingRight={CONSTANTS.SPACE_8}>
           <Icon
             name={isActive ? "IconCheckboxActive" : "IconCheckbox"}
             type="Svg"

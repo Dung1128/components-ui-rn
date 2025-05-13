@@ -1,4 +1,4 @@
-import { Platform } from "react-native";
+import { Platform, StyleSheet, Dimensions } from "react-native";
 import blue from "../../theme/blue";
 import green from "../../theme/green";
 import ink from "../../theme/ink";
@@ -20,7 +20,7 @@ const ref = {
         gray: ink.INK60,
         backgroundLight: ink.INK80,
         //new theme colors
-        backgroundPrimary: ink.INK5,
+        backgroundPrimary: ink.INK100,
         backgroundSecondary: white.WHITE100,
         borderBrandDefault: blue.BLUE100,
         borderCriticalDefault: red.RED100,
@@ -101,7 +101,7 @@ const ref = {
         surfaceWarningInverseHover: yellow.YELLOW20,
         surfaceWarningInversePressed: yellow.YELLOW40,
         surfaceWarningPressed: yellow.YELLOW120,
-        textDefault: ink.INK100,
+        textDefault: ink.INK5,
         textDisabled: ink.INK20,
         textPlaceholder: ink.INK40,
         textSecondary: ink.INK60,
@@ -426,3 +426,56 @@ export const tokens = {
 };
 
 export const ThemeColors = ref.palette;
+
+export const CONSTANTS = {
+  DEVICE_HEIGHT: Dimensions.get("window").height,
+  DEVICE_WIDTH: Dimensions.get("window").width,
+  HEADER_HEIGHT: 50,
+  BUTTON_HEIGHT: 48,
+  BUTTON_HEIGHT_SMALL: 40,
+  RADIO_BUTTON_HEIGHT: 20,
+
+  SPACE_0: 0,
+  SPACE_2: 2,
+  SPACE_4: 4,
+  SPACE_6: 6,
+  SPACE_8: 8,
+  SPACE_12: 12,
+  SPACE_16: 16,
+  SPACE_20: 20,
+  SPACE_24: 24,
+  SPACE_28: 28,
+  SPACE_32: 32,
+  SPACE_36: 36,
+  SPACE_40: 40,
+  SPACE_48: 48,
+  SPACE_64: 64,
+  SPACE_80: 80,
+  SPACE_96: 96,
+  SPACE_112: 112,
+  SPACE_128: 128,
+  SPACE_BUTTON_GAP: 8,
+  SPACE_CARD_PADDING: 4,
+  SPACE_CARD_GAP: 12,
+
+  //MARK: Border radius
+  BORDER_RADIUS_6: 6,
+  BORDER_RADIUS_8: 8,
+  BORDER_RADIUS_12: 12,
+  BORDER_RADIUS_ROUNDED: 36,
+
+  //MARK: Border width
+  BORDER_WIDTH_05: StyleSheet.hairlineWidth, //0.3-0.5
+  BORDER_WIDTH_1: 1,
+  BORDER_WIDTH_2: 2,
+  BORDER_WIDTH_4: 4,
+
+  //MARK: Font weight
+  FONT_WEIGHT_LIGHT: "300",
+  FONT_WEIGHT_REGULAR: "400",
+  FONT_WEIGHT_MEDIUM: "500",
+  FONT_WEIGHT_SEMIBOLD: "600",
+  FONT_WEIGHT_BOLD: "700",
+  FONT_WEIGHT_EXTRABOLD: "800",
+  FONT_WEIGHT_BLACK: "900",
+};
