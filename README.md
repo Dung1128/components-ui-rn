@@ -29,13 +29,11 @@ Thư viện này yêu cầu các peer dependencies sau:
 ## Sử dụng
 
 ```tsx
-import { Button, Text } from 'sapo-components-ui-rn';
+import { Button } from '@sapo/components-ui-rn';
 
 function MyComponent() {
   return (
-    <Button onPress={() => console.log('Pressed')}>
-      <Text>Click me</Text>
-    </Button>
+    <Button disabled textStyle={{...}}  title="My Button" onPress={()=> {}}/>
   );
 }
 ```
