@@ -71,6 +71,7 @@ const ViewCustom = ({
   onPress,
   activeOpacity,
   children,
+  disabled,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -165,6 +166,7 @@ const ViewCustom = ({
     <Component
       activeOpacity={activeOpacity}
       onPress={onPress}
+      disabled={disabled}
       style={[defaultStyle, style]}
     >
       {children}

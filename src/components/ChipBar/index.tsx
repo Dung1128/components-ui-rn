@@ -56,11 +56,11 @@ const ChipBar = ({
         borderWidth={1}
         alignCenter
         style={[
-          style,
           disabled && {
             backgroundColor: colors.surfaceSecondaryDefault,
             borderColor: colors.surfaceSecondaryDefault,
           },
+          style,
         ]}
         onPress={handlePressChipBar}
         borderColor={

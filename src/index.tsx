@@ -30,6 +30,7 @@ export { default as Checkbox } from "./components/Checkbox";
 export { default as RadioButton } from "./components/RadioButton";
 export { default as Avatar } from "./components/Avatar";
 export { default as SelectionField } from "./components/SelectionField";
+export { default as SearchInput } from "./components/SearchInput";
 // Types
 export type { Props as ActivityIndicatorProps } from "./components/ActivityIndicator";
 export type { Props as SwitchProps } from "./components/Switch/Switch";
