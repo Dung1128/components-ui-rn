@@ -20,7 +20,7 @@ const ref = {
         gray: ink.INK60,
         backgroundLight: ink.INK80,
         //new theme colors
-        backgroundPrimary: ink.INK100,
+        backgroundPrimary: ink.INK5,
         backgroundSecondary: white.WHITE100,
         borderBrandDefault: blue.BLUE100,
         borderCriticalDefault: red.RED100,
@@ -101,7 +101,7 @@ const ref = {
         surfaceWarningInverseHover: yellow.YELLOW20,
         surfaceWarningInversePressed: yellow.YELLOW40,
         surfaceWarningPressed: yellow.YELLOW120,
-        textDefault: ink.INK5,
+        textDefault: ink.INK100,
         textDisabled: ink.INK20,
         textPlaceholder: ink.INK40,
         textSecondary: ink.INK60,
