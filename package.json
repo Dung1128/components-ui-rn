@@ -1,6 +1,6 @@
 {
   "name": "@sapo/components-ui-rn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native UI Components",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://git.dktsoft.com:2008/sapo-mobile/mobile-components-rn.git"
+    "url": "git+https://github.com/Dung1128/components-ui-rn.git"
   },
   "keywords": [
     "react-native",
