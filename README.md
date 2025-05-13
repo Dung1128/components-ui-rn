@@ -5,9 +5,9 @@ Thư viện UI Components cho React Native được phát triển bởi Dung1128
 ## Cài đặt
 
 ```bash
-npm install @dung1128/components-ui-rn
+npm install @sapo/components-ui-rn
 # or
-yarn add @dung1128/components-ui-rn
+yarn add @sapo/components-ui-rn
 ```
 
 ## Yêu cầu
@@ -29,7 +29,7 @@ Thư viện này yêu cầu các peer dependencies sau:
 ## Sử dụng
 
 ```tsx
-import { Button, Text } from '@dung1128/components-ui-rn';
+import { Button, Text } from '@sapo/components-ui-rn';
 
 function MyComponent() {
   return (

@@ -1,7 +1,7 @@
 {
-  "name": "@dung1128/components-ui-rn",
-  "version": "1.1.25",
-  "description": "React Native UI Components Library V2 for Dungnt",
+  "name": "@sapo/components-ui-rn",
+  "version": "1.0.0",
+  "description": "React Native UI Components",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -23,13 +23,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dung1128/components-ui-rn.git"
+    "url": "git+https://git.dktsoft.com:2008/sapo-mobile/mobile-components-rn.git"
   },
   "keywords": [
     "react-native",
     "ui",
     "components",
-    "dung1128",
+    "sapo",
     "typescript"
   ],
   "author": "Dung1128",

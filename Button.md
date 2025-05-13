@@ -25,7 +25,7 @@ Component sử dụng các thuộc tính đã được định nghĩa sẵn, ngo
 ## Sử dụng
 
 ```tsx
-import { Button } from '@dung1128/components-ui-rn';
+import { Button } from '@sapo/components-ui-rn';
 
 function MyComponent() {
   return (
