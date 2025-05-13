@@ -1,7 +1,7 @@
 {
-  "name": "@sapo/components-ui-rn",
-  "version": "1.0.1",
-  "description": "React Native UI Components",
+  "name": "sapo-components-ui-rn",
+  "version": "1.0.0",
+  "description": "React Native UI Components Library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -23,16 +23,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dung1128/components-ui-rn.git"
+    "url": "https://git.dktsoft.com:2008/sapo-mobile/mobile-components-rn.git"
   },
   "keywords": [
     "react-native",
     "ui",
     "components",
-    "sapo",
+    "Sapo",
     "typescript"
   ],
-  "author": "Dung1128",
+  "author": "Sapo",
   "license": "MIT",
   "peerDependencies": {
     "@d11/react-native-fast-image": "*",

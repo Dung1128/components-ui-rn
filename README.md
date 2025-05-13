@@ -1,13 +1,13 @@
-# @dung1128/components-ui-rn
+# sapo-components-ui-rn
 
-Thư viện UI Components cho React Native được phát triển bởi Dung1128.
+Thư viện UI Components cho React Native được phát triển bởi Sapo.
 
 ## Cài đặt
 
 ```bash
-npm install @sapo/components-ui-rn
+npm install sapo-components-ui-rn
 # or
-yarn add @sapo/components-ui-rn
+yarn add sapo-components-ui-rn
 ```
 
 ## Yêu cầu
@@ -29,7 +29,7 @@ Thư viện này yêu cầu các peer dependencies sau:
 ## Sử dụng
 
 ```tsx
-import { Button, Text } from '@sapo/components-ui-rn';
+import { Button, Text } from 'sapo-components-ui-rn';
 
 function MyComponent() {
   return (
