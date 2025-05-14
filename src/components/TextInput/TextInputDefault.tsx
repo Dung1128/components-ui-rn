@@ -8,12 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import View from "../View";
-import { MAXIMIZED_LABEL_FONT_SIZE } from "./constants";
+import {
+  MAXIMIZED_LABEL_FONT_SIZE,
+  MINIMIZED_LABEL_FONT_SIZE,
+} from "./constants";
 import { getOutlinedInputColors } from "./helpers";
 import type { RenderProps, ChildTextInputProps } from "./types";
 import { CONSTANTS } from "../../styles/themes/tokens";
 import Spacer from "../Spacer";
 import Icon from "../Icon";
+import Text from "../Text";
 
 const TextInputDefault = ({
   disabled = false,
@@ -106,6 +110,29 @@ const TextInputDefault = ({
     }
   };
 
+  const getLabelColor = () => {
+    if (disabled) {
+      return theme.colors.textSecondary;
+    } else if (parentState.focused) {
+      return activeColor;
+    } else {
+      return theme.colors.textSecondary;
+    }
+  };
+
+  const renderLabel = () => {
+    if (parentState.focused || parentState.value?.toString() !== "") {
+      return (
+        <View paddingTop={CONSTANTS.SPACE_4}>
+          <Text color={getLabelColor()} size={MINIMIZED_LABEL_FONT_SIZE}>
+            {label}
+          </Text>
+        </View>
+      );
+    }
+    return <View />;
+  };
+
   return (
     <View style={viewStyle}>
       <View
@@ -125,40 +152,44 @@ const TextInputDefault = ({
       >
         {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}
         {left && <Spacer width={CONSTANTS.SPACE_8} />}
-        {render?.({
-          ...rest,
-          ref: innerRef,
-          onChangeText: handleChangeText,
-          value: inputValue,
-          placeholder: rest.placeholder,
-          editable: !disabled && editable,
-          selectionColor,
-          cursorColor:
-            typeof cursorColor === "undefined" ? activeColor : cursorColor,
-          placeholderTextColor: placeholderTextColorBasedOnState,
-          onFocus,
-          onBlur,
-          underlineColorAndroid: "transparent",
-          multiline,
-          style: [
-            styles.input,
-            {
-              ...font,
-              fontSize,
-              lineHeight,
-              fontWeight,
-              color: inputTextColor,
-              textAlignVertical: multiline ? "top" : "center",
-              textAlign: textAlign
-                ? textAlign
-                : I18nManager.getConstants().isRTL
-                ? "right"
-                : "left",
-              height: height ? height : 48,
-            },
-            contentStyle,
-          ],
-        } as RenderProps)}
+        <View full>
+          {renderLabel()}
+          {render?.({
+            ...rest,
+            ref: innerRef,
+            onChangeText: handleChangeText,
+            value: inputValue,
+            placeholder: rest.placeholder,
+            editable: !disabled && editable,
+            selectionColor,
+            cursorColor:
+              typeof cursorColor === "undefined" ? activeColor : cursorColor,
+            placeholderTextColor: placeholderTextColorBasedOnState,
+            onFocus,
+            onBlur,
+            underlineColorAndroid: "transparent",
+            multiline,
+            style: [
+              styles.input,
+              {
+                ...font,
+                fontSize,
+                lineHeight,
+                fontWeight,
+                color: inputTextColor,
+                textAlignVertical: multiline ? "top" : "center",
+                textAlign: textAlign
+                  ? textAlign
+                  : I18nManager.getConstants().isRTL
+                  ? "right"
+                  : "left",
+                height: height ? height : 48,
+              },
+              contentStyle,
+            ],
+          } as RenderProps)}
+        </View>
+
         {!disabled && clearButton && inputValue ? (
           <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
             <Icon name={"IconClearText"} type="Svg" size={24} />
