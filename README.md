@@ -58,6 +58,7 @@ Thư viện bao gồm các components sau:
 - [Switch](Switch.md)
 - [Text](Text.md)
 - [TextInput](TextInput.md)
+- [TextArea](TextArea.md)
 - [Toast](Toast.md)
 - [View](View.md)
 <!-- 

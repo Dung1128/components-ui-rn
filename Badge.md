@@ -3,31 +3,34 @@
 
 Component sử dụng các thuộc tính đã được định nghĩa sẵn, ngoài ra người dùng có thể custom lại style
 
-![Avatar](./src/assets/images/avatar.png)
+![Badge](./src/assets/images/badge.png)
+
 ```tsx
-    interface AvatarProps {
+    interface BadgeProps {
     children?: React.ReactNode;
-    name?: string;
+    value: string;
     borderColor?: string;
     backgroundColor?: string;
     style?: StyleProp<ViewStyle>;
     textColor?: string;
-    size: 64 | 48 | 24;
-    source?: string;
-    onPress?: () => void;
     textStyle?: StyleProp<TextStyle>;
-    imageStyle?: StyleProp<ImageStyle>;
-}
+  }
 ```
 
 ## Sử dụng
 
 ```tsx
-import { Avatar } from 'sapo-components-ui-rn';
+import { Badge } from 'sapo-components-ui-rn';
 
 function MyComponent() {
   return (
-    <Avatar name="Nguyễn Dũng" size={64} source={{...}}/>
+    <Badge
+      value="100"
+      style={{
+        backgroundColor: colors.backgroundPrimary,
+      }}
+      // textColor={colors.textDefault}
+    />
   );
 }
 ```

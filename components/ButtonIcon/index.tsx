@@ -7,14 +7,14 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
+import ScaleButton from "../ScaleButton";
 import { CONSTANTS } from "../../styles/themes/tokens";
 import { useInternalTheme } from "../../core/theming";
 
-export interface FloatingButtonProps {
+export interface ButtonIconProps {
   isLoading?: boolean;
   disabled?: boolean;
   onPress?: (val?: any) => void;
@@ -23,29 +23,32 @@ export interface FloatingButtonProps {
   size?: number;
   hiddenBackground?: boolean;
   props?: object;
+  border?: boolean;
+  circle?: boolean;
   backgroundColor?: string;
-  top?: number;
-  right?: number;
+  borderColor?: string;
 }
-const FloatingButton = ({
+const ButtonIcon = ({
   isLoading,
   disabled,
   onPress,
   style,
   hiddenBackground = false,
   size = CONSTANTS.BUTTON_HEIGHT,
+  border,
   children,
+  circle,
   backgroundColor,
+  borderColor,
   props,
-  top = 0,
-  right = 0,
-}: FloatingButtonProps) => {
+}: ButtonIconProps) => {
   const { colors } = useInternalTheme();
   return (
-    <TouchableOpacity
+    <ScaleButton
       activeOpacity={0.8}
-      disabled={disabled || isLoading || !onPress}
       onPress={onPress}
+      {...props}
+      disabled={disabled || false}
     >
       <View
         style={[
@@ -60,9 +63,14 @@ const FloatingButton = ({
           {
             width: size,
             height: size,
+          },
+          border && {
+            borderWidth: CONSTANTS.BORDER_WIDTH_1,
+            borderColor: borderColor || colors.borderBrandDefault,
+            backgroundColor: backgroundColor || colors.surfacePrimaryDefault,
+          },
+          circle && {
             borderRadius: size / 2,
-            top: top,
-            right: right,
           },
 
           disabled && {
@@ -75,26 +83,16 @@ const FloatingButton = ({
       >
         {isLoading ? <ActivityIndicator size={"small"} /> : children}
       </View>
-    </TouchableOpacity>
+    </ScaleButton>
   );
 };
 
 const styles = StyleSheet.create({
   btn: {
-    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-    zIndex: 99,
+    borderRadius: CONSTANTS.BORDER_RADIUS_6,
   },
 });
 
-export default memoDeepEqual(FloatingButton);
+export default memoDeepEqual(ButtonIcon);

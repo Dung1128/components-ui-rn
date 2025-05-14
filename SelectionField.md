@@ -3,23 +3,24 @@
 
 Component sử dụng các thuộc tính đã được định nghĩa sẵn, ngoài ra người dùng có thể custom lại style
 
-![Button](./src/assets/images/button.png)
+![SelectionField](./src/assets/images/selection-field.png)
+
 ```tsx
-export interface ButtonProps extends TouchableOpacityProps {
+export interface SelectionFieldProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
   borderColor?: string;
-  title?: string;
-  backgroundColor?: string;
-  isLoading?: boolean;
+  content?: string;
+  label?: string;
+  error?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  small?: boolean;
+  textProps?: IText;
   textColor?: string;
-  bold?: boolean;
+  labelColor?: string;
   size?: number;
   textStyle?: TextStyle;
-  medium?: boolean;
-  mode?: "outlined" | "contained" | "transparent";
+  labelStyle?: TextStyle;
+  disabled?: boolean;
   onPress?: (res?: any) => void;
   theme?: ThemeProp;
 }
@@ -28,11 +29,11 @@ export interface ButtonProps extends TouchableOpacityProps {
 ## Sử dụng
 
 ```tsx
-import { Button } from 'sapo-components-ui-rn';
+import { SelectionField } from 'sapo-components-ui-rn';
 
 function MyComponent() {
   return (
-    <Button disabled textStyle={{...}}  title="My Button" onPress={()=> {}}/>
+    <SelectionField label="Selection Field" />
   );
 }
 ```
