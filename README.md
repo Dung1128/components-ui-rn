@@ -42,20 +42,23 @@ function MyComponent() {
 
 Thư viện bao gồm các components sau:
 
-- [Button](Button.md)
-- [ButtonIcon](ButtonIcon.md)
-- [Text](Text.md)
-- [TextInput](TextInput.md)
 - [Avatar](Avatar.md)
 - [Badge](Badge.md)
+- [Button](Button.md)
+- [ButtonIcon](ButtonIcon.md)
 - [Checkbox](Checkbox.md)
 - [ChipBar](ChipBar.md)
-- [RadioButton](RadioButton.md)
-- [Switch](Switch.md)
 - [CountingDot](CountingDot.md)
 - [FloatingButton](FloatingButton.md)
 - [Image](Image.md)
+- [RadioButton](RadioButton.md)
+- [SearchInput](SearchInput.md)
+- [SelectionField](SelectionField.md)
 - [Spacer](Spacer.md)
+- [Switch](Switch.md)
+- [Text](Text.md)
+- [TextInput](TextInput.md)
+- [Toast](Toast.md)
 - [View](View.md)
 <!-- 
 ## Đóng góp
