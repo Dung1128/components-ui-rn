@@ -3,7 +3,7 @@
 
 Component sử dụng các thuộc tính đã được định nghĩa sẵn, ngoài ra người dùng có thể custom lại style
 
-![Avatar](./assets/images/avatar.png)
+![Avatar](./src/assets/images/avatar.png)
 ```tsx
     interface AvatarProps {
     children?: React.ReactNode;
