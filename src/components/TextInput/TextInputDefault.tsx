@@ -153,7 +153,7 @@ const TextInputDefault = ({
         {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}
         {left && <Spacer width={CONSTANTS.SPACE_8} />}
         <View full>
-          {renderLabel()}
+          {multiline && renderLabel()}
           {render?.({
             ...rest,
             ref: innerRef,
