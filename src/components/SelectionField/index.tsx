@@ -10,7 +10,15 @@ import {
   TextStyle,
 } from "react-native";
 
-import { CONSTANTS } from "../../styles/themes/tokens";
+import {
+  BUTTON_HEIGHT,
+  BUTTON_HEIGHT_SMALL,
+  SPACE_12,
+  BORDER_RADIUS_6,
+  BORDER_WIDTH_1,
+  SPACE_6,
+  SPACE_4,
+} from "@/theme/dimensions";
 import ScaleButton from "../ScaleButton";
 import Text, { IText } from "../Text";
 import View from "../View";
@@ -76,10 +84,10 @@ const SelectionField = ({
           style={[
             styles.container,
             {
-              borderRadius: CONSTANTS.BORDER_RADIUS_6,
+              borderRadius: BORDER_RADIUS_6,
             },
 
-            [styles.border, { borderColor: colors.borderBrandDefault }],
+            [styles.border, { borderColor: colors.borderPrimaryDefault }],
             borderColor && { borderColor: borderColor },
             disabled && [
               styles.disabled,
@@ -97,10 +105,10 @@ const SelectionField = ({
             style,
           ]}
         >
-          <Spacer width={CONSTANTS.SPACE_12} />
+          <Spacer width={SPACE_12} />
 
           <View full>
-            {label.toString() !== "" && (
+            {content.toString() !== "" && label.toString() !== "" && (
               <Text
                 color={labelColor || colors.textSecondary}
                 style={[
@@ -123,19 +131,16 @@ const SelectionField = ({
               style={[disabled && disabledTextStyle, textStyle]}
               {...textProps}
             >
-              {content}
+              {content.toString() === "" ? label : content}
             </Text>
           </View>
 
           {right || <Icon name={"IconArrowDown"} type="Svg" size={24} />}
-          <Spacer width={CONSTANTS.SPACE_12} />
+          <Spacer width={SPACE_12} />
         </View>
       </ScaleButton>
       {error.length > 0 && (
-        <View
-          paddingHorizontal={CONSTANTS.SPACE_12}
-          paddingVertical={CONSTANTS.SPACE_4}
-        >
+        <View paddingHorizontal={SPACE_12} paddingVertical={SPACE_4}>
           <Text style={styles.text12} color={colors.textErrorDefault}>
             {error}
           </Text>
@@ -149,17 +154,17 @@ const styles = StyleSheet.create({
   ...containerStyles,
   disabled: { opacity: 0.6 },
   container: {
-    minHeight: CONSTANTS.BUTTON_HEIGHT,
+    minHeight: BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: CONSTANTS.SPACE_6,
+    paddingVertical: SPACE_6,
   },
   border: {
-    borderWidth: CONSTANTS.BORDER_WIDTH_1,
+    borderWidth: BORDER_WIDTH_1,
   },
   small: {
-    height: CONSTANTS.BUTTON_HEIGHT_SMALL,
+    height: BUTTON_HEIGHT_SMALL,
   },
 });
 

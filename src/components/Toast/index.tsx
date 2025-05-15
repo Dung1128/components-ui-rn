@@ -26,6 +26,7 @@ interface Notification {
   type?: ToastType;
   title: string;
   onPress?: () => void;
+  spacer?: "normal" | "medium" | "large" | number;
 }
 
 interface ToastOptions {
@@ -33,6 +34,7 @@ interface ToastOptions {
   type: ToastType;
   title?: string;
   onPress?: () => void;
+  spacer?: "normal" | "medium" | "large" | number;
 }
 
 interface ToastRef {
@@ -50,9 +52,10 @@ const Toast = memoWithRef(
     const viewVisibleAnimatedRef = useRef<ViewVisibleAnimatedRef>(null);
     const { bottom, top } = useSafeAreaInsets();
     const [options, setOptions] = useState<ToastOptions>({
-      position: POSITION.TOP,
+      position: POSITION.BOTTOM,
       type: "success",
       title: "Thông báo",
+      spacer: "normal",
     });
 
     const theme = useInternalTheme();
@@ -63,13 +66,22 @@ const Toast = memoWithRef(
     const show = ({
       message,
       duration = 1000,
-      position = POSITION.TOP,
+      position = POSITION.BOTTOM,
       type = "success",
       onPress,
       title = "Thông báo",
+      spacer = "normal",
     }: Notification) => {
       if (!TIME_OUT.current) {
-        handleShow({ message, position, type, onPress, title, duration });
+        handleShow({
+          message,
+          position,
+          type,
+          onPress,
+          title,
+          duration,
+          spacer,
+        });
         return;
       }
 
@@ -101,9 +113,10 @@ const Toast = memoWithRef(
       onPress,
       title = "Thông báo",
       duration = 1000,
+      spacer = "normal",
     }: Notification) => {
       setMessage(message || "");
-      setOptions({ position, type, onPress, title });
+      setOptions({ position, type, onPress, title, spacer });
 
       viewVisibleAnimatedRef.current?.show?.(() => {
         TIME_OUT.current = setTimeout(() => {
@@ -156,6 +169,25 @@ const Toast = memoWithRef(
       }
     };
 
+    const handleToastBottomHeight = () => {
+      const { spacer } = options;
+
+      if (typeof spacer === "number") {
+        return spacer;
+      }
+
+      switch (spacer) {
+        case "normal":
+          return 64;
+        case "medium":
+          return 100;
+        case "large":
+          return 120;
+        default:
+          return 64;
+      }
+    };
+
     return (
       <ViewVisibleAnimated
         ref={viewVisibleAnimatedRef}
@@ -164,7 +196,9 @@ const Toast = memoWithRef(
         style={[
           styles.container,
           options.position === POSITION.BOTTOM && {
-            bottom: bottom ? bottom : CONSTANTS.SPACE_16,
+            bottom: bottom
+              ? bottom + handleToastBottomHeight()
+              : CONSTANTS.SPACE_16 + handleToastBottomHeight(),
           },
           options.position === POSITION.TOP && {
             top: top ? top : CONSTANTS.SPACE_16,

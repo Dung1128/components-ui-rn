@@ -159,7 +159,12 @@ const TextInputDefault = ({
             ref: innerRef,
             onChangeText: handleChangeText,
             value: inputValue,
-            placeholder: rest.placeholder,
+            placeholder:
+              parentState.value?.toString() == ""
+                ? parentState.focused
+                  ? rest.placeholder
+                  : label
+                : rest.placeholder,
             editable: !disabled && editable,
             selectionColor,
             cursorColor:
@@ -214,5 +219,7 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     padding: CONSTANTS.SPACE_8,
+    height: "100%",
+    paddingTop: CONSTANTS.SPACE_16,
   },
 });

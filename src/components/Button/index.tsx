@@ -11,16 +11,17 @@ import {
   TextStyle,
 } from "react-native";
 
-import { CONSTANTS } from "../../styles/themes/tokens";
 import ScaleButton from "../ScaleButton";
-import Text from "../Text";
+import Text, { IText } from "../Text";
 import View from "../View";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
 import Spacer from "../Spacer";
+import { CONSTANTS } from "@/styles/themes/tokens";
 
 export interface ButtonProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
+  border?: boolean;
   borderColor?: string;
   title?: string;
   backgroundColor?: string;
@@ -28,24 +29,30 @@ export interface ButtonProps extends TouchableOpacityProps {
   left?: React.ReactNode;
   right?: React.ReactNode;
   small?: boolean;
+  margin?: Number;
+  textProps?: IText;
   textColor?: string;
   bold?: boolean;
   size?: number;
   textStyle?: TextStyle;
   medium?: boolean;
   mode?: "outlined" | "contained" | "transparent";
+  transparent?: boolean;
   onPress?: (res?: any) => void;
   theme?: ThemeProp;
 }
 const Button = ({
   style,
   title,
+  border,
   borderColor,
   isLoading,
   left,
   right,
   small,
+  margin,
   textStyle,
+  textProps,
   onPress,
   disabled,
   backgroundColor,
@@ -54,6 +61,7 @@ const Button = ({
   size = 16,
   medium = false,
   mode = "contained",
+  transparent = false,
   theme: themeOverrides,
   ...props
 }: ButtonProps) => {
@@ -75,6 +83,17 @@ const Button = ({
           { borderColor: colors.borderBrandDefault },
           { backgroundColor: "transparent" },
         ];
+    }
+  };
+
+  const renderTextColor = () => {
+    switch (mode) {
+      case "outlined":
+        return colors.textBrandDefault;
+      case "contained":
+        return colors.textOnFillDefault;
+      case "transparent":
+        return colors.textBrandDefault;
     }
   };
 
@@ -121,11 +140,12 @@ const Button = ({
           ) : (
             <Text
               numberOfLines={1}
-              color={textColor || colors.textOnFillDefault}
+              color={textColor || renderTextColor()}
               size={size}
               bold={bold}
               medium={medium}
               style={[disabled && disabledTextStyle, textStyle]}
+              {...textProps}
             >
               {title}
             </Text>
