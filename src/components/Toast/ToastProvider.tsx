@@ -10,7 +10,8 @@ interface ToastRef {
     position?: "top" | "bottom";
     type?: "success" | "fail";
     onPress?: () => void;
-    title?: string;
+    title: string;
+    spacer?: "normal" | "medium" | "large" | number;
   }) => void;
 }
 

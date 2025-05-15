@@ -7,7 +7,8 @@ interface ToastRef {
     position?: "top" | "bottom";
     type?: "success" | "info" | "warning" | "error";
     onPress?: () => void;
-    title?: string;
+    title: string;
+    spacer?: "normal" | "medium" | "large" | number;
   }) => void;
 }
 
@@ -20,13 +21,15 @@ export const showToast = ({
   type = "success",
   onPress = () => {},
   title,
+  spacer = "normal",
 }: {
   message?: string;
   duration?: number;
   position?: "top" | "bottom";
   type?: "success" | "info" | "warning" | "error";
   onPress?: () => void;
-  title?: string;
+  title: string;
+  spacer?: "normal" | "medium" | "large" | number;
 }) => {
   if (!toastRef.current) {
     console.warn(
@@ -42,5 +45,6 @@ export const showToast = ({
     type,
     onPress,
     title,
+    spacer,
   });
 };

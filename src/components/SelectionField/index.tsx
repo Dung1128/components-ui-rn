@@ -45,6 +45,7 @@ export interface SelectionFieldProps extends TouchableOpacityProps {
   disabled?: boolean;
   onPress?: (res?: any) => void;
   theme?: ThemeProp;
+  required?: boolean;
 }
 const SelectionField = ({
   style,
@@ -63,6 +64,7 @@ const SelectionField = ({
   labelColor,
   size = 16,
   theme: themeOverrides,
+  required = false,
   ...props
 }: SelectionFieldProps) => {
   const theme = useInternalTheme();
@@ -70,6 +72,12 @@ const SelectionField = ({
 
   const disabledTextStyle = {
     color: colors.textSecondary,
+  };
+
+  const getColor = () => {
+    if (disabled) return colors.textPlaceholder;
+    if (error.length > 0) return colors.textErrorDefault;
+    return textColor || colors.textDefault;
   };
 
   return (
@@ -122,16 +130,20 @@ const SelectionField = ({
                 ]}
               >
                 {label}
+                {required && <Text color={colors.textErrorDefault}> *</Text>}
               </Text>
             )}
             <Text
               numberOfLines={1}
-              color={textColor || colors.textDefault}
+              color={getColor()}
               size={size}
               style={[disabled && disabledTextStyle, textStyle]}
               {...textProps}
             >
               {content.toString() === "" ? label : content}
+              {required && content.toString() === "" && (
+                <Text color={colors.textErrorDefault}> *</Text>
+              )}
             </Text>
           </View>
 

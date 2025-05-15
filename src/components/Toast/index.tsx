@@ -16,8 +16,15 @@ const POSITION = {
   BOTTOM: "bottom",
 } as const;
 
+const SPACER = {
+  NORMAL: "normal",
+  MEDIUM: "medium",
+  LARGE: "large",
+} as const;
+
 type Position = (typeof POSITION)[keyof typeof POSITION];
 type ToastType = "success" | "error" | "info" | "warning";
+type SpacerType = (typeof SPACER)[keyof typeof SPACER] | number;
 
 interface Notification {
   message?: string;
@@ -26,13 +33,13 @@ interface Notification {
   type?: ToastType;
   title: string;
   onPress?: () => void;
-  spacer?: "normal" | "medium" | "large" | number;
+  spacer?: SpacerType;
 }
 
 interface ToastOptions {
   position: Position;
   type: ToastType;
-  title?: string;
+  title: string;
   onPress?: () => void;
   spacer?: "normal" | "medium" | "large" | number;
 }
@@ -94,6 +101,7 @@ const Toast = memoWithRef(
           onPress,
           title,
           duration,
+          spacer,
         });
       }, true);
     };
@@ -173,18 +181,18 @@ const Toast = memoWithRef(
       const { spacer } = options;
 
       if (typeof spacer === "number") {
-        return spacer;
+        return Math.max(0, spacer);
       }
 
       switch (spacer) {
-        case "normal":
-          return 64;
-        case "medium":
-          return 100;
-        case "large":
-          return 120;
+        case SPACER.NORMAL:
+          return 0;
+        case SPACER.MEDIUM:
+          return 72;
+        case SPACER.LARGE:
+          return 104;
         default:
-          return 64;
+          return 0;
       }
     };
 
