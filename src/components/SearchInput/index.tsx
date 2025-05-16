@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleProp, ViewStyle, TextStyle } from "react-native";
+import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import View from "../View";
 import { SPACE_8 } from "../../theme/dimensions";
+import containerStyles from "../../theme/container-styles";
 import Icon from "../Icon";
 import TextInput from "../TextInput/TextInput";
 
@@ -17,6 +18,7 @@ interface SearchInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   onChangeText?: (text: string) => void;
+  height?: number;
 }
 
 const SearchInput = ({
@@ -29,6 +31,7 @@ const SearchInput = ({
   onBlur,
   onChangeText,
   style,
+  height,
 }: SearchInputProps) => {
   return (
     <TextInput
@@ -47,14 +50,18 @@ const SearchInput = ({
       onBlur={onBlur}
       allowFontScaling={false}
       onChangeText={onChangeText}
-      contentStyle={[
+      style={[
         {
-          height: 36,
+          height: height || 40,
         },
         style,
       ]}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  ...containerStyles,
+});
 
 export default SearchInput;

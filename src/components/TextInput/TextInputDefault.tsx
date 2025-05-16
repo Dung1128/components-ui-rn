@@ -141,6 +141,7 @@ const TextInputDefault = ({
       <View
         row
         alignCenter
+        justifyCenter
         style={[
           {
             borderRadius: CONSTANTS.BORDER_RADIUS_6,
@@ -155,7 +156,12 @@ const TextInputDefault = ({
       >
         {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}
         {left && <Spacer width={CONSTANTS.SPACE_8} />}
-        <View full>
+        <View
+          full
+          style={{
+            height: height || 48,
+          }}
+        >
           {multiline && renderLabel()}
           {render?.({
             ...rest,
@@ -192,6 +198,12 @@ const TextInputDefault = ({
                   ? "right"
                   : "left",
                 height: height ? height : 48,
+                paddingTop:
+                  Platform.OS === "android"
+                    ? multiline
+                      ? CONSTANTS.SPACE_2
+                      : CONSTANTS.SPACE_8
+                    : CONSTANTS.SPACE_4,
               },
               contentStyle,
             ],
@@ -199,7 +211,10 @@ const TextInputDefault = ({
         </View>
 
         {!disabled && clearButton && inputValue ? (
-          <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
+          <TouchableOpacity
+            onPress={handleClear}
+            style={multiline ? styles.clearButtonMultiline : styles.clearButton}
+          >
             <Icon name={"IconClearText"} type="Svg" size={24} />
           </TouchableOpacity>
         ) : (
@@ -222,9 +237,13 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
   },
-  clearButton: {
+  clearButtonMultiline: {
     paddingRight: CONSTANTS.SPACE_12,
     height: "100%",
     paddingTop: CONSTANTS.SPACE_12,
+  },
+  clearButton: {
+    justifyContent: "center",
+    paddingHorizontal: CONSTANTS.SPACE_8,
   },
 });

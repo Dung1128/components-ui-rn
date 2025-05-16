@@ -30,7 +30,7 @@ type Mode = "adaptive" | "exact";
 
 export type ThemeColors = {
 
-  elevation: MD3ElevationColors;
+  elevation?: MD3ElevationColors;
   //background
   backgroundPrimary: string;
   backgroundSecondary: string;
