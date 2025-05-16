@@ -47,7 +47,7 @@ const TextInputDefault = ({
   placeholderTextColor,
   clearButton = false,
   contentStyle,
-  value,
+  value = "",
   ...rest
 }: ChildTextInputProps) => {
   const { colors } = theme;
@@ -121,7 +121,10 @@ const TextInputDefault = ({
   };
 
   const renderLabel = () => {
-    if (parentState.focused || parentState.value?.toString() !== "") {
+    if (
+      parentState.focused ||
+      (parentState.value !== undefined && parentState.value?.toString() !== "")
+    ) {
       return (
         <View paddingTop={CONSTANTS.SPACE_4}>
           <Text color={getLabelColor()} size={MINIMIZED_LABEL_FONT_SIZE}>
@@ -216,10 +219,12 @@ const styles = StyleSheet.create({
     margin: 0,
     flex: 1,
     height: 48,
+    paddingLeft: 0,
+    paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
   },
   clearButton: {
-    padding: CONSTANTS.SPACE_8,
+    paddingRight: CONSTANTS.SPACE_12,
     height: "100%",
-    paddingTop: CONSTANTS.SPACE_16,
+    paddingTop: CONSTANTS.SPACE_12,
   },
 });

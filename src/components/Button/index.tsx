@@ -39,6 +39,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   mode?: "outlined" | "contained" | "transparent";
   transparent?: boolean;
   onPress?: (res?: any) => void;
+  full?: boolean;
   theme?: ThemeProp;
 }
 const Button = ({
@@ -62,6 +63,7 @@ const Button = ({
   medium = false,
   mode = "contained",
   transparent = false,
+  full = false,
   theme: themeOverrides,
   ...props
 }: ButtonProps) => {
@@ -98,7 +100,11 @@ const Button = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flexDirection: full ? "column" : "row",
+      }}
+    >
       <ScaleButton
         activeOpacity={0.8}
         onPress={onPress}
@@ -134,9 +140,7 @@ const Button = ({
           {!isLoading && left}
           {left && <Spacer width={CONSTANTS.SPACE_8} />}
           {isLoading ? (
-            <ActivityIndicator
-              color={textStyle?.color || colors.borderBrandDefault}
-            />
+            <ActivityIndicator color={textStyle?.color || renderTextColor()} />
           ) : (
             <Text
               numberOfLines={1}
@@ -160,15 +164,13 @@ const Button = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
   disabled: { opacity: 0.6 },
   button: {
     height: CONSTANTS.BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    minWidth: CONSTANTS.DEVICE_WIDTH / 4.5,
   },
   border: {
     borderWidth: CONSTANTS.BORDER_WIDTH_1,
