@@ -14,7 +14,6 @@ interface ViewProps {
   justifyBetween?: boolean;
   alignCenter?: boolean;
   center?: boolean;
-  gap?: number;
   color?: any;
   backgroundColor?: any;
   width?: number | `${number}%`;
@@ -72,6 +71,7 @@ const ViewCustom = ({
   activeOpacity,
   children,
   disabled,
+  paddingBottom,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -145,6 +145,9 @@ const ViewCustom = ({
     }
     if (borderBottomColor) {
       styleCustom.borderBottomColor = borderBottomColor;
+    }
+    if (paddingBottom) {
+      styleCustom.paddingBottom = paddingBottom;
     }
     if (borderRadius) {
       styleCustom.borderRadius = borderRadius;

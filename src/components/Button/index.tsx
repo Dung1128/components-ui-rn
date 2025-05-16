@@ -100,11 +100,7 @@ const Button = ({
   };
 
   return (
-    <View
-      style={{
-        flexDirection: full ? "column" : "row",
-      }}
-    >
+    <View row={!full}>
       <ScaleButton
         activeOpacity={0.8}
         onPress={onPress}

@@ -77,6 +77,9 @@ const SelectionField = ({
   const getColor = () => {
     if (disabled) return colors.textPlaceholder;
     if (error.length > 0) return colors.textErrorDefault;
+    if (content.toString() === "") {
+      return textColor || colors.textSecondary;
+    }
     return textColor || colors.textDefault;
   };
 
