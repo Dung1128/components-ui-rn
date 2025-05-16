@@ -29,7 +29,13 @@ export type Fonts = {
 type Mode = "adaptive" | "exact";
 
 export type ThemeColors = {
-
+  primary?:string;
+  background?:string;
+  card?:string;
+  text?:string;
+  border?:string;
+  gray?:string;
+  backgroundLight?:string;
   elevation?: MD3ElevationColors;
   //background
   backgroundPrimary: string;

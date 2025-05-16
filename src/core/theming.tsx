@@ -92,7 +92,7 @@ export function adaptNavigationTheme(themes: any) {
         ...navigationTheme.colors,
         primary: AppTheme.colors.surfaceBrandDefault,
         background: AppTheme.colors.backgroundPrimary,
-        card: AppTheme.colors.elevation.level2,
+        card: AppTheme.colors.card,
         text: AppTheme.colors.backgroundPrimary,
         border: AppTheme.colors.borderPrimaryDefault,
         notification: AppTheme.colors.surfaceErrorDefault,
