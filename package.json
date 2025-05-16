@@ -1,6 +1,6 @@
 {
   "name": "sapo-components-ui-rn",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "React Native UI Components Library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
