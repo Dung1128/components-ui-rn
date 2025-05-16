@@ -14,14 +14,13 @@ export const DarkTheme: AppTheme = {
   mode: "adaptive",
   version: 3,
   colors: {
-    elevation: {
-      level0: "transparent",
-      level1: "rgb(37, 35, 42)",
-      level2: "rgb(44, 40, 49)",
-      level3: "rgb(49, 44, 56)",
-      level4: "rgb(51, 46, 58)",
-      level5: "rgb(52, 49, 63)",
-    },
+    primary: blue.BLUE100,
+    background: white.WHITE100,
+    card: ink.INK100,
+    text: ink.INK100,
+    border: ink.INK40,
+    gray: ink.INK60,
+    backgroundLight: ink.INK10,
     //new theme colors
     backgroundPrimary: ink.INK5,
     backgroundSecondary: white.WHITE100,

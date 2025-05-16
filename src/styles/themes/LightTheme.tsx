@@ -13,14 +13,13 @@ export const LightTheme: AppTheme = {
   roundness: 8,
   version: 3,
   colors: {
-    elevation: {
-      level0: "transparent",
-      level1: "rgb(247, 243, 249)",
-      level2: "rgb(243, 237, 246)",
-      level3: "rgb(238, 232, 244)",
-      level4: "rgb(236, 230, 243)",
-      level5: "rgb(233, 227, 241)",
-    },
+    primary: blue.BLUE100,
+    background: white.WHITE100,
+    card: ink.INK100,
+    text: ink.INK100,
+    border: ink.INK40,
+    gray: ink.INK60,
+    backgroundLight: ink.INK10,
     //new theme colors
     backgroundPrimary: ink.INK5,
     backgroundSecondary: white.WHITE100,
