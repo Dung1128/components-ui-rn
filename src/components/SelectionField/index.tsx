@@ -49,7 +49,7 @@ export interface SelectionFieldProps extends TouchableOpacityProps {
 }
 const SelectionField = ({
   style,
-  content = "content",
+  content = "",
   label = "",
   error = "",
   borderColor,
