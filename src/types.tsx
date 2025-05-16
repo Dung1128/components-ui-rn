@@ -29,56 +29,37 @@ export type Fonts = {
 type Mode = "adaptive" | "exact";
 
 export type ThemeColors = {
-  text_primary: string;
   primary: string;
-  primaryContainer: string;
-  secondary: string;
-  secondaryContainer: string;
-  tertiary: string;
-  tertiaryContainer: string;
-  surface: string;
-  surfaceVariant: string;
-  surfaceDisabled: string;
   background: string;
-  error: string;
-  errorContainer: string;
-  onPrimary: string;
-  onPrimaryContainer: string;
-  onSecondary: string;
-  onSecondaryContainer: string;
-  onTertiary: string;
-  onTertiaryContainer: string;
-  onSurface: string;
-  onSurfaceVariant: string;
-  onSurfaceDisabled: string;
-  onError: string;
-  onErrorContainer: string;
-  onBackground: string;
-  outline: string;
-  outlineVariant: string;
-  inverseSurface: string;
-  inverseOnSurface: string;
-  inversePrimary: string;
-  shadow: string;
-  scrim: string;
-  backdrop: string;
-  elevation: MD3ElevationColors;
-  //new theme colors
-
-  //background
+  card: string;
+  text: string;
+  border: string;
+  gray: string;
+  backgroundLight: string;
   backgroundPrimary: string;
   backgroundSecondary: string;
+
   borderBrandDefault: string;
   borderCriticalDefault: string;
+  borderCriticalHover: string;
+  borderCriticalPressed: string;
+  borderCriticalInverseDefault: string;
+  borderCriticalInverseHover: string;
+  borderCriticalInversePressed: string;
   borderErrorDefault: string;
+  borderErrorInverseDefault: string;
   borderInfoDefault: string;
   borderPrimaryDefault: string;
   borderPrimaryDisabled: string;
   borderPrimaryHovered: string;
   borderPrimaryInverseDefault: string;
   borderPrimaryPressed: string;
+  borderPrimaryFocused: string;
   borderSuccessDefault: string;
+  borderSuccessInverseDefault: string;
   borderWarningDefault: string;
+  borderWarningInverseDefault: string;
+
   iconBrandDefault: string;
   iconCriticalDefault: string;
   iconErrorDefault: string;
@@ -92,6 +73,7 @@ export type ThemeColors = {
   iconPrimaryPressed: string;
   iconSuccessDefault: string;
   iconWarningDefault: string;
+
   surfaceBrandDefault: string;
   surfaceBrandDisabled: string;
   surfaceBrandHover: string;
@@ -99,6 +81,7 @@ export type ThemeColors = {
   surfaceBrandInverseHover: string;
   surfaceBrandInversePressed: string;
   surfaceBrandPressed: string;
+
   surfaceCriticalDefault: string;
   surfaceCriticalDisabled: string;
   surfaceCriticalHover: string;
@@ -106,6 +89,7 @@ export type ThemeColors = {
   surfaceCriticalInverseHover: string;
   surfaceCriticalInversePressed: string;
   surfaceCriticalPressed: string;
+
   surfaceErrorDefault: string;
   surfaceErrorDisabled: string;
   surfaceErrorHover: string;
@@ -113,6 +97,7 @@ export type ThemeColors = {
   surfaceErrorInverseHover: string;
   surfaceErrorInversePressed: string;
   surfaceErrorPressed: string;
+
   surfaceInfoDefault: string;
   surfaceInfoDisabled: string;
   surfaceInfoHover: string;
@@ -120,6 +105,7 @@ export type ThemeColors = {
   surfaceInfoInverseHover: string;
   surfaceInfoInversePressed: string;
   surfaceInfoPressed: string;
+
   surfacePrimaryDefault: string;
   surfacePrimaryDisabled: string;
   surfacePrimaryHover: string;
@@ -127,10 +113,12 @@ export type ThemeColors = {
   surfacePrimaryInverseHover: string;
   surfacePrimaryInversePressed: string;
   surfacePrimaryPressed: string;
+
   surfaceSecondaryDefault: string;
   surfaceSecondaryDisabled: string;
   surfaceSecondaryHover: string;
   surfaceSecondaryPressed: string;
+
   surfaceSuccessDefault: string;
   surfaceSuccessDisabled: string;
   surfaceSuccessHover: string;
@@ -138,6 +126,7 @@ export type ThemeColors = {
   surfaceSuccessInverseHover: string;
   surfaceSuccessInversePressed: string;
   surfaceSuccessPressed: string;
+
   surfaceWarningDefault: string;
   surfaceWarningDisabled: string;
   surfaceWarningHover: string;
@@ -145,6 +134,7 @@ export type ThemeColors = {
   surfaceWarningInverseHover: string;
   surfaceWarningInversePressed: string;
   surfaceWarningPressed: string;
+
   textDefault: string;
   textDisabled: string;
   textPlaceholder: string;
@@ -185,6 +175,7 @@ export type ThemeColors = {
   textWarningDisabled: string;
   textWarningHovered: string;
   textWarningPressed: string;
+
   selectBackgroundDisabled: string;
   selectIconDisabled: string;
 };
