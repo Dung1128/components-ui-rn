@@ -7,12 +7,12 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
-import { CONSTANTS } from "../../styles/themes/tokens";
+import { BUTTON_HEIGHT } from "../../theme/dimensions";
 import { useInternalTheme } from "../../core/theming";
+import ScaleButton from "../ScaleButton";
 
 export interface FloatingButtonProps {
   isLoading?: boolean;
@@ -26,6 +26,8 @@ export interface FloatingButtonProps {
   backgroundColor?: string;
   top?: number;
   right?: number;
+  left?: number;
+  bottom?: number;
 }
 const FloatingButton = ({
   isLoading,
@@ -33,23 +35,33 @@ const FloatingButton = ({
   onPress,
   style,
   hiddenBackground = false,
-  size = CONSTANTS.BUTTON_HEIGHT,
+  size = BUTTON_HEIGHT,
   children,
   backgroundColor,
   props,
   top = 0,
   right = 0,
+  left = 0,
+  bottom = 0,
 }: FloatingButtonProps) => {
   const { colors } = useInternalTheme();
   return (
-    <TouchableOpacity
+    <ScaleButton
       activeOpacity={0.8}
-      disabled={disabled || isLoading || !onPress}
       onPress={onPress}
+      {...props}
+      disabled={disabled || isLoading}
+      style={[
+        styles.btn,
+        top > 0 && { top: top },
+        right > 0 && { right: right },
+        left > 0 && { left: left },
+        bottom > 0 && { bottom: bottom },
+      ]}
     >
       <View
+        center
         style={[
-          styles.btn,
           !hiddenBackground
             ? {
                 backgroundColor: backgroundColor || colors.surfaceBrandDefault,
@@ -61,8 +73,6 @@ const FloatingButton = ({
             width: size,
             height: size,
             borderRadius: size / 2,
-            top: top,
-            right: right,
           },
 
           disabled && {
@@ -75,25 +85,13 @@ const FloatingButton = ({
       >
         {isLoading ? <ActivityIndicator size={"small"} /> : children}
       </View>
-    </TouchableOpacity>
+    </ScaleButton>
   );
 };
 
 const styles = StyleSheet.create({
   btn: {
     position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-    zIndex: 99,
   },
 });
 

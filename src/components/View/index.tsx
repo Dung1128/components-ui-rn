@@ -68,10 +68,9 @@ const ViewCustom = ({
   borderColor,
   style,
   onPress,
-  activeOpacity,
+  activeOpacity = 0.8,
   children,
   disabled,
-  paddingBottom,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -145,9 +144,6 @@ const ViewCustom = ({
     }
     if (borderBottomColor) {
       styleCustom.borderBottomColor = borderBottomColor;
-    }
-    if (paddingBottom) {
-      styleCustom.paddingBottom = paddingBottom;
     }
     if (borderRadius) {
       styleCustom.borderRadius = borderRadius;

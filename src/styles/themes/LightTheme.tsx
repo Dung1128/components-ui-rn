@@ -52,7 +52,7 @@ export const LightTheme: AppTheme = {
     surfaceBrandDefault: blue.BLUE100,
     surfaceBrandDisabled: ink.INK10,
     surfaceBrandHover: blue.BLUE80,
-    surfaceBrandInverseDefault: blue.BLUE10,
+    surfaceBrandInverseDefault: blue.BLUE5,
     surfaceBrandInverseHover: blue.BLUE20,
     surfaceBrandInversePressed: blue.BLUE40,
     surfaceBrandPressed: blue.BLUE120,

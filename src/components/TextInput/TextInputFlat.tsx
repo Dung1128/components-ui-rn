@@ -34,7 +34,13 @@ import InputLabel from "./Label/InputLabel";
 import type { ChildTextInputProps, RenderProps } from "./types";
 import { Outline } from "./Addons/Outline";
 import Spacer from "../Spacer";
-import { CONSTANTS } from "../../styles/themes/tokens";
+import {
+  BORDER_RADIUS_6,
+  SPACE_12,
+  SPACE_4,
+  SPACE_6,
+  SPACE_8,
+} from "@/theme/dimensions";
 import Icon from "../Icon";
 
 const TextInputFlat = ({
@@ -288,10 +294,10 @@ const TextInputFlat = ({
       style={{
         flexDirection: "row",
         alignItems: "center",
-        borderRadius: CONSTANTS.BORDER_RADIUS_6,
+        borderRadius: BORDER_RADIUS_6,
         borderWidth: 1,
         borderColor: getBorderColor(),
-        height: 48,
+        height: 44,
         overflow: "hidden",
         backgroundColor: disabled
           ? theme.colors.surfacePrimaryDisabled
@@ -299,14 +305,8 @@ const TextInputFlat = ({
       }}
     >
       <View style={{ flexDirection: "row" }}>
-        {left && (
-          <View style={{ paddingLeft: CONSTANTS.SPACE_12 }}>{left}</View>
-        )}
-        {left ? (
-          <Spacer width={CONSTANTS.SPACE_8} />
-        ) : (
-          <Spacer width={CONSTANTS.SPACE_12} />
-        )}
+        {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
+        {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
       </View>
       <Outline
         style={outlineStyle}
@@ -329,7 +329,7 @@ const TextInputFlat = ({
           },
         ]}
       >
-        {!isAndroid && multiline && !!label && !disabled && (
+        {/* {!isAndroid && multiline && !!label && !disabled && (
           <View
             pointerEvents="none"
             style={[
@@ -343,7 +343,7 @@ const TextInputFlat = ({
               },
             ]}
           />
-        )}
+        )} */}
         {label ? (
           <InputLabel
             labeled={parentState.labeled}
@@ -378,7 +378,8 @@ const TextInputFlat = ({
             {
               paddingLeft,
               paddingRight,
-              paddingTop: CONSTANTS.SPACE_12,
+              paddingTop:
+                parentState.focused || parentState.value ? SPACE_12 : 0,
               ...font,
               fontSize,
               lineHeight,
@@ -390,8 +391,8 @@ const TextInputFlat = ({
                 : I18nManager.getConstants().isRTL
                 ? "right"
                 : "left",
+              marginTop: Platform.OS === "android" ? SPACE_8 : 0,
             },
-            Platform.OS === "web" && { outline: "none" },
             contentStyle,
           ],
         } as RenderProps)}
@@ -401,13 +402,11 @@ const TextInputFlat = ({
           <Icon name="IconClearText" type="Svg" size={24} />
         </TouchableOpacity>
       ) : (
-        <Spacer width={CONSTANTS.SPACE_12} />
+        <Spacer width={SPACE_12} />
       )}
       <View style={{ flexDirection: "row" }}>
-        {right && <Spacer width={CONSTANTS.SPACE_8} />}
-        {right && (
-          <View style={{ paddingRight: CONSTANTS.SPACE_12 }}>{right}</View>
-        )}
+        {right && <Spacer width={SPACE_8} />}
+        {right && <View style={{ paddingRight: SPACE_12 }}>{right}</View>}
       </View>
     </View>
   );
@@ -428,7 +427,7 @@ const styles = StyleSheet.create({
   input: {
     // margin: 0,
     flex: 1,
-    height: 48,
+    height: 44,
   },
   inputFlat: {
     paddingTop: 24,
@@ -447,6 +446,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   clearButton: {
-    padding: CONSTANTS.SPACE_8,
+    padding: SPACE_8,
   },
 });

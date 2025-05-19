@@ -119,7 +119,7 @@ const InputLabel = (props: InputLabelProps) => {
   const commonStyles = [
     placeholderStyle,
     {
-      top: topPosition,
+      top: topPosition - (Platform.OS === "android" ? 3 : 2),
     },
     {
       maxWidth: labelWidth,

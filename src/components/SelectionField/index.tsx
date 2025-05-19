@@ -11,7 +11,6 @@ import {
 } from "react-native";
 
 import {
-  BUTTON_HEIGHT,
   BUTTON_HEIGHT_SMALL,
   SPACE_12,
   BORDER_RADIUS_6,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
   ...containerStyles,
   disabled: { opacity: 0.6 },
   container: {
-    minHeight: BUTTON_HEIGHT,
+    height: 48,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

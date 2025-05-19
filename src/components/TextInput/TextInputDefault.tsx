@@ -152,6 +152,7 @@ const TextInputDefault = ({
               ? theme.colors.surfacePrimaryDisabled
               : theme.colors.surfacePrimaryDefault,
           },
+          contentStyle,
         ]}
       >
         {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}

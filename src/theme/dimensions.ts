@@ -6,6 +6,7 @@ export const HEADER_HEIGHT = 50;
 export const BUTTON_HEIGHT = 48;
 export const BUTTON_HEIGHT_SMALL = 40;
 export const RADIO_BUTTON_HEIGHT = 20;
+export const BUTTON_ICON = 36;
 
 //MARK: padding
 export const SPACE_0 = 0;
