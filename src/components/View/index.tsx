@@ -30,6 +30,10 @@ interface ViewProps {
   paddingLeft?: number;
   paddingRight?: number;
   paddingTop?: number;
+  marginTop?: number;
+  marginBottom?: number;
+  marginLeft?: number;
+  marginRight?: number;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   alignEnd?: boolean;
@@ -71,6 +75,11 @@ const ViewCustom = ({
   activeOpacity = 0.8,
   children,
   disabled,
+  paddingBottom,
+  marginTop,
+  marginBottom,
+  marginLeft,
+  marginRight,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -128,6 +137,21 @@ const ViewCustom = ({
     }
     if (paddingTop) {
       styleCustom.paddingTop = paddingTop;
+    }
+    if (paddingBottom) {
+      styleCustom.paddingBottom = paddingBottom;
+    }
+    if (marginLeft) {
+      styleCustom.marginLeft = marginLeft;
+    }
+    if (marginRight) {
+      styleCustom.marginRight = marginRight;
+    }
+    if (marginTop) {
+      styleCustom.marginTop = marginTop;
+    }
+    if (marginBottom) {
+      styleCustom.marginBottom = marginBottom;
     }
 
     if (paddingRight) {

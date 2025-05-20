@@ -49,7 +49,7 @@ const Checkbox = ({
   const checkboxColor = useCheckboxColor(isActive, disabled);
 
   const handlePressChipBar = useCallback(() => {
-    setActive(!isActive);
+    // setActive(!isActive);
     onPress?.();
   }, [isActive, onPress]);
 

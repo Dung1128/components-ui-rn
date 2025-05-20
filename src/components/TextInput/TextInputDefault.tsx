@@ -60,6 +60,7 @@ const TextInputDefault = ({
     height,
     backgroundColor = colors?.backgroundPrimary,
     textAlign,
+    minHeight,
     ...viewStyle
   } = (StyleSheet.flatten(style) || {}) as TextStyle;
   const fontSize = fontSizeStyle || MAXIMIZED_LABEL_FONT_SIZE;
@@ -140,7 +141,8 @@ const TextInputDefault = ({
     <View style={viewStyle}>
       <View
         row
-        alignCenter
+        // full
+        // alignCenter
         justifyCenter
         style={[
           {
@@ -155,13 +157,20 @@ const TextInputDefault = ({
           contentStyle,
         ]}
       >
-        {<View paddingLeft={CONSTANTS.SPACE_12}>{left}</View>}
+        {
+          <View center paddingLeft={CONSTANTS.SPACE_12}>
+            {left}
+          </View>
+        }
         {left && <Spacer width={CONSTANTS.SPACE_8} />}
         <View
           full
-          style={{
-            height: height || 48,
-          }}
+          style={[
+            {
+              height: height || 48,
+              minHeight: height || 48,
+            },
+          ]}
         >
           {multiline && renderLabel()}
           {render?.({
@@ -205,6 +214,7 @@ const TextInputDefault = ({
                       ? CONSTANTS.SPACE_2
                       : CONSTANTS.SPACE_8
                     : CONSTANTS.SPACE_4,
+                paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
               },
               contentStyle,
             ],
@@ -222,7 +232,11 @@ const TextInputDefault = ({
           <Spacer width={CONSTANTS.SPACE_12} />
         )}
         {right && <Spacer width={CONSTANTS.SPACE_8} />}
-        {right && <View paddingRight={CONSTANTS.SPACE_12}>{right}</View>}
+        {right && (
+          <View center paddingRight={CONSTANTS.SPACE_12}>
+            {right}
+          </View>
+        )}
       </View>
     </View>
   );
