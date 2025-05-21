@@ -10,7 +10,7 @@ import Icon from "../Icon";
 interface CheckboxProps {
   style?: StyleProp<ViewStyle>;
   content: string;
-  onPress?: (val?: any) => void;
+  onPress?: () => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;

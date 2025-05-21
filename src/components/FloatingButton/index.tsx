@@ -7,12 +7,12 @@ import {
   StyleProp,
   ViewStyle,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import View from "../View";
 import { memoDeepEqual } from "../../utils/function-utils";
 import { BUTTON_HEIGHT } from "../../theme/dimensions";
 import { useInternalTheme } from "../../core/theming";
-import ScaleButton from "../ScaleButton";
 
 export interface FloatingButtonProps {
   isLoading?: boolean;
@@ -46,7 +46,7 @@ const FloatingButton = ({
 }: FloatingButtonProps) => {
   const { colors } = useInternalTheme();
   return (
-    <ScaleButton
+    <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
       {...props}
@@ -85,7 +85,7 @@ const FloatingButton = ({
       >
         {isLoading ? <ActivityIndicator size={"small"} /> : children}
       </View>
-    </ScaleButton>
+    </TouchableOpacity>
   );
 };
 
