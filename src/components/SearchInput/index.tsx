@@ -63,6 +63,7 @@ const SearchInput = ({
       contentStyle={[
         {
           backgroundColor: colors.surfaceSecondaryDefault,
+          paddingTop: 0,
         },
         style,
       ]}

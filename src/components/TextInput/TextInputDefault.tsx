@@ -137,6 +137,16 @@ const TextInputDefault = ({
     return <View />;
   };
 
+  const getPaddingTopValue = () => {
+    if (multiline) {
+      if (Platform.OS === "ios") {
+        return CONSTANTS.SPACE_4;
+      }
+      return CONSTANTS.SPACE_2;
+    }
+    return 0;
+  };
+
   return (
     <View style={viewStyle}>
       <View
@@ -167,8 +177,7 @@ const TextInputDefault = ({
           full
           style={[
             {
-              height: height || 48,
-              minHeight: height || 48,
+              height: height || 44,
             },
           ]}
         >
@@ -207,13 +216,8 @@ const TextInputDefault = ({
                   : I18nManager.getConstants().isRTL
                   ? "right"
                   : "left",
-                height: height ? height : 48,
-                paddingTop:
-                  Platform.OS === "android"
-                    ? multiline
-                      ? CONSTANTS.SPACE_2
-                      : CONSTANTS.SPACE_8
-                    : CONSTANTS.SPACE_4,
+                height: height ? height : 44,
+                paddingTop: getPaddingTopValue(),
                 paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
               },
               contentStyle,
@@ -248,9 +252,9 @@ const styles = StyleSheet.create({
   input: {
     margin: 0,
     flex: 1,
-    height: 48,
+    height: 44,
     paddingLeft: 0,
-    paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
+    // paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
   },
   clearButtonMultiline: {
     paddingRight: CONSTANTS.SPACE_12,
