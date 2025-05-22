@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   NativeModules,
-  Platform,
   StyleProp,
   Switch as NativeSwitch,
   ViewStyle,
@@ -67,7 +66,7 @@ const Switch = ({
   ...rest
 }: Props) => {
   const theme = useInternalTheme();
-  const { checkedColor, onTintColor, thumbTintColor } = getSwitchColor({
+  const { onTintColor, thumbTintColor } = getSwitchColor({
     theme,
     disabled,
     value,
@@ -79,12 +78,6 @@ const Switch = ({
       ? {
           onTintColor,
           thumbTintColor,
-        }
-      : Platform.OS === "web"
-      ? {
-          activeTrackColor: onTintColor,
-          thumbColor: thumbTintColor,
-          activeThumbColor: checkedColor,
         }
       : {
           thumbColor: thumbTintColor,

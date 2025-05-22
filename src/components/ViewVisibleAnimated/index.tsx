@@ -84,7 +84,7 @@ const ViewVisibleAnimated = React.memo(
       const handleShow = ({
         callback,
         durationShow,
-        position = "top",
+        position = "bottom",
       }: {
         callback?: () => void;
         durationShow: number;

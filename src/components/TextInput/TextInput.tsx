@@ -36,11 +36,11 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   /**
    * The text or component to use for the floating label.
    */
-  label: TextInputLabelProp;
+  label?: TextInputLabelProp;
   /**
    * Placeholder for the input.
    */
-  placeholder: string;
+  placeholder?: string;
   /**
    * Whether to style the TextInput with error style.
    */

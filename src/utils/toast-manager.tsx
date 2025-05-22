@@ -17,7 +17,7 @@ export const toastRef = React.createRef<ToastRef>();
 export const showToast = ({
   message,
   duration = 5000,
-  position = "top",
+  position = "bottom",
   type = "success",
   onPress = () => {},
   title,

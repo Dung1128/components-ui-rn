@@ -84,7 +84,7 @@ const Checkbox = ({
           style={[
             styles.text14,
             disabled && {
-              color: colors.textSecondary,
+              color: colors.textDisabled,
             },
             textStyle,
           ]}

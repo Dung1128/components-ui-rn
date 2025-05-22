@@ -15,6 +15,10 @@ import IconArrowDown from "../../icons/IconArrowDown";
 import IconClearText from "../../icons/IconClearText";
 import IconSearch from "@/icons/IconSearch";
 import IconClose from "@/icons/IconClose";
+import IconSuccess from "@/icons/IconSuccess";
+import IconError from "@/icons/IconError";
+import IconInfo from "@/icons/IconInfo";
+import IconWarning from "@/icons/IconWarning";
 
 export type IconType =
   | "FontAwesome"
@@ -34,7 +38,11 @@ export interface IconProps {
     | "IconArrowDown"
     | "IconClearText"
     | "IconSearch"
-    | "IconClose";
+    | "IconClose"
+    | "IconSuccess"
+    | "IconError"
+    | "IconInfo"
+    | "IconWarning";
   backgroundColor?: string;
   size?: number;
   color?: string;
@@ -95,6 +103,14 @@ const Icon: React.FC<IconProps> = ({
         return IconSearch;
       case "IconClose":
         return IconClose;
+      case "IconSuccess":
+        return IconSuccess;
+      case "IconError":
+        return IconError;
+      case "IconInfo":
+        return IconInfo;
+      case "IconWarning":
+        return IconWarning;
       default:
         return IconCheckbox;
     }

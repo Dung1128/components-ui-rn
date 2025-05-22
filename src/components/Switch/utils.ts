@@ -19,7 +19,7 @@ const getCheckedColor = ({
     return color;
   }
 
-  return theme.colors.surfaceBrandDefault;
+  return theme.colors.toggleBackgroundActive;
 };
 
 const getThumbTintColor = ({
@@ -36,9 +36,9 @@ const getThumbTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      return theme.colors.backgroundPrimary;
+      return theme.colors.toggleBackgroundDefault;
     }
-    return theme.colors.backgroundPrimary;
+    return theme.colors.toggleBackgroundDefault;
   }
 
   if (value) {
@@ -46,9 +46,9 @@ const getThumbTintColor = ({
   }
 
   if (theme.dark) {
-    return theme.colors.backgroundPrimary;
+    return theme.colors.toggleBackgroundDefault;
   }
-  return theme.colors.backgroundPrimary;
+  return theme.colors.toggleBackgroundDefault;
 };
 
 const getOnTintColor = ({
@@ -65,9 +65,9 @@ const getOnTintColor = ({
 
   if (disabled) {
     if (theme.dark) {
-      return theme.colors.backgroundPrimary;
+      return theme.colors.toggleBackgroundDefault;
     }
-    return theme.colors.backgroundPrimary;
+    return theme.colors.toggleBackgroundDefault;
   }
 
   if (value) {
@@ -75,9 +75,9 @@ const getOnTintColor = ({
   }
 
   if (theme.dark) {
-    return theme.colors.backgroundPrimary;
+    return theme.colors.toggleBackgroundDefault;
   }
-  return theme.colors.backgroundPrimary;
+  return theme.colors.toggleBackgroundDefault;
 };
 
 export const getSwitchColor = ({

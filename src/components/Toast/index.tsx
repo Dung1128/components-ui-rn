@@ -10,6 +10,7 @@ import View from "../View";
 import { memoWithRef } from "@/utils/function-utils";
 import ViewVisibleAnimated from "../ViewVisibleAnimated";
 import { useInternalTheme } from "../../core/theming";
+import Icon from "../Icon";
 
 const POSITION = {
   TOP: "top",
@@ -165,15 +166,15 @@ const Toast = memoWithRef(
     const getSourceIcon = () => {
       switch (options.type) {
         case "success":
-          return require("./assets/images/success.png");
+          return "IconSuccess";
         case "error":
-          return require("./assets/images/error.png");
+          return "IconError";
         case "info":
-          return require("./assets/images/info.png");
+          return "IconInfo";
         case "warning":
-          return require("./assets/images/warning.png");
+          return "IconWarning";
         default:
-          return require("./assets/images/success.png");
+          return "IconSuccess";
       }
     };
 
@@ -234,7 +235,7 @@ const Toast = memoWithRef(
         >
           <View row style={{ alignItems: "flex-start" }}>
             <View>
-              <RNImage source={getSourceIcon()} style={styles.img} />
+              <Icon name={getSourceIcon()} type="Svg" size={20} />
             </View>
             <View full paddingLeft={CONSTANTS.SPACE_8}>
               <Text bold color={colors.textOnFillDefault}>
