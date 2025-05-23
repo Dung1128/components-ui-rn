@@ -42,6 +42,7 @@ import {
   SPACE_8,
 } from "@/theme/dimensions";
 import Icon from "../Icon";
+import Text from "../Text";
 
 const TextInputFlat = ({
   disabled = false,
@@ -72,6 +73,7 @@ const TextInputFlat = ({
   onInputLayout,
   left,
   right,
+  prefix,
   placeholderTextColor,
   clearButton,
   contentStyle,
@@ -79,10 +81,10 @@ const TextInputFlat = ({
   outlineStyle,
   outlineColor,
   value,
+  textError,
   ...rest
 }: ChildTextInputProps) => {
   const [inputValue, setInputValue] = React.useState(value || "");
-
   React.useEffect(() => {
     setInputValue(value || "");
   }, [value]);
@@ -284,52 +286,89 @@ const TextInputFlat = ({
       return theme.colors.surfacePrimaryDisabled;
     } else if (parentState.focused) {
       return activeColor;
+    } else if (error) {
+      return theme.colors.borderErrorDefault;
     } else {
       return theme.colors.borderPrimaryDefault;
     }
   };
 
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        borderRadius: BORDER_RADIUS_6,
-        borderWidth: 1,
-        borderColor: getBorderColor(),
-        height: 44,
-        overflow: "hidden",
-        backgroundColor: disabled
-          ? theme.colors.surfacePrimaryDisabled
-          : theme.colors.surfacePrimaryDefault,
-      }}
-    >
-      <View style={{ flexDirection: "row" }}>
-        {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
-        {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
-      </View>
-      <Outline
-        style={outlineStyle}
-        label={label}
-        roundness={roundness}
-        hasActiveOutline={hasActiveOutline}
-        focused={parentState.focused}
-        activeColor={activeColor}
-        outlineColor={outlineColor}
-        backgroundColor={backgroundColor}
-      />
+  const renderPrefix = () => {
+    if (parentState.focused) {
+      return (
+        <View
+          style={{
+            paddingBottom: Platform.OS === "ios" ? 9 : 14,
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {prefix}
+            {` `}
+          </Text>
+        </View>
+      );
+    } else if (
+      parentState.value !== undefined &&
+      parentState.value?.toString() !== ""
+    ) {
+      return (
+        <View
+          style={{
+            paddingBottom: Platform.OS === "ios" ? 9 : 14,
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {prefix}
+            {` `}
+          </Text>
+        </View>
+      );
+    }
+    return <View />;
+  };
 
+  return (
+    <View>
       <View
-        onLayout={onInputLayout}
-        style={[
-          styles.labelContainer,
-          {
-            minHeight,
-            flex: 1,
-          },
-        ]}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          borderRadius: BORDER_RADIUS_6,
+          borderWidth: 1,
+          borderColor: getBorderColor(),
+          height: 48,
+          overflow: "hidden",
+          backgroundColor: disabled
+            ? theme.colors.surfacePrimaryDisabled
+            : theme.colors.surfacePrimaryDefault,
+        }}
       >
-        {/* {!isAndroid && multiline && !!label && !disabled && (
+        <View style={{ flexDirection: "row", height: "100%" }}>
+          {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
+          {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
+        </View>
+        <Outline
+          style={outlineStyle}
+          label={label}
+          roundness={roundness}
+          hasActiveOutline={hasActiveOutline}
+          focused={parentState.focused}
+          activeColor={activeColor}
+          outlineColor={outlineColor}
+          backgroundColor={backgroundColor}
+        />
+
+        <View
+          onLayout={onInputLayout}
+          style={[
+            styles.labelContainer,
+            {
+              minHeight,
+              flex: 1,
+            },
+          ]}
+        >
+          {/* {!isAndroid && multiline && !!label && !disabled && (
           <View
             pointerEvents="none"
             style={[
@@ -344,70 +383,100 @@ const TextInputFlat = ({
             ]}
           />
         )} */}
-        {label ? (
-          <InputLabel
-            labeled={parentState.labeled}
-            error={parentState.error}
-            focused={parentState.focused}
-            scaledLabel={scaledLabel}
-            wiggle={Boolean(parentState.value && labelProps.labelError)}
-            labelLayoutMeasured={parentState.labelLayout.measured}
-            labelLayoutWidth={parentState.labelLayout.width}
-            labelLayoutHeight={parentState.labelLayout.height}
-            {...labelProps}
-          />
-        ) : null}
-        {render?.({
-          ...rest,
-          ref: innerRef,
-          onChangeText: handleChangeText,
-          value: inputValue,
-          placeholder: rest.placeholder,
-          editable: !disabled && editable,
-          selectionColor,
-          cursorColor:
-            typeof cursorColor === "undefined" ? activeColor : cursorColor,
-          placeholderTextColor: placeholderTextColorBasedOnState,
-          onFocus,
-          onBlur,
-          underlineColorAndroid: "transparent",
-          multiline,
-          style: [
-            styles.input,
-            // paddingFlat,
-            {
-              paddingLeft,
-              paddingRight,
-              paddingTop:
-                parentState.focused || parentState.value ? SPACE_12 : 0,
-              ...font,
-              fontSize,
-              lineHeight,
-              fontWeight,
-              color: inputTextColor,
-              textAlignVertical: multiline ? "top" : "center",
-              textAlign: textAlign
-                ? textAlign
-                : I18nManager.getConstants().isRTL
-                ? "right"
-                : "left",
-              marginTop: Platform.OS === "android" ? SPACE_8 : 0,
-            },
-            contentStyle,
-          ],
-        } as RenderProps)}
+          {label ? (
+            <InputLabel
+              labeled={parentState.labeled}
+              error={parentState.error}
+              focused={parentState.focused}
+              scaledLabel={scaledLabel}
+              wiggle={Boolean(parentState.value && labelProps.labelError)}
+              labelLayoutMeasured={parentState.labelLayout.measured}
+              labelLayoutWidth={parentState.labelLayout.width}
+              labelLayoutHeight={parentState.labelLayout.height}
+              {...labelProps}
+            />
+          ) : null}
+          <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+            {renderPrefix()}
+
+            {render?.({
+              ...rest,
+              ref: innerRef,
+              onChangeText: handleChangeText,
+              value: inputValue,
+              placeholder: rest.placeholder,
+              editable: !disabled && editable,
+              selectionColor,
+              cursorColor:
+                typeof cursorColor === "undefined" ? activeColor : cursorColor,
+              placeholderTextColor: placeholderTextColorBasedOnState,
+              onFocus,
+              onBlur,
+              underlineColorAndroid: "transparent",
+              multiline,
+              style: [
+                styles.input,
+                // paddingFlat,
+                {
+                  paddingLeft,
+                  paddingRight,
+                  paddingTop:
+                    parentState.focused || parentState.value ? SPACE_12 : 0,
+                  ...font,
+                  fontSize,
+                  lineHeight,
+                  fontWeight,
+                  color: inputTextColor,
+                  textAlignVertical: multiline ? "top" : "center",
+                  textAlign: textAlign
+                    ? textAlign
+                    : I18nManager.getConstants().isRTL
+                    ? "right"
+                    : "left",
+                  marginTop: Platform.OS === "android" ? SPACE_8 : 0,
+                },
+                contentStyle,
+              ],
+            } as RenderProps)}
+          </View>
+        </View>
+        {!disabled && clearButton && inputValue ? (
+          <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
+            <Icon name="IconClearText" type="Svg" size={24} />
+          </TouchableOpacity>
+        ) : (
+          <Spacer width={SPACE_12} />
+        )}
+        <View
+          style={{
+            flexDirection: "row",
+            height: "100%",
+            paddingBottom: SPACE_6,
+          }}
+        >
+          {right && !clearButton && <Spacer width={SPACE_8} />}
+          {right && (
+            <View
+              style={{
+                paddingRight: SPACE_12,
+              }}
+            >
+              {right}
+            </View>
+          )}
+        </View>
       </View>
-      {!disabled && clearButton && inputValue ? (
-        <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
-          <Icon name="IconClearText" type="Svg" size={24} />
-        </TouchableOpacity>
-      ) : (
-        <Spacer width={SPACE_12} />
+      {error && textError?.toString() !== "" && (
+        <View style={styles.vError}>
+          <Text
+            size={12}
+            numberOfLines={1}
+            color={theme.colors.textErrorDefault}
+          >
+            {textError}
+          </Text>
+        </View>
       )}
-      <View style={{ flexDirection: "row" }}>
-        {right && <Spacer width={SPACE_8} />}
-        {right && <View style={{ paddingRight: SPACE_12 }}>{right}</View>}
-      </View>
     </View>
   );
 };
@@ -427,7 +496,7 @@ const styles = StyleSheet.create({
   input: {
     // margin: 0,
     flex: 1,
-    height: 44,
+    height: 48,
   },
   inputFlat: {
     paddingTop: 24,
@@ -447,5 +516,9 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     padding: SPACE_8,
+  },
+  vError: {
+    paddingTop: SPACE_4,
+    paddingHorizontal: SPACE_12,
   },
 });

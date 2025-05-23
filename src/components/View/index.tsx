@@ -40,6 +40,12 @@ interface ViewProps {
   wrap?: boolean;
   borderBottomWidth?: number;
   borderBottomColor?: string;
+  borderTopWidth?: number;
+  borderTopColor?: string;
+  borderLeftWidth?: number;
+  borderLeftColor?: string;
+  borderRightWidth?: number;
+  borderRightColor?: string;
   borderRadius?: number;
   borderWidth?: number;
   borderColor?: string;
@@ -80,6 +86,12 @@ const ViewCustom = ({
   marginBottom,
   marginLeft,
   marginRight,
+  borderTopWidth,
+  borderTopColor,
+  borderLeftWidth,
+  borderLeftColor,
+  borderRightWidth,
+  borderRightColor,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -168,6 +180,24 @@ const ViewCustom = ({
     }
     if (borderBottomColor) {
       styleCustom.borderBottomColor = borderBottomColor;
+    }
+    if (borderTopWidth) {
+      styleCustom.borderTopWidth = borderTopWidth;
+    }
+    if (borderTopColor) {
+      styleCustom.borderTopColor = borderTopColor;
+    }
+    if (borderLeftWidth) {
+      styleCustom.borderLeftWidth = borderLeftWidth;
+    }
+    if (borderLeftColor) {
+      styleCustom.borderLeftColor = borderLeftColor;
+    }
+    if (borderRightWidth) {
+      styleCustom.borderRightWidth = borderRightWidth;
+    }
+    if (borderRightColor) {
+      styleCustom.borderRightColor = borderRightColor;
     }
     if (borderRadius) {
       styleCustom.borderRadius = borderRadius;

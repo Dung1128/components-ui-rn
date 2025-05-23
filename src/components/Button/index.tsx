@@ -28,7 +28,6 @@ export interface ButtonProps extends TouchableOpacityProps {
   isLoading?: boolean;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  small?: boolean;
   margin?: Number;
   textProps?: IText;
   textColor?: string;
@@ -41,6 +40,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   onPress?: (res?: any) => void;
   full?: boolean;
   theme?: ThemeProp;
+  buttonSize?: "normal" | "small";
 }
 const Button = ({
   style,
@@ -50,7 +50,6 @@ const Button = ({
   isLoading,
   left,
   right,
-  small,
   margin,
   textStyle,
   textProps,
@@ -65,6 +64,7 @@ const Button = ({
   transparent = false,
   full = false,
   theme: themeOverrides,
+  buttonSize = "normal",
   ...props
 }: ButtonProps) => {
   const theme = useInternalTheme();
@@ -119,7 +119,7 @@ const Button = ({
             borderColor && { borderColor: borderColor },
             backgroundColor && { backgroundColor: backgroundColor },
             renderButtonStyle(),
-            small && styles.small,
+            buttonSize === "small" && styles.small,
             disabled && [
               styles.disabled,
               {

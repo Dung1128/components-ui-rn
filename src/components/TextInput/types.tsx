@@ -94,6 +94,8 @@ export type ChildTextInputProps = {
   onLeftAffixLayoutChange: (event: LayoutChangeEvent) => void;
   onRightAffixLayoutChange: (event: LayoutChangeEvent) => void;
   clearButton?: boolean;
+  prefix?: string;
+  textError?: string;
 } & $Omit<TextInputTypesWithoutMode, "theme"> & { theme: InternalTheme };
 
 export type LabelProps = {

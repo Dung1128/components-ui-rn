@@ -29,6 +29,8 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   mode?: "flat" | "default";
   left?: React.ReactNode;
   right?: React.ReactNode;
+  prefix?: string;
+  textError?: string;
   /**
    * If true, user won't be able to interact with the component.
    */

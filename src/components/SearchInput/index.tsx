@@ -56,7 +56,7 @@ const SearchInput = ({
       textStyle={textStyle}
       style={[
         {
-          height: height || 40,
+          height: height || 36,
         },
         style,
       ]}

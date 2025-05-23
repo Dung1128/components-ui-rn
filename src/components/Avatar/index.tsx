@@ -17,7 +17,7 @@ interface AvatarProps {
   backgroundColor?: string;
   style?: StyleProp<ViewStyle>;
   textColor?: string;
-  size: 64 | 48 | 24;
+  size?: 64 | 48 | 32;
   source?: string;
   onPress?: () => void;
   textStyle?: StyleProp<TextStyle>;
@@ -30,7 +30,7 @@ const Avatar = ({
   backgroundColor,
   style,
   textColor,
-  size = 64,
+  size = 32,
   source,
   onPress,
   textStyle,
@@ -57,7 +57,7 @@ const Avatar = ({
         return 28;
       case 48:
         return 20;
-      case 24:
+      case 32:
         return 16;
       default:
         return 16;

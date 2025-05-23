@@ -20,13 +20,13 @@ export interface ButtonIconProps {
   onPress?: (val?: any) => void;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
-  size?: number;
   hiddenBackground?: boolean;
   props?: object;
   border?: boolean;
   circle?: boolean;
   backgroundColor?: string;
   borderColor?: string;
+  mode?: "normal" | "small";
 }
 const ButtonIcon = ({
   isLoading,
@@ -34,15 +34,19 @@ const ButtonIcon = ({
   onPress,
   style,
   hiddenBackground = false,
-  size = CONSTANTS.BUTTON_HEIGHT,
   border,
   children,
   circle,
   backgroundColor,
   borderColor,
   props,
+  mode = "normal",
 }: ButtonIconProps) => {
   const { colors } = useInternalTheme();
+
+  const size =
+    mode === "small" ? CONSTANTS.BUTTON_HEIGHT_SMALL : CONSTANTS.BUTTON_HEIGHT;
+
   return (
     <ScaleButton
       activeOpacity={0.8}

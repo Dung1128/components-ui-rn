@@ -48,6 +48,7 @@ const TextInputDefault = ({
   clearButton = false,
   contentStyle,
   value = "",
+  textError,
   ...rest
 }: ChildTextInputProps) => {
   const { colors } = theme;
@@ -106,6 +107,8 @@ const TextInputDefault = ({
       return theme.colors.surfacePrimaryDisabled;
     } else if (parentState.focused) {
       return activeColor;
+    } else if (error) {
+      return theme.colors.borderErrorDefault;
     } else {
       return theme.colors.borderPrimaryDefault;
     }
@@ -127,7 +130,7 @@ const TextInputDefault = ({
       (parentState.value !== undefined && parentState.value?.toString() !== "")
     ) {
       return (
-        <View paddingTop={CONSTANTS.SPACE_4}>
+        <View paddingTop={CONSTANTS.SPACE_6}>
           <Text color={getLabelColor()} size={MINIMIZED_LABEL_FONT_SIZE}>
             {label}
           </Text>
@@ -140,9 +143,22 @@ const TextInputDefault = ({
   const getPaddingTopValue = () => {
     if (multiline) {
       if (Platform.OS === "ios") {
-        return CONSTANTS.SPACE_4;
+        if (
+          parentState.focused ||
+          (parentState.value !== undefined &&
+            parentState.value?.toString() !== "")
+        )
+          return CONSTANTS.SPACE_4;
+        return CONSTANTS.SPACE_8;
       }
-      return CONSTANTS.SPACE_2;
+
+      if (
+        parentState.focused ||
+        (parentState.value !== undefined &&
+          parentState.value?.toString() !== "")
+      )
+        return CONSTANTS.SPACE_4;
+      return CONSTANTS.SPACE_8;
     }
     return 0;
   };
@@ -177,7 +193,7 @@ const TextInputDefault = ({
           full
           style={[
             {
-              height: height || 44,
+              height: height || 48,
             },
           ]}
         >
@@ -216,7 +232,7 @@ const TextInputDefault = ({
                   : I18nManager.getConstants().isRTL
                   ? "right"
                   : "left",
-                height: height ? height : 44,
+                height: height ? height : 48,
                 paddingTop: getPaddingTopValue(),
                 paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
               },
@@ -235,13 +251,29 @@ const TextInputDefault = ({
         ) : (
           <Spacer width={CONSTANTS.SPACE_12} />
         )}
-        {right && <Spacer width={CONSTANTS.SPACE_8} />}
+        {right && !clearButton && <Spacer width={CONSTANTS.SPACE_2} />}
         {right && (
-          <View center paddingRight={CONSTANTS.SPACE_12}>
+          <View
+            style={{
+              height: "100%",
+              paddingRight: CONSTANTS.SPACE_12,
+            }}
+          >
             {right}
           </View>
         )}
       </View>
+      {error && textError?.toString() !== "" && (
+        <View style={styles.vError}>
+          <Text
+            size={12}
+            numberOfLines={1}
+            color={theme.colors.textErrorDefault}
+          >
+            {textError}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -252,7 +284,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 0,
     flex: 1,
-    height: 44,
+    height: 48,
     paddingLeft: 0,
     // paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
   },
@@ -264,5 +296,9 @@ const styles = StyleSheet.create({
   clearButton: {
     justifyContent: "center",
     paddingHorizontal: CONSTANTS.SPACE_8,
+  },
+  vError: {
+    paddingTop: CONSTANTS.SPACE_4,
+    paddingHorizontal: CONSTANTS.SPACE_12,
   },
 });
