@@ -19,6 +19,7 @@ import IconSuccess from "@/icons/IconSuccess";
 import IconError from "@/icons/IconError";
 import IconInfo from "@/icons/IconInfo";
 import IconWarning from "@/icons/IconWarning";
+import IconDelNumber from "@/icons/IconDelNumber";
 
 export type IconType =
   | "FontAwesome"
@@ -42,7 +43,8 @@ export interface IconProps {
     | "IconSuccess"
     | "IconError"
     | "IconInfo"
-    | "IconWarning";
+    | "IconWarning"
+    | "IconDelNumber";
   backgroundColor?: string;
   size?: number;
   color?: string;
@@ -111,6 +113,8 @@ const Icon: React.FC<IconProps> = ({
         return IconInfo;
       case "IconWarning":
         return IconWarning;
+      case "IconDelNumber":
+        return IconDelNumber;
       default:
         return IconCheckbox;
     }

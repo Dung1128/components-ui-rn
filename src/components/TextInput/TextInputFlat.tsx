@@ -40,6 +40,7 @@ import {
   SPACE_4,
   SPACE_6,
   SPACE_8,
+  SPACE_2,
 } from "@/theme/dimensions";
 import Icon from "../Icon";
 import Text from "../Text";
@@ -433,7 +434,7 @@ const TextInputFlat = ({
                     : I18nManager.getConstants().isRTL
                     ? "right"
                     : "left",
-                  marginTop: Platform.OS === "android" ? SPACE_8 : 0,
+                  marginTop: Platform.OS === "android" ? SPACE_8 : SPACE_2,
                 },
                 contentStyle,
               ],

@@ -21,12 +21,13 @@ import { useInternalTheme } from "../../core/theming";
 import type { ThemeProp } from "../../types";
 import { forwardRef } from "../../utils/forwardRef";
 import { roundLayoutSize } from "../../utils/roundLayoutSize";
+import TextInputNumber from "./TextInputNumber";
 
 const BLUR_ANIMATION_DURATION = 180;
 const FOCUS_ANIMATION_DURATION = 150;
 
 export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
-  mode?: "flat" | "default";
+  mode?: "flat" | "default" | "number";
   left?: React.ReactNode;
   right?: React.ReactNode;
   prefix?: string;
@@ -38,11 +39,11 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   /**
    * The text or component to use for the floating label.
    */
-  label?: TextInputLabelProp;
+  label: TextInputLabelProp;
   /**
    * Placeholder for the input.
    */
-  placeholder?: string;
+  placeholder: string;
   /**
    * Whether to style the TextInput with error style.
    */
@@ -166,8 +167,8 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
    * Example: `borderRadius`, `borderColor`
    */
   underlineStyle?: StyleProp<ViewStyle>;
+  minHeight?: number;
   clearButton?: boolean;
-  textStyle?: StyleProp<TextStyle>;
 };
 
 interface CompoundedComponent
@@ -223,7 +224,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       theme: themeOverrides,
       placeholderTextColor,
       clearButton,
-      textStyle,
+      textError,
+      prefix,
       ...rest
     }: Props,
     ref
@@ -513,8 +515,22 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           onLeftAffixLayoutChange={onLeftAffixLayoutChange}
           onRightAffixLayoutChange={onRightAffixLayoutChange}
           maxFontSizeMultiplier={maxFontSizeMultiplier}
-          contentStyle={[contentStyle, textStyle]}
+          contentStyle={contentStyle}
           scaledLabel={scaledLabel}
+        />
+      );
+    }
+
+    if (mode === "number") {
+      return (
+        <TextInputNumber
+          textError={textError}
+          disabled={disabled}
+          prefix={prefix}
+          value={value}
+          label="Text number"
+          clearButton={clearButton}
+          onChangeText={handleChangeText}
         />
       );
     }
