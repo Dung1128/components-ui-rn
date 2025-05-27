@@ -32,6 +32,10 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   right?: React.ReactNode;
   prefix?: string;
   textError?: string;
+  maxValue?: number;
+  type?: "integer" | "float";
+  formatDecimal?: 1 | 2 | 3;
+  required?: boolean;
   /**
    * If true, user won't be able to interact with the component.
    */
@@ -226,6 +230,9 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       clearButton,
       textError,
       prefix,
+      maxValue,
+      type,
+      required = false,
       ...rest
     }: Props,
     ref
@@ -481,6 +488,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           dense={dense}
           disabled={disabled}
           error={errorProp}
+          textError={textError}
+          required={required}
           multiline={multiline}
           editable={editable}
           render={render}
@@ -528,9 +537,15 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           disabled={disabled}
           prefix={prefix}
           value={value}
-          label="Text number"
+          right={rest.right}
+          left={rest.left}
+          required={required}
+          label={rest.label as string}
           clearButton={clearButton}
           onChangeText={handleChangeText}
+          maxValue={maxValue}
+          formatDecimal={rest.formatDecimal}
+          type={type}
         />
       );
     }
@@ -540,8 +555,10 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         dense={dense}
         disabled={disabled}
         error={errorProp}
+        textError={textError}
         editable={editable}
         clearButton={clearButton}
+        required={required}
         render={render}
         {...rest}
         theme={theme}

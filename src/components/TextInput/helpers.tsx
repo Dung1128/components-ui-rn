@@ -340,7 +340,7 @@ const getActiveColor = ({
   const modeColor = isFlat ? activeUnderlineColor : activeOutlineColor;
 
   if (error) {
-    return theme.colors.surfaceErrorDefault;
+    return theme.colors.textErrorDefault;
   }
 
   if (modeColor) {
@@ -460,7 +460,7 @@ export const getFlatInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseFlatColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.surfaceErrorDefault,
+    errorColor: theme.colors.textErrorDefault,
     backgroundColor: getFlatBackgroundColor(baseFlatColorProps),
   };
 };
@@ -502,7 +502,7 @@ export const getOutlinedInputColors = ({
     }),
     placeholderColor: getPlaceholderColor(baseOutlinedColorProps),
     selectionColor: getSelectionColor({ activeColor, customSelectionColor }),
-    errorColor: theme.colors.surfaceErrorDefault,
+    errorColor: theme.colors.textErrorDefault,
   };
 };
 

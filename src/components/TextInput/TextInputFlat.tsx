@@ -83,6 +83,7 @@ const TextInputFlat = ({
   outlineColor,
   value,
   textError,
+  required,
   ...rest
 }: ChildTextInputProps) => {
   const [inputValue, setInputValue] = React.useState(value || "");
@@ -394,6 +395,7 @@ const TextInputFlat = ({
               labelLayoutMeasured={parentState.labelLayout.measured}
               labelLayoutWidth={parentState.labelLayout.width}
               labelLayoutHeight={parentState.labelLayout.height}
+              required={required}
               {...labelProps}
             />
           ) : null}

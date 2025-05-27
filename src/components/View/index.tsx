@@ -49,6 +49,8 @@ interface ViewProps {
   borderRadius?: number;
   borderWidth?: number;
   borderColor?: string;
+  pointerEvents?: "box-none" | "box-only" | "none" | "auto";
+  gap?: number;
 }
 const ViewCustom = ({
   row,
@@ -92,6 +94,8 @@ const ViewCustom = ({
   borderLeftColor,
   borderRightWidth,
   borderRightColor,
+  pointerEvents,
+  gap,
 }: ViewProps) => {
   const getStyle = () => {
     const styleCustom: any = {};
@@ -207,6 +211,12 @@ const ViewCustom = ({
     }
     if (borderColor) {
       styleCustom.borderColor = borderColor;
+    }
+    if (pointerEvents) {
+      styleCustom.pointerEvents = pointerEvents;
+    }
+    if (gap) {
+      styleCustom.gap = gap;
     }
 
     return StyleSheet.create({ styleCustom }).styleCustom;

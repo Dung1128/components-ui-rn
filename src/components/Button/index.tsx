@@ -17,7 +17,7 @@ import View from "../View";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
 import Spacer from "../Spacer";
-import { CONSTANTS } from "@/styles/themes/tokens";
+import { CONSTANTS } from "../../styles/themes/tokens";
 
 export interface ButtonProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
@@ -41,6 +41,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   full?: boolean;
   theme?: ThemeProp;
   buttonSize?: "normal" | "small";
+  critical?: boolean;
 }
 const Button = ({
   style,
@@ -65,21 +66,36 @@ const Button = ({
   full = false,
   theme: themeOverrides,
   buttonSize = "normal",
+  critical = false,
   ...props
 }: ButtonProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
 
   const disabledTextStyle = {
-    color: colors.textBrandDisabled,
+    color: colors.textDisabled,
   };
 
   const renderButtonStyle = () => {
     switch (mode) {
       case "outlined":
-        return [styles.border, { borderColor: colors.borderBrandDefault }];
+        return [
+          styles.border,
+          { borderColor: colors.borderBrandDefault },
+          critical && {
+            backgroundColor: colors.surfacePrimaryDefault,
+            borderColor: colors.borderCriticalDefault,
+            borderWidth: CONSTANTS.BORDER_WIDTH_1,
+          },
+        ];
       case "contained":
-        return [{ backgroundColor: colors.surfaceBrandDefault }];
+        return [
+          {
+            backgroundColor: critical
+              ? colors.surfaceCriticalDefault
+              : colors.surfaceBrandDefault,
+          },
+        ];
       case "transparent":
         return [
           { borderColor: colors.borderBrandDefault },
@@ -91,10 +107,16 @@ const Button = ({
   const renderTextColor = () => {
     switch (mode) {
       case "outlined":
+        if (critical) {
+          return colors.textCriticalDefault;
+        }
         return colors.textBrandDefault;
       case "contained":
         return colors.textOnFillDefault;
       case "transparent":
+        if (critical) {
+          return colors.textCriticalDefault;
+        }
         return colors.textBrandDefault;
     }
   };
@@ -120,6 +142,7 @@ const Button = ({
             backgroundColor && { backgroundColor: backgroundColor },
             renderButtonStyle(),
             buttonSize === "small" && styles.small,
+
             disabled && [
               styles.disabled,
               {

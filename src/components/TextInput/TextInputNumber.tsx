@@ -1,13 +1,12 @@
 //
 //  Created by Dung Nguyen on 08/01/25.
 //
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   StyleSheet,
   StyleProp,
   ViewStyle,
   TouchableOpacityProps,
-  TextStyle,
   TouchableOpacity,
   Modal,
 } from "react-native";
@@ -23,7 +22,7 @@ import {
   SPACE_40,
 } from "@/theme/dimensions";
 import ScaleButton from "../ScaleButton";
-import Text, { IText } from "../Text";
+import Text from "../Text";
 import View from "../View";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
@@ -33,25 +32,23 @@ import containerStyles from "../../theme/container-styles";
 
 export interface TextInputNumberProps extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
-  borderColor?: string;
-  value?: string;
+  value?: string | number;
   label?: string;
   textError?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  textProps?: IText;
-  textColor?: string;
-  labelColor?: string;
-  textStyle?: TextStyle;
-  labelStyle?: TextStyle;
   disabled?: boolean;
   prefix?: string;
   onChangeText?: (value: string) => void;
   clearButton?: boolean;
   theme?: ThemeProp;
+  maxValue?: number;
+  type?: "integer" | "float";
+  formatDecimal?: 1 | 2 | 3;
+  required?: boolean;
 }
 
-function formatNumberInput(value: string): string {
+function formatNumberInput(value: string, formatDecimal: 1 | 2 | 3): string {
   if (!value) return "0";
   // Xử lý số âm
   const isNegative = value.startsWith("-");
@@ -60,7 +57,7 @@ function formatNumberInput(value: string): string {
   intPart = intPart.replace(/^0+(?=\d)/, ""); // Loại bỏ số 0 đầu nếu có
   intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   // Giới hạn phần thập phân 3 số
-  if (decimalPart) decimalPart = decimalPart.slice(0, 3);
+  if (decimalPart) decimalPart = decimalPart.slice(0, formatDecimal);
   let result = intPart;
   if (decimalPart !== undefined) result += "." + decimalPart;
   if (isNegative) result = "-" + result;
@@ -72,19 +69,17 @@ const TextInputNumber = ({
   value = "",
   label = "",
   textError = "",
-  borderColor,
   left,
   right,
-  textStyle,
-  labelStyle,
-  textProps,
   onChangeText,
   disabled = false,
-  textColor,
-  labelColor,
   theme: themeOverrides,
   prefix = "",
   clearButton = false,
+  maxValue = 999999999,
+  type = "integer",
+  formatDecimal = 3,
+  required = false,
   ...props
 }: TextInputNumberProps) => {
   const theme = useInternalTheme();
@@ -92,44 +87,66 @@ const TextInputNumber = ({
 
   const [isShowModalKeyboard, setIsShowModalKeyboard] =
     useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(value || "");
+  const [inputValue, setInputValue] = useState<string>(value?.toString() || "");
+  const [numberValue, setNumberValue] = useState<string>(
+    value?.toString() || ""
+  );
 
   const disabledTextStyle = {
     color: colors.textSecondary,
   };
 
+  useEffect(() => {
+    setInputValue(value?.toString() || "");
+  }, [value]);
+
   const getColorValue = useMemo(() => {
-    if (textError.length > 0) {
-      return colors.textErrorDefault;
-    }
     if (disabled) {
       return colors.textPlaceholder;
     }
-    if (value.length > 0) {
+
+    if (textError.length > 0) {
+      return colors.textErrorDefault;
+    }
+
+    if (numberValue.length > 0) {
       return colors.textDefault;
     }
-    return textColor || colors.textSecondary;
-  }, [textColor, colors, textError, disabled, value]);
+    return colors.textSecondary;
+  }, [colors, textError, disabled, numberValue]);
 
   const handleKeyPress = (key: string) => {
     if (key === "del") {
       setInputValue((prev) => prev.slice(0, -1));
     } else if (key === ".") {
-      if (!inputValue.includes(".") && inputValue.length > 0)
+      if (
+        type === "float" &&
+        !inputValue.includes(".") &&
+        inputValue.length > 0
+      ) {
         setInputValue((prev) => prev + key);
+      }
     } else {
-      if (inputValue.includes(".")) {
-        const [intPart, decimalPart = ""] = inputValue.split(".");
-        // Giới hạn phần nguyên 10 số, phần thập phân 3 số
-        if (intPart.length < 10 && decimalPart.length === 0) {
-          setInputValue((prev) => prev + key);
-        } else if (decimalPart.length < 3) {
-          setInputValue((prev) => prev + key);
-        }
-      } else {
-        // Chỉ cho phép phần nguyên tối đa 10 số
-        if (inputValue.length < 10) {
-          setInputValue((prev) => (prev === "0" ? key : prev + key));
+      const newInputValue = inputValue === "0" ? key : inputValue + key;
+      const newValue = Number(newInputValue);
+      const maxValueNumber = Number(maxValue);
+
+      if (
+        !isNaN(newValue) &&
+        !isNaN(maxValueNumber) &&
+        newValue <= maxValueNumber
+      ) {
+        if (inputValue.includes(".")) {
+          const [intPart, decimalPart = ""] = inputValue.split(".");
+          if (intPart.length < 10 && decimalPart.length === 0) {
+            setInputValue((prev) => prev + key);
+          } else if (decimalPart.length < 3) {
+            setInputValue((prev) => prev + key);
+          }
+        } else {
+          if (inputValue.length < 10) {
+            setInputValue((prev) => (prev === "0" ? key : prev + key));
+          }
         }
       }
     }
@@ -137,11 +154,21 @@ const TextInputNumber = ({
 
   const handleClear = () => {
     setInputValue("");
+  };
+
+  const handleClearInput = () => {
+    setInputValue("");
+    setNumberValue("");
     onChangeText?.("");
   };
 
   const handleSave = () => {
-    onChangeText?.(inputValue);
+    let finalValue = inputValue;
+    if (inputValue.endsWith(".")) {
+      finalValue = inputValue.slice(0, -1);
+    }
+    onChangeText?.(finalValue);
+    setNumberValue(finalValue);
     setIsShowModalKeyboard(false);
   };
 
@@ -165,6 +192,9 @@ const TextInputNumber = ({
 
   const onCloseModalKeyboard = () => {
     setIsShowModalKeyboard(false);
+    setTimeout(() => {
+      setInputValue(value?.toString() || "");
+    }, 300);
   };
 
   return (
@@ -183,18 +213,18 @@ const TextInputNumber = ({
             },
 
             [styles.border, { borderColor: colors.borderPrimaryDefault }],
-            borderColor && { borderColor: borderColor },
+
+            textError.length > 0 && [
+              {
+                borderColor: colors.borderErrorDefault,
+                backgroundColor: colors.surfacePrimaryDefault,
+              },
+            ],
             disabled && [
               styles.disabled,
               {
                 borderColor: colors.borderPrimaryDisabled,
                 backgroundColor: colors.surfacePrimaryDisabled,
-              },
-            ],
-            textError.length > 0 && [
-              {
-                borderColor: colors.borderErrorDefault,
-                backgroundColor: colors.surfacePrimaryDefault,
               },
             ],
             style,
@@ -211,7 +241,7 @@ const TextInputNumber = ({
             {!checkValueEmpty() && !checkLabelEmpty() && (
               <Text
                 size={12}
-                color={labelColor || colors.textSecondary}
+                color={colors.textSecondary}
                 style={[
                   disabled && {
                     color: colors.textPlaceholder,
@@ -222,6 +252,7 @@ const TextInputNumber = ({
                 ]}
               >
                 {label}
+                {required && <Text color={colors.textErrorDefault}> *</Text>}
               </Text>
             )}
             <View row alignCenter>
@@ -229,8 +260,7 @@ const TextInputNumber = ({
                 <Text
                   numberOfLines={1}
                   color={colors.textSecondary}
-                  style={[disabled && disabledTextStyle, textStyle]}
-                  {...textProps}
+                  style={[disabled && disabledTextStyle]}
                 >
                   {prefix}
                   {` `}
@@ -240,16 +270,20 @@ const TextInputNumber = ({
                 <Text
                   numberOfLines={1}
                   color={getColorValue}
-                  style={[disabled && disabledTextStyle, textStyle]}
-                  {...textProps}
+                  style={[disabled && disabledTextStyle]}
                 >
-                  {checkValueEmpty() ? label : formatNumberInput(value)}
+                  {checkValueEmpty()
+                    ? label
+                    : formatNumberInput(numberValue, formatDecimal)}
+                  {checkValueEmpty() && required && (
+                    <Text color={colors.textErrorDefault}> *</Text>
+                  )}
                 </Text>
               </View>
             </View>
           </View>
           {clearButton && !checkValueEmpty() && (
-            <TouchableOpacity activeOpacity={0.8} onPress={handleClear}>
+            <TouchableOpacity activeOpacity={0.8} onPress={handleClearInput}>
               <Icon name={"IconClearText"} type="Svg" size={24} />
             </TouchableOpacity>
           )}
@@ -262,9 +296,13 @@ const TextInputNumber = ({
           <Spacer width={SPACE_12} />
         </View>
       </ScaleButton>
-      {textError.length > 0 && (
+      {!disabled && textError.length > 0 && (
         <View paddingHorizontal={SPACE_12} paddingVertical={SPACE_4}>
-          <Text style={styles.text12} color={colors.textErrorDefault}>
+          <Text
+            size={12}
+            numberOfLines={1}
+            color={theme.colors.textErrorDefault}
+          >
             {textError}
           </Text>
         </View>
@@ -274,14 +312,16 @@ const TextInputNumber = ({
         visible={isShowModalKeyboard}
         transparent
         animationType="fade"
-        // onRequestClose={onCloseModalKeyboard}
+        onRequestClose={onCloseModalKeyboard}
       >
         <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
-          // onPress={onCloseModalKeyboard}
+          onPress={onCloseModalKeyboard}
         >
           <View
+            onPress={() => {}}
+            activeOpacity={1}
             backgroundColor={colors.surfacePrimaryDefault}
             style={styles.modalContent}
           >
@@ -289,7 +329,7 @@ const TextInputNumber = ({
             <View width={"100%"}>
               <View paddingHorizontal={SPACE_40}>
                 <Text numberOfLines={1} style={styles.valueText}>
-                  {formatNumberInput(inputValue) || "0"}
+                  {formatNumberInput(inputValue, formatDecimal) || "0"}
                 </Text>
               </View>
               <TouchableOpacity
@@ -316,13 +356,26 @@ const TextInputNumber = ({
                     <TouchableOpacity
                       activeOpacity={0.8}
                       key={key}
-                      style={styles.keyButton}
+                      style={[
+                        styles.keyButton,
+                        key === "." && type === "integer" && styles.disabledKey,
+                      ]}
                       onPress={() => handleKeyPress(key)}
+                      disabled={key === "." && type === "integer"}
                     >
                       {key === "del" ? (
                         <Icon name="IconDelNumber" type="Svg" size={24} />
                       ) : (
-                        <Text style={styles.keyText}>{key}</Text>
+                        <Text
+                          style={[
+                            styles.keyText,
+                            key === "." &&
+                              type === "integer" &&
+                              styles.disabledKeyText,
+                          ]}
+                        >
+                          {key}
+                        </Text>
                       )}
                     </TouchableOpacity>
                   ))}
@@ -447,6 +500,12 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  disabledKey: {
+    opacity: 0.5,
+  },
+  disabledKeyText: {
+    opacity: 0.5,
   },
 });
 

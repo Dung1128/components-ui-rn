@@ -96,6 +96,7 @@ export type ChildTextInputProps = {
   clearButton?: boolean;
   prefix?: string;
   textError?: string;
+  required?: boolean;
 } & $Omit<TextInputTypesWithoutMode, "theme"> & { theme: InternalTheme };
 
 export type LabelProps = {
@@ -145,6 +146,7 @@ export type InputLabelProps = {
   labelBackground?: any;
   maxFontSizeMultiplier?: number | undefined | null;
   scaledLabel?: boolean;
+  required?: boolean;
 } & LabelProps;
 
 export type LabelBackgroundProps = {

@@ -11,6 +11,8 @@ import {
 import AnimatedText from "../../Typography/AnimatedText";
 import { getConstants } from "../helpers";
 import type { InputLabelProps } from "../types";
+import Text from "../../Text";
+import { useInternalTheme } from "../../../core/theming";
 
 const InputLabel = (props: InputLabelProps) => {
   const {
@@ -50,6 +52,7 @@ const InputLabel = (props: InputLabelProps) => {
     testID,
     inputContainerLayout,
     scaledLabel,
+    required,
   } = props;
 
   const { INPUT_PADDING_HORIZONTAL } = getConstants();
@@ -132,6 +135,8 @@ const InputLabel = (props: InputLabelProps) => {
     labelError && errorColor ? errorColor : placeholderColor
   ) as ColorValue;
 
+  const theme = useInternalTheme();
+
   return (
     // Position colored placeholder and gray placeholder on top of each other and crossfade them
     // This gives the effect of animating the color, but allows us to use native driver
@@ -182,6 +187,7 @@ const InputLabel = (props: InputLabelProps) => {
             testID={`${testID}-label-active`}
           >
             {label}
+            {required && <Text color={theme.colors.textErrorDefault}> *</Text>}
           </AnimatedText>
           <AnimatedText
             variant={focused ? "bodyLarge" : "bodySmall"}
@@ -197,6 +203,7 @@ const InputLabel = (props: InputLabelProps) => {
             testID={`${testID}-label-inactive`}
           >
             {label}
+            {required && <Text color={theme.colors.textErrorDefault}> *</Text>}
           </AnimatedText>
         </View>
       </Animated.View>

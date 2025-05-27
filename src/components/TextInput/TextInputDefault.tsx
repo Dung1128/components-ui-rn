@@ -49,6 +49,7 @@ const TextInputDefault = ({
   contentStyle,
   value = "",
   textError,
+  required,
   ...rest
 }: ChildTextInputProps) => {
   const { colors } = theme;
@@ -133,6 +134,7 @@ const TextInputDefault = ({
         <View paddingTop={CONSTANTS.SPACE_6}>
           <Text color={getLabelColor()} size={MINIMIZED_LABEL_FONT_SIZE}>
             {label}
+            {required && <Text color={theme.colors.textErrorDefault}> *</Text>}
           </Text>
         </View>
       );
