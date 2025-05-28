@@ -1,20 +1,19 @@
 import * as React from "react";
-import {
-  NativeModules,
-  StyleProp,
-  Switch as NativeSwitch,
-  ViewStyle,
-} from "react-native";
-import View from "../View";
-import { getSwitchColor } from "./utils";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useInternalTheme } from "../../core/theming";
-import type { ThemeProp } from "../../types";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  interpolateColor,
+  useAnimatedReaction,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
+import { useCallback, memo } from "react";
+import View from "../View";
 
-const version = NativeModules.PlatformConstants
-  ? NativeModules.PlatformConstants.reactNativeVersion
-  : undefined;
-
-export type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
+export type Props = {
   /**
    * Disable toggling the switch.
    */
@@ -23,81 +22,129 @@ export type Props = React.ComponentPropsWithRef<typeof NativeSwitch> & {
    * Value of the switch, true means 'on', false means 'off'.
    */
   value?: boolean;
-  /**
-   * Custom color for switch.
-   */
-  color?: string;
+
   /**
    * Callback called with the new value when it changes.
    */
-  onValueChange?: Function;
-  style?: StyleProp<ViewStyle>;
-  /**
-   * @optional
-   */
-  theme?: ThemeProp;
+  onValueChange?: (value: boolean) => void;
 };
 
-/**
- * Switch is a visual toggle between two mutually exclusive states — on and off.
- *
- * ## Usage
- * ```js
- * import * as React from 'react';
- * import { Switch } from 'react-native-paper';
- *
- * const MyComponent = () => {
- *   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
- *
- *   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
- *
- *   return <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />;
- * };
- *
- * export default MyComponent;
- * ```
- */
-const Switch = ({
-  value,
-  disabled,
-  onValueChange,
-  color,
-  theme: themeOverrides,
-  ...rest
-}: Props) => {
+const Switch = memo(({ value, disabled, onValueChange }: Props) => {
   const theme = useInternalTheme();
-  const { onTintColor, thumbTintColor } = getSwitchColor({
-    theme,
-    disabled,
-    value,
-    color,
+  const { colors } = theme;
+
+  const progress = useSharedValue(value ? 1 : 0);
+
+  const handleSwitch = useCallback(() => {
+    if (disabled) return;
+    const newValue = !value;
+
+    progress.value = withSequence(
+      withTiming(newValue ? 1 : 0, {
+        duration: 150,
+      }),
+      withSpring(newValue ? 1 : 0, {
+        damping: 20,
+        stiffness: 200,
+        mass: 0.5,
+        velocity: 0.5,
+      })
+    );
+
+    onValueChange?.(newValue);
+  }, [disabled, value, onValueChange]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: progress.value * 20 }],
+    };
   });
 
-  const props =
-    version && version.major === 0 && version.minor <= 56
-      ? {
-          onTintColor,
-          thumbTintColor,
-        }
-      : {
-          thumbColor: thumbTintColor,
-          trackColor: {
-            true: onTintColor,
-            false: onTintColor,
-          },
-        };
+  const backgroundColor = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(
+        progress.value,
+        [0, 1],
+        [colors.toggleBackgroundDefault, colors.toggleBackgroundActive]
+      ),
+    };
+  });
+
+  useAnimatedReaction(
+    () => value,
+    (currentValue) => {
+      if (currentValue !== undefined) {
+        progress.value = withSequence(
+          withTiming(currentValue ? 1 : 0, {
+            duration: 150,
+          }),
+          withSpring(currentValue ? 1 : 0, {
+            damping: 20,
+            stiffness: 200,
+            mass: 0.5,
+            velocity: 0.5,
+          })
+        );
+      }
+    },
+    [value]
+  );
 
   return (
     <View row>
-      <NativeSwitch
-        value={value}
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={handleSwitch}
         disabled={disabled}
-        onValueChange={disabled ? undefined : onValueChange}
-        {...props}
-        {...rest}
-      />
+        style={disabled ? { opacity: 0.6 } : {}}
+      >
+        <Animated.View
+          style={[
+            styles.vSegment,
+            backgroundColor,
+
+            {
+              width: 52,
+              height: 32,
+            },
+          ]}
+        >
+          <Animated.View
+            style={[
+              styles.animated,
+              animatedStyle,
+              {
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                backgroundColor: colors.surfacePrimaryDefault,
+              },
+            ]}
+          />
+        </Animated.View>
+      </TouchableOpacity>
     </View>
   );
-};
+});
+
+const styles = StyleSheet.create({
+  vSegment: {
+    overflow: "hidden",
+    borderRadius: 100,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  animated: {
+    position: "absolute",
+    // shadowColor: "#000000",
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowOpacity: 0.15,
+    // shadowRadius: BORDER_RADIUS_6,
+    // elevation: 5,
+    marginHorizontal: 2,
+  },
+});
+
+Switch.displayName = "Switch";
 
 export default Switch;

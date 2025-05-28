@@ -12,7 +12,6 @@ export * from "./styles/themes";
 export { default as shadow } from "./styles/shadow";
 export { default as overlay } from "./styles/overlay";
 export { default as configureFonts } from "./styles/fonts";
-export { default as ActivityIndicator } from "./components/ActivityIndicator";
 export { default as ProgressBar } from "./components/ProgressBar";
 export { default as Switch } from "./components/Switch/Switch";
 export { default as TextInput } from "./components/TextInput/TextInput";
@@ -32,8 +31,8 @@ export { default as Avatar } from "./components/Avatar";
 export { default as SelectionField } from "./components/SelectionField";
 export { default as SearchInput } from "./components/SearchInput";
 export { default as Tag } from "./components/Tag";
+export { default as NumberKeyboard } from "./components/NumberKeyboard";
 // Types
-export type { Props as ActivityIndicatorProps } from "./components/ActivityIndicator";
 export type { Props as SwitchProps } from "./components/Switch/Switch";
 export type { Props as TextInputProps } from "./components/TextInput/TextInput";
 export type { Props as TextInputAffixProps } from "./components/TextInput/Adornment/TextInputAffix";
