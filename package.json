@@ -1,6 +1,6 @@
 {
   "name": "sapo-components-ui-rn",
-  "version": "1.0.69",
+  "version": "1.0.70",
   "description": "React Native UI Components Library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -35,7 +35,6 @@
   "author": "Sapo",
   "license": "MIT",
   "peerDependencies": {
-    "@d11/react-native-fast-image": "*",
     "@react-native-community/masked-view": ">=0.1.11",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
