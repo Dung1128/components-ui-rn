@@ -75,6 +75,7 @@ const TextInputFlat = ({
   left,
   right,
   prefix,
+  suffix,
   placeholderTextColor,
   clearButton,
   contentStyle,
@@ -295,6 +296,40 @@ const TextInputFlat = ({
     }
   };
 
+  const renderSuffix = () => {
+    if (parentState.focused) {
+      return (
+        <View
+          style={{
+            paddingBottom: Platform.OS === "ios" ? 9 : 14,
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {` `}
+            {suffix}
+          </Text>
+        </View>
+      );
+    } else if (
+      parentState.value !== undefined &&
+      parentState.value?.toString() !== ""
+    ) {
+      return (
+        <View
+          style={{
+            paddingBottom: Platform.OS === "ios" ? 9 : 14,
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {` `}
+            {suffix}
+          </Text>
+        </View>
+      );
+    }
+    return <View />;
+  };
+
   const renderPrefix = () => {
     if (parentState.focused) {
       return (
@@ -329,6 +364,16 @@ const TextInputFlat = ({
     return <View />;
   };
 
+  const checkLineRightAction = () => {
+    if (!multiline && right && inputValue) {
+      return true;
+    }
+    if (parentState.focused && right) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <View>
       <View
@@ -345,7 +390,14 @@ const TextInputFlat = ({
             : theme.colors.surfacePrimaryDefault,
         }}
       >
-        <View style={{ flexDirection: "row", height: "100%" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           {left && <View style={{ paddingLeft: SPACE_12 }}>{left}</View>}
           {left ? <Spacer width={SPACE_8} /> : <Spacer width={SPACE_12} />}
         </View>
@@ -400,7 +452,10 @@ const TextInputFlat = ({
             />
           ) : null}
           <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-            {renderPrefix()}
+            {!multiline &&
+              prefix &&
+              prefix?.toString() !== "" &&
+              renderPrefix()}
 
             {render?.({
               ...rest,
@@ -441,6 +496,7 @@ const TextInputFlat = ({
                 contentStyle,
               ],
             } as RenderProps)}
+            {renderSuffix()}
           </View>
         </View>
         {!disabled && clearButton && inputValue ? (
@@ -450,11 +506,22 @@ const TextInputFlat = ({
         ) : (
           <Spacer width={SPACE_12} />
         )}
+        {checkLineRightAction() && (
+          <Spacer
+            width={1}
+            height={24}
+            backgroundColor={theme.colors.borderPrimaryDefault}
+            style={{
+              marginRight: SPACE_8,
+            }}
+          />
+        )}
         <View
           style={{
             flexDirection: "row",
             height: "100%",
-            paddingBottom: SPACE_6,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {right && !clearButton && <Spacer width={SPACE_8} />}
@@ -518,7 +585,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   clearButton: {
-    padding: SPACE_8,
+    padding: SPACE_6,
   },
   vError: {
     paddingTop: SPACE_4,

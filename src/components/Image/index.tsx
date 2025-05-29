@@ -7,7 +7,7 @@ import {
   StyleProp,
   ImageStyle,
 } from "react-native";
-import FastImage, { ResizeMode } from "@d11/react-native-fast-image";
+// import FastImage, { ResizeMode } from "@d11/react-native-fast-image";
 import { memoDeepEqual } from "../../utils/function-utils";
 
 interface PropsCustomImage extends ImageProps {
@@ -33,7 +33,7 @@ const Image = (props: PropsCustomImage) => {
   const {
     children,
     source,
-    useFastImage,
+    // useFastImage,
     disableDefaultImage,
     style,
     resizeMode = "contain",
@@ -50,60 +50,60 @@ const Image = (props: PropsCustomImage) => {
   );
   const ImageComponent = children ? ImageBackground : RNImage;
 
-  const getUriImage = (uri: string) => {
-    return uri !== null &&
-      uri !== undefined &&
-      uri.includes("/") &&
-      uri.includes(".")
-      ? uri
-      : "";
-  };
+  // const getUriImage = (uri: string) => {
+  //   return uri !== null &&
+  //     uri !== undefined &&
+  //     uri.includes("/") &&
+  //     uri.includes(".")
+  //     ? uri
+  //     : "";
+  // };
 
   const handleError = () => {
     setHasError(true);
   };
 
-  const getFastImageResizeMode = (mode: string): ResizeMode => {
-    switch (mode) {
-      case "cover":
-        return FastImage.resizeMode.cover;
-      case "contain":
-        return FastImage.resizeMode.contain;
-      case "stretch":
-        return FastImage.resizeMode.stretch;
-      case "center":
-        return FastImage.resizeMode.center;
-      default:
-        return FastImage.resizeMode.contain;
-    }
-  };
+  // const getFastImageResizeMode = (mode: string): ResizeMode => {
+  //   switch (mode) {
+  //     case "cover":
+  //       return FastImage.resizeMode.cover;
+  //     case "contain":
+  //       return FastImage.resizeMode.contain;
+  //     case "stretch":
+  //       return FastImage.resizeMode.stretch;
+  //     case "center":
+  //       return FastImage.resizeMode.center;
+  //     default:
+  //       return FastImage.resizeMode.contain;
+  //   }
+  // };
 
-  if (useFastImage && image?.uri) {
-    const {
-      defaultSource,
-      onLoad,
-      onLoadStart,
-      onLoadEnd,
-      onProgress,
-      style: imageStyle,
-      ...restProps
-    } = props;
+  // if (useFastImage && image?.uri) {
+  //   const {
+  //     defaultSource,
+  //     onLoad,
+  //     onLoadStart,
+  //     onLoadEnd,
+  //     onProgress,
+  //     style: imageStyle,
+  //     ...restProps
+  //   } = props;
 
-    return (
-      <View style={style}>
-        <FastImage
-          resizeMode={getFastImageResizeMode(resizeMode)}
-          {...restProps}
-          onError={handleError}
-          source={{
-            uri: getUriImage(image.uri),
-            cache: FastImage.cacheControl.immutable,
-          }}
-          style={imageStyle as any}
-        />
-      </View>
-    );
-  }
+  //   return (
+  //     <View style={style}>
+  //       <FastImage
+  //         resizeMode={getFastImageResizeMode(resizeMode)}
+  //         {...restProps}
+  //         onError={handleError}
+  //         source={{
+  //           uri: getUriImage(image.uri),
+  //           cache: FastImage.cacheControl.immutable,
+  //         }}
+  //         style={imageStyle as any}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   if (!source && disableDefaultImage) {
     if (children) {

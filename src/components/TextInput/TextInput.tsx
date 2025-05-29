@@ -31,6 +31,7 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   left?: React.ReactNode;
   right?: React.ReactNode;
   prefix?: string;
+  suffix?: string;
   textError?: string;
   maxValue?: number;
   type?: "integer" | "float";
@@ -230,6 +231,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       clearButton,
       textError,
       prefix,
+      suffix,
       maxValue,
       type,
       required = false,
@@ -492,6 +494,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           required={required}
           multiline={multiline}
           editable={editable}
+          prefix={prefix}
+          suffix={suffix}
           render={render}
           {...rest}
           theme={theme}
@@ -536,6 +540,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           textError={textError}
           disabled={disabled}
           prefix={prefix}
+          suffix={suffix}
           value={value}
           right={rest.right}
           left={rest.left}
@@ -557,6 +562,8 @@ const TextInput = forwardRef<TextInputHandles, Props>(
         error={errorProp}
         textError={textError}
         editable={editable}
+        prefix={prefix}
+        suffix={suffix}
         clearButton={clearButton}
         required={required}
         render={render}

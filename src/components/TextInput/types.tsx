@@ -95,6 +95,7 @@ export type ChildTextInputProps = {
   onRightAffixLayoutChange: (event: LayoutChangeEvent) => void;
   clearButton?: boolean;
   prefix?: string;
+  suffix?: string;
   textError?: string;
   required?: boolean;
 } & $Omit<TextInputTypesWithoutMode, "theme"> & { theme: InternalTheme };

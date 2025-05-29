@@ -44,6 +44,8 @@ const TextInputDefault = ({
   onLayout,
   left,
   right,
+  prefix,
+  suffix,
   placeholderTextColor,
   clearButton = false,
   contentStyle,
@@ -165,12 +167,93 @@ const TextInputDefault = ({
     return 0;
   };
 
+  const renderPrefix = () => {
+    if (parentState.focused) {
+      return (
+        <View
+          center
+          style={{
+            height: "100%",
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {prefix}
+            {` `}
+          </Text>
+        </View>
+      );
+    } else if (
+      parentState.value !== undefined &&
+      parentState.value?.toString() !== ""
+    ) {
+      return (
+        <View
+          center
+          style={{
+            height: "100%",
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {prefix}
+            {` `}
+          </Text>
+        </View>
+      );
+    }
+    return <View />;
+  };
+
+  const renderSuffix = () => {
+    if (parentState.focused) {
+      return (
+        <View
+          center
+          style={{
+            height: "100%",
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {` `}
+            {suffix}
+          </Text>
+        </View>
+      );
+    } else if (
+      parentState.value !== undefined &&
+      parentState.value?.toString() !== ""
+    ) {
+      return (
+        <View
+          center
+          style={{
+            height: "100%",
+          }}
+        >
+          <Text color={theme.colors.textSecondary}>
+            {` `}
+            {suffix}
+          </Text>
+        </View>
+      );
+    }
+    return <View />;
+  };
+
+  const checkLineRightAction = () => {
+    if (!multiline && right && inputValue) {
+      return true;
+    }
+    if (parentState.focused && right) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <View style={viewStyle}>
       <View
         row
-        // full
-        // alignCenter
+        alignCenter={!multiline}
         justifyCenter
         style={[
           {
@@ -186,7 +269,11 @@ const TextInputDefault = ({
         ]}
       >
         {
-          <View center paddingLeft={CONSTANTS.SPACE_12}>
+          <View
+            center={!multiline}
+            paddingLeft={CONSTANTS.SPACE_12}
+            paddingTop={multiline ? CONSTANTS.SPACE_12 : 0}
+          >
             {left}
           </View>
         }
@@ -200,47 +287,105 @@ const TextInputDefault = ({
           ]}
         >
           {multiline && renderLabel()}
-          {render?.({
-            ...rest,
-            ref: innerRef,
-            onChangeText: handleChangeText,
-            value: inputValue,
-            placeholder:
-              parentState.value?.toString() == ""
-                ? parentState.focused
-                  ? rest.placeholder
-                  : label
-                : rest.placeholder,
-            editable: !disabled && editable,
-            selectionColor,
-            cursorColor:
-              typeof cursorColor === "undefined" ? activeColor : cursorColor,
-            placeholderTextColor: placeholderTextColorBasedOnState,
-            onFocus,
-            onBlur,
-            underlineColorAndroid: "transparent",
-            multiline,
-            style: [
-              styles.input,
-              {
-                ...font,
-                fontSize,
-                lineHeight,
-                fontWeight,
-                color: inputTextColor,
-                textAlignVertical: multiline ? "top" : "center",
-                textAlign: textAlign
-                  ? textAlign
-                  : I18nManager.getConstants().isRTL
-                  ? "right"
-                  : "left",
-                height: height ? height : 48,
-                paddingTop: getPaddingTopValue(),
-                paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
-              },
-              contentStyle,
-            ],
-          } as RenderProps)}
+          {multiline ? (
+            render?.({
+              ...rest,
+              ref: innerRef,
+              onChangeText: handleChangeText,
+              value: inputValue,
+              placeholder:
+                parentState.value?.toString() == ""
+                  ? parentState.focused
+                    ? rest.placeholder
+                    : label
+                  : rest.placeholder,
+              editable: !disabled && editable,
+              selectionColor,
+              cursorColor:
+                typeof cursorColor === "undefined" ? activeColor : cursorColor,
+              placeholderTextColor: placeholderTextColorBasedOnState,
+              onFocus,
+              onBlur,
+              underlineColorAndroid: "transparent",
+              multiline,
+              style: [
+                styles.input,
+                {
+                  ...font,
+                  fontSize,
+                  lineHeight,
+                  fontWeight,
+                  color: inputTextColor,
+                  textAlignVertical: multiline ? "top" : "center",
+                  textAlign: textAlign
+                    ? textAlign
+                    : I18nManager.getConstants().isRTL
+                    ? "right"
+                    : "left",
+                  height: height ? height : 48,
+                  paddingTop: getPaddingTopValue(),
+                  paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
+                },
+                contentStyle,
+              ],
+            } as RenderProps)
+          ) : (
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              {!multiline &&
+                prefix &&
+                prefix?.toString() !== "" &&
+                renderPrefix()}
+
+              {render?.({
+                ...rest,
+                ref: innerRef,
+                onChangeText: handleChangeText,
+                value: inputValue,
+                placeholder:
+                  parentState.value?.toString() == ""
+                    ? parentState.focused
+                      ? rest.placeholder
+                      : label
+                    : rest.placeholder,
+                editable: !disabled && editable,
+                selectionColor,
+                cursorColor:
+                  typeof cursorColor === "undefined"
+                    ? activeColor
+                    : cursorColor,
+                placeholderTextColor: placeholderTextColorBasedOnState,
+                onFocus,
+                onBlur,
+                underlineColorAndroid: "transparent",
+                multiline,
+                style: [
+                  styles.input,
+                  {
+                    ...font,
+                    fontSize,
+                    lineHeight,
+                    fontWeight,
+                    color: inputTextColor,
+                    textAlignVertical: multiline ? "top" : "center",
+                    textAlign: textAlign
+                      ? textAlign
+                      : I18nManager.getConstants().isRTL
+                      ? "right"
+                      : "left",
+                    height: height ? height : 48,
+                    paddingTop: getPaddingTopValue(),
+                    paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
+                  },
+                  contentStyle,
+                ],
+              } as RenderProps)}
+              {!multiline && renderSuffix()}
+            </View>
+          )}
         </View>
 
         {!disabled && clearButton && inputValue ? (
@@ -253,12 +398,23 @@ const TextInputDefault = ({
         ) : (
           <Spacer width={CONSTANTS.SPACE_12} />
         )}
+        {checkLineRightAction() && (
+          <Spacer
+            width={1}
+            height={24}
+            backgroundColor={colors.borderPrimaryDefault}
+            style={{
+              marginRight: CONSTANTS.SPACE_8,
+            }}
+          />
+        )}
         {right && !clearButton && <Spacer width={CONSTANTS.SPACE_2} />}
         {right && (
           <View
+            center={!multiline}
             style={{
-              height: "100%",
               paddingRight: CONSTANTS.SPACE_12,
+              paddingTop: multiline ? CONSTANTS.SPACE_12 : 0,
             }}
           >
             {right}
@@ -288,7 +444,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     paddingLeft: 0,
-    // paddingTop: Platform.OS === "ios" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_2,
   },
   clearButtonMultiline: {
     paddingRight: CONSTANTS.SPACE_12,

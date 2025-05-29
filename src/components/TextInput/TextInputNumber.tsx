@@ -39,6 +39,7 @@ export interface TextInputNumberProps extends TouchableOpacityProps {
   right?: React.ReactNode;
   disabled?: boolean;
   prefix?: string;
+  suffix?: string;
   onChangeText?: (value: string) => void;
   clearButton?: boolean;
   theme?: ThemeProp;
@@ -75,6 +76,7 @@ const TextInputNumber = ({
   disabled = false,
   theme: themeOverrides,
   prefix = "",
+  suffix = "",
   clearButton = false,
   maxValue = 999999999,
   type = "integer",
@@ -232,12 +234,12 @@ const TextInputNumber = ({
         >
           <Spacer width={SPACE_12} />
           {left && (
-            <View paddingRight={SPACE_8} height={"100%"}>
+            <View center paddingRight={SPACE_8} height={"100%"}>
               {left}
             </View>
           )}
 
-          <View full>
+          <View full paddingRight={SPACE_4}>
             {!checkValueEmpty() && !checkLabelEmpty() && (
               <Text
                 size={12}
@@ -280,6 +282,16 @@ const TextInputNumber = ({
                   )}
                 </Text>
               </View>
+              {!checkValueEmpty() && suffix.toString() !== "" && (
+                <Text
+                  numberOfLines={1}
+                  color={colors.textSecondary}
+                  style={[disabled && disabledTextStyle]}
+                >
+                  {` `}
+                  {suffix}
+                </Text>
+              )}
             </View>
           </View>
           {clearButton && !checkValueEmpty() && (
@@ -287,8 +299,18 @@ const TextInputNumber = ({
               <Icon name={"IconClearText"} type="Svg" size={24} />
             </TouchableOpacity>
           )}
+          {right && numberValue && (
+            <Spacer
+              width={1}
+              height={24}
+              backgroundColor={theme.colors.borderPrimaryDefault}
+              style={{
+                marginLeft: SPACE_4,
+              }}
+            />
+          )}
           {right && (
-            <View paddingLeft={SPACE_8} height={"100%"}>
+            <View center paddingLeft={SPACE_8} height={"100%"}>
               {right}
             </View>
           )}

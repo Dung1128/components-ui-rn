@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import View from "../View";
+import containerStyles from "../../theme/container-styles";
 import Icon from "../Icon";
 import TextInput from "../TextInput/TextInput";
 import { useInternalTheme } from "../../core/theming";
@@ -31,14 +32,13 @@ const SearchInput = ({
   onChangeText,
   style,
   height,
-  textStyle,
 }: SearchInputProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
   return (
     <TextInput
       left={
-        <View center>
+        <View>
           <Icon name={"IconSearch"} type="Svg" size={18} />
         </View>
       }
@@ -53,7 +53,6 @@ const SearchInput = ({
       onBlur={onBlur}
       allowFontScaling={false}
       onChangeText={onChangeText}
-      textStyle={textStyle}
       style={[
         {
           height: height || 36,
@@ -70,5 +69,9 @@ const SearchInput = ({
     />
   );
 };
+
+const styles = StyleSheet.create({
+  ...containerStyles,
+});
 
 export default SearchInput;
