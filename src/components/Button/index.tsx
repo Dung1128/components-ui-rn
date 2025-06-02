@@ -59,13 +59,13 @@ const Button = ({
   backgroundColor,
   textColor,
   bold = true,
-  size = 16,
   medium = false,
   mode = "contained",
   transparent = false,
   full = false,
   theme: themeOverrides,
   buttonSize = "normal",
+  size = buttonSize === "small" ? 14 : 16,
   critical = false,
   ...props
 }: ButtonProps) => {

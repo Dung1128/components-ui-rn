@@ -11,7 +11,7 @@ import {
 import { memoDeepEqual } from "../../utils/function-utils";
 
 interface PropsCustomImage extends ImageProps {
-  useFastImage?: boolean;
+  // useFastImage?: boolean;
   disableDefaultImage?: boolean;
   children?: React.ReactNode;
   resizeMode?: "cover" | "contain" | "stretch" | "center";

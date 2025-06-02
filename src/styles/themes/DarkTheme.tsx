@@ -154,5 +154,6 @@ export const DarkTheme: AppTheme = {
     borderSuccessInverseDefault: green.GREEN40,
     toggleBackgroundDefault: ink.INK10,
     toggleBackgroundActive: green.GREEN80,
+    overlayPrimaryDefault: "rgba(3, 7, 18, 0.4)",
   },
 };

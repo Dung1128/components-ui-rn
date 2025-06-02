@@ -44,6 +44,7 @@ export interface TextInputNumberProps extends TouchableOpacityProps {
   clearButton?: boolean;
   theme?: ThemeProp;
   maxValue?: number;
+  minValue?: number;
   type?: "integer" | "float";
   formatDecimal?: 1 | 2 | 3;
   required?: boolean;
@@ -79,6 +80,7 @@ const TextInputNumber = ({
   suffix = "",
   clearButton = false,
   maxValue = 999999999,
+  minValue = 0,
   type = "integer",
   formatDecimal = 3,
   required = false,
@@ -93,6 +95,7 @@ const TextInputNumber = ({
   const [numberValue, setNumberValue] = useState<string>(
     value?.toString() || ""
   );
+  const [canSave, setCanSave] = useState<boolean>(true);
 
   const disabledTextStyle = {
     color: colors.textSecondary,
@@ -101,6 +104,16 @@ const TextInputNumber = ({
   useEffect(() => {
     setInputValue(value?.toString() || "");
   }, [value]);
+
+  useEffect(() => {
+    const currentValue = Number(inputValue);
+    const minValueNumber = Number(minValue);
+    setCanSave(
+      !isNaN(currentValue) &&
+        !isNaN(minValueNumber) &&
+        currentValue >= minValueNumber
+    );
+  }, [inputValue, minValue]);
 
   const getColorValue = useMemo(() => {
     if (disabled) {
@@ -155,7 +168,7 @@ const TextInputNumber = ({
   };
 
   const handleClear = () => {
-    setInputValue("");
+    setInputValue("0");
   };
 
   const handleClearInput = () => {
@@ -421,13 +434,15 @@ const TextInputNumber = ({
               />
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={styles.actionButton}
+                style={[styles.actionButton, !canSave && { opacity: 0.5 }]}
                 onPress={handleSave}
+                disabled={!canSave}
               >
                 <Text
                   style={[
                     styles.actionText,
                     { color: colors.textBrandDefault },
+                    !canSave && { color: colors.textSecondary },
                   ]}
                 >
                   Lưu

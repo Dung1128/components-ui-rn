@@ -42,9 +42,9 @@ const Avatar = ({
   const getInitials = (name: string) => {
     const words = name.trim().split(" ");
     if (words.length === 1) {
-      return words[0][0];
+      return words[0][0].toUpperCase();
     }
-    return words[0][0] + words[words.length - 1][0];
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase();
   };
 
   if (children) {
@@ -76,7 +76,6 @@ const Avatar = ({
     >
       {source ? (
         <Image
-          useFastImage
           resizeMode="cover"
           source={source}
           style={[{ width: size, height: size }, imageStyle]}

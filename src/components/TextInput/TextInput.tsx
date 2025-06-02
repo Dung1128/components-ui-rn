@@ -34,6 +34,7 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   suffix?: string;
   textError?: string;
   maxValue?: number;
+  minValue?: number;
   type?: "integer" | "float";
   formatDecimal?: 1 | 2 | 3;
   required?: boolean;
@@ -44,11 +45,11 @@ export type Props = React.ComponentPropsWithRef<typeof NativeTextInput> & {
   /**
    * The text or component to use for the floating label.
    */
-  label: TextInputLabelProp;
+  label?: TextInputLabelProp;
   /**
    * Placeholder for the input.
    */
-  placeholder: string;
+  placeholder?: string;
   /**
    * Whether to style the TextInput with error style.
    */
@@ -233,6 +234,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
       prefix,
       suffix,
       maxValue,
+      minValue,
       type,
       required = false,
       ...rest
@@ -549,6 +551,7 @@ const TextInput = forwardRef<TextInputHandles, Props>(
           clearButton={clearButton}
           onChangeText={handleChangeText}
           maxValue={maxValue}
+          minValue={minValue}
           formatDecimal={rest.formatDecimal}
           type={type}
         />

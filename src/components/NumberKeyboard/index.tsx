@@ -4,7 +4,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Modal } from "react-native";
 
-import { SPACE_12, SPACE_40 } from "../../theme/dimensions";
+import { SPACE_12, SPACE_40 } from "@/theme/dimensions";
 import Text from "../Text";
 import View from "../View";
 import { useInternalTheme } from "../../core/theming";
@@ -112,7 +112,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
   );
 
   const handleClear = useCallback(() => {
-    setInputValue("");
+    setInputValue("0");
   }, []);
 
   const handleSave = useCallback(() => {
@@ -120,26 +120,9 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
     if (inputValue.endsWith(".")) {
       finalValue = inputValue.slice(0, -1);
     }
-
-    // Nếu giá trị rỗng hoặc chỉ có dấu chấm, trả về "0"
-    if (!finalValue || finalValue === ".") {
-      onChangeText?.("0");
-      onClose();
-      return;
-    }
-
-    // Ép kiểu kết quả thành số theo type
-    if (type === "integer") {
-      const intValue = parseInt(finalValue, 10);
-      onChangeText?.(intValue.toString());
-    } else {
-      const floatValue = parseFloat(finalValue);
-      // Giới hạn số chữ số thập phân theo formatDecimal
-      const formattedFloat = floatValue.toFixed(formatDecimal);
-      onChangeText?.(formattedFloat);
-    }
+    onChangeText?.(finalValue);
     onClose();
-  }, [inputValue, onChangeText, onClose, type, formatDecimal]);
+  }, [inputValue, onChangeText, onClose]);
 
   const handleClose = useCallback(() => {
     onClose();

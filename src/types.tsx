@@ -178,6 +178,11 @@ export type ThemeColors = {
 
   selectBackgroundDisabled: string;
   selectIconDisabled: string;
+
+  toggleBackgroundDefault: string;
+  toggleBackgroundActive: string;
+
+  overlayPrimaryDefault: string;
 };
 
 export type ThemeProp = $DeepPartial<InternalTheme>;
