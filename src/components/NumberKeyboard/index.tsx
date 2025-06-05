@@ -62,15 +62,20 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
   const { colors } = theme;
 
   const [inputValue, setInputValue] = useState<string>(value?.toString() || "");
+  const [isFirstInput, setIsFirstInput] = useState<boolean>(true);
 
   useEffect(() => {
-    setInputValue(value?.toString() || "");
-  }, [value]);
+    if (visible) {
+      setInputValue(value?.toString() || "");
+      setIsFirstInput(true);
+    }
+  }, [visible, value]);
 
   const handleKeyPress = useCallback(
     (key: string) => {
       if (key === "del") {
         setInputValue((prev) => prev.slice(0, -1));
+        setIsFirstInput(false);
         return;
       }
 
@@ -81,7 +86,14 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
           inputValue.length > 0
         ) {
           setInputValue((prev) => prev + key);
+          setIsFirstInput(false);
         }
+        return;
+      }
+
+      if (isFirstInput) {
+        setInputValue(key);
+        setIsFirstInput(false);
         return;
       }
 
@@ -108,11 +120,12 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
         }
       }
     },
-    [inputValue, maxValue, type, formatDecimal]
+    [inputValue, maxValue, type, formatDecimal, isFirstInput]
   );
 
   const handleClear = useCallback(() => {
     setInputValue("0");
+    setIsFirstInput(true);
   }, []);
 
   const handleSave = useCallback(() => {
@@ -126,10 +139,8 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
 
   const handleClose = useCallback(() => {
     onClose();
-    setTimeout(() => {
-      setInputValue(value?.toString() || "");
-    }, 300);
-  }, [onClose, value]);
+    setIsFirstInput(true);
+  }, [onClose]);
 
   const renderKeyboardRow = useCallback(
     (row: string[]) => (

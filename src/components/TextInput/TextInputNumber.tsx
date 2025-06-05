@@ -95,7 +95,9 @@ const TextInputNumber = ({
   const [numberValue, setNumberValue] = useState<string>(
     value?.toString() || ""
   );
+
   const [canSave, setCanSave] = useState<boolean>(true);
+  const [isFirstInput, setIsFirstInput] = useState<boolean>(false);
 
   const disabledTextStyle = {
     color: colors.textSecondary,
@@ -103,6 +105,7 @@ const TextInputNumber = ({
 
   useEffect(() => {
     setInputValue(value?.toString() || "");
+    setNumberValue(value?.toString() || "");
   }, [value]);
 
   useEffect(() => {
@@ -140,27 +143,33 @@ const TextInputNumber = ({
         inputValue.length > 0
       ) {
         setInputValue((prev) => prev + key);
+        setIsFirstInput(false);
       }
     } else {
-      const newInputValue = inputValue === "0" ? key : inputValue + key;
-      const newValue = Number(newInputValue);
-      const maxValueNumber = Number(maxValue);
+      if (isFirstInput) {
+        setInputValue(key);
+        setIsFirstInput(false);
+      } else {
+        const newInputValue = inputValue === "0" ? key : inputValue + key;
+        const newValue = Number(newInputValue);
+        const maxValueNumber = Number(maxValue);
 
-      if (
-        !isNaN(newValue) &&
-        !isNaN(maxValueNumber) &&
-        newValue <= maxValueNumber
-      ) {
-        if (inputValue.includes(".")) {
-          const [intPart, decimalPart = ""] = inputValue.split(".");
-          if (intPart.length < 10 && decimalPart.length === 0) {
-            setInputValue((prev) => prev + key);
-          } else if (decimalPart.length < 3) {
-            setInputValue((prev) => prev + key);
-          }
-        } else {
-          if (inputValue.length < 10) {
-            setInputValue((prev) => (prev === "0" ? key : prev + key));
+        if (
+          !isNaN(newValue) &&
+          !isNaN(maxValueNumber) &&
+          newValue <= maxValueNumber
+        ) {
+          if (inputValue.includes(".")) {
+            const [intPart, decimalPart = ""] = inputValue.split(".");
+            if (intPart.length < 10 && decimalPart.length === 0) {
+              setInputValue((prev) => prev + key);
+            } else if (decimalPart.length < 3) {
+              setInputValue((prev) => prev + key);
+            }
+          } else {
+            if (inputValue.length < 10) {
+              setInputValue((prev) => (prev === "0" ? key : prev + key));
+            }
           }
         }
       }
@@ -203,6 +212,7 @@ const TextInputNumber = ({
 
   const onShowModalKeyboard = () => {
     setIsShowModalKeyboard(true);
+    setIsFirstInput(true);
   };
 
   const onCloseModalKeyboard = () => {
