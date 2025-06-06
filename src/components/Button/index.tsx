@@ -127,7 +127,7 @@ const Button = ({
         activeOpacity={0.8}
         onPress={onPress}
         {...props}
-        disabled={disabled || false}
+        disabled={disabled || isLoading}
       >
         <View
           style={[
@@ -143,13 +143,14 @@ const Button = ({
             renderButtonStyle(),
             buttonSize === "small" && styles.small,
 
-            disabled && [
-              styles.disabled,
-              {
-                borderColor: colors.borderPrimaryDisabled,
-                backgroundColor: colors.surfacePrimaryDisabled,
-              },
-            ],
+            disabled &&
+              !isLoading && [
+                styles.disabled,
+                {
+                  borderColor: colors.borderPrimaryDisabled,
+                  backgroundColor: colors.surfacePrimaryDisabled,
+                },
+              ],
             isLoading && { justifyContent: "center" },
             style,
           ]}

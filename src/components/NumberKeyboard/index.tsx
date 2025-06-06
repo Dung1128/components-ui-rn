@@ -52,7 +52,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
   value = "",
   label = "",
   onChangeText,
-  maxValue = 999999999,
+  maxValue = 999999999999,
   type = "integer",
   formatDecimal = 3,
   visible,
@@ -79,13 +79,22 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
         return;
       }
 
+      if (key === "000") {
+        if (type === "integer" && inputValue.length > 0) {
+          setInputValue((prev) => prev + "000");
+          setIsFirstInput(false);
+        }
+        return;
+      }
+
       if (key === ".") {
-        if (
-          type === "float" &&
-          !inputValue.includes(".") &&
-          inputValue.length > 0
-        ) {
-          setInputValue((prev) => prev + key);
+        if (type === "float" && !inputValue.includes(".")) {
+          // Nếu inputValue là "0" hoặc rỗng, giữ lại số 0 và thêm dấu "."
+          if (inputValue === "0" || inputValue === "") {
+            setInputValue("0.");
+          } else {
+            setInputValue((prev) => prev + key);
+          }
           setIsFirstInput(false);
         }
         return;
@@ -97,7 +106,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
         return;
       }
 
-      const newInputValue = inputValue === "0" ? key : inputValue + key;
+      const newInputValue = inputValue + key;
       const newValue = Number(newInputValue);
       const maxValueNumber = Number(maxValue);
 
@@ -108,14 +117,14 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
       ) {
         if (inputValue.includes(".")) {
           const [intPart, decimalPart = ""] = inputValue.split(".");
-          if (intPart.length < 10 && decimalPart.length === 0) {
+          if (intPart.length < 12 && decimalPart.length === 0) {
             setInputValue((prev) => prev + key);
           } else if (decimalPart.length < formatDecimal) {
             setInputValue((prev) => prev + key);
           }
         } else {
-          if (inputValue.length < 10) {
-            setInputValue((prev) => (prev === "0" ? key : prev + key));
+          if (inputValue.length < 12) {
+            setInputValue((prev) => prev + key);
           }
         }
       }
@@ -141,39 +150,6 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
     onClose();
     setIsFirstInput(true);
   }, [onClose]);
-
-  const renderKeyboardRow = useCallback(
-    (row: string[]) => (
-      <View key={row.join("")} style={styles.keyboardRow}>
-        {row.map((key) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            key={key}
-            style={[
-              styles.keyButton,
-              key === "." && type === "integer" && styles.disabledKey,
-            ]}
-            onPress={() => handleKeyPress(key)}
-            disabled={key === "." && type === "integer"}
-          >
-            {key === "del" ? (
-              <Icon name="IconDelNumber" type="Svg" size={24} />
-            ) : (
-              <Text
-                style={[
-                  styles.keyText,
-                  key === "." && type === "integer" && styles.disabledKeyText,
-                ]}
-              >
-                {key}
-              </Text>
-            )}
-          </TouchableOpacity>
-        ))}
-      </View>
-    ),
-    [handleKeyPress, type]
-  );
 
   return (
     <Modal
@@ -214,8 +190,47 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
               ["1", "2", "3"],
               ["4", "5", "6"],
               ["7", "8", "9"],
-              [".", "0", "del"],
-            ].map(renderKeyboardRow)}
+              [type === "integer" ? "000" : ".", "0", "del"],
+            ].map((row, rowIndex) => (
+              <View key={rowIndex} style={styles.keyboardRow}>
+                {row.map((key) => (
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    key={key}
+                    style={[
+                      styles.keyButton,
+                      key === "000" && type === "float" && styles.disabledKey,
+                      key === "." &&
+                        inputValue.includes(".") &&
+                        styles.disabledKey,
+                    ]}
+                    onPress={() => handleKeyPress(key)}
+                    disabled={
+                      (key === "000" && type === "float") ||
+                      (key === "." && inputValue.includes("."))
+                    }
+                  >
+                    {key === "del" ? (
+                      <Icon name="IconDelNumber" type="Svg" size={24} />
+                    ) : (
+                      <Text
+                        style={[
+                          styles.keyText,
+                          key === "000" &&
+                            type === "float" &&
+                            styles.disabledKeyText,
+                          key === "." &&
+                            inputValue.includes(".") &&
+                            styles.disabledKeyText,
+                        ]}
+                      >
+                        {key}
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ))}
           </View>
           <View style={styles.actionRow}>
             <TouchableOpacity

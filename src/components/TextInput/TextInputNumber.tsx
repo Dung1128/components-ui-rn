@@ -24,7 +24,7 @@ import {
 import ScaleButton from "../ScaleButton";
 import Text from "../Text";
 import View from "../View";
-import { useInternalTheme } from "../../core/theming";
+import { useInternalTheme } from "../..//core/theming";
 import { ThemeProp } from "../../types";
 import Spacer from "../Spacer";
 import Icon from "../Icon";
@@ -51,12 +51,13 @@ export interface TextInputNumberProps extends TouchableOpacityProps {
 }
 
 function formatNumberInput(value: string, formatDecimal: 1 | 2 | 3): string {
-  if (!value) return "0";
+  if (!value) return "";
+  if (value === "") return "";
   // Xử lý số âm
   const isNegative = value.startsWith("-");
   let [intPart, decimalPart] = value.replace(/[^0-9.]/g, "").split(".");
+
   // Format phần nguyên
-  intPart = intPart.replace(/^0+(?=\d)/, ""); // Loại bỏ số 0 đầu nếu có
   intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   // Giới hạn phần thập phân 3 số
   if (decimalPart) decimalPart = decimalPart.slice(0, formatDecimal);
@@ -79,7 +80,7 @@ const TextInputNumber = ({
   prefix = "",
   suffix = "",
   clearButton = false,
-  maxValue = 999999999,
+  maxValue = 999999999999,
   minValue = 0,
   type = "integer",
   formatDecimal = 3,
@@ -136,13 +137,19 @@ const TextInputNumber = ({
   const handleKeyPress = (key: string) => {
     if (key === "del") {
       setInputValue((prev) => prev.slice(0, -1));
+    } else if (key === "000") {
+      if (type === "integer" && inputValue.length > 0) {
+        setInputValue((prev) => prev + "000");
+        setIsFirstInput(false);
+      }
     } else if (key === ".") {
-      if (
-        type === "float" &&
-        !inputValue.includes(".") &&
-        inputValue.length > 0
-      ) {
-        setInputValue((prev) => prev + key);
+      if (!inputValue.includes(".")) {
+        // Nếu inputValue là "0" hoặc rỗng, giữ lại số 0 và thêm dấu "."
+        if (inputValue === "0" || inputValue === "") {
+          setInputValue("0.");
+        } else {
+          setInputValue((prev) => prev + key);
+        }
         setIsFirstInput(false);
       }
     } else {
@@ -150,7 +157,7 @@ const TextInputNumber = ({
         setInputValue(key);
         setIsFirstInput(false);
       } else {
-        const newInputValue = inputValue === "0" ? key : inputValue + key;
+        const newInputValue = inputValue + key;
         const newValue = Number(newInputValue);
         const maxValueNumber = Number(maxValue);
 
@@ -161,14 +168,14 @@ const TextInputNumber = ({
         ) {
           if (inputValue.includes(".")) {
             const [intPart, decimalPart = ""] = inputValue.split(".");
-            if (intPart.length < 10 && decimalPart.length === 0) {
+            if (intPart.length < 12 && decimalPart.length === 0) {
               setInputValue((prev) => prev + key);
             } else if (decimalPart.length < 3) {
               setInputValue((prev) => prev + key);
             }
           } else {
-            if (inputValue.length < 10) {
-              setInputValue((prev) => (prev === "0" ? key : prev + key));
+            if (inputValue.length < 12) {
+              setInputValue((prev) => prev + key);
             }
           }
         }
@@ -177,7 +184,7 @@ const TextInputNumber = ({
   };
 
   const handleClear = () => {
-    setInputValue("0");
+    setInputValue("");
   };
 
   const handleClearInput = () => {
@@ -197,14 +204,16 @@ const TextInputNumber = ({
   };
 
   const checkValueEmpty = () => {
-    if (value.toString() === "") {
+    if (value === undefined || value === null || value.toString() === "") {
       return true;
     }
     return false;
   };
 
+  console.log(value, "value");
+
   const checkLabelEmpty = () => {
-    if (label.toString() === "") {
+    if (label === undefined || label === null || label.toString() === "") {
       return true;
     }
     return false;
@@ -394,7 +403,7 @@ const TextInputNumber = ({
                 ["1", "2", "3"],
                 ["4", "5", "6"],
                 ["7", "8", "9"],
-                [".", "0", "del"],
+                [type === "integer" ? "000" : ".", "0", "del"],
               ].map((row, rowIndex) => (
                 <View key={rowIndex} style={styles.keyboardRow}>
                   {row.map((key) => (
@@ -403,10 +412,16 @@ const TextInputNumber = ({
                       key={key}
                       style={[
                         styles.keyButton,
-                        key === "." && type === "integer" && styles.disabledKey,
+                        key === "000" && type === "float" && styles.disabledKey,
+                        key === "." &&
+                          inputValue.includes(".") &&
+                          styles.disabledKey,
                       ]}
                       onPress={() => handleKeyPress(key)}
-                      disabled={key === "." && type === "integer"}
+                      disabled={
+                        (key === "000" && type === "float") ||
+                        (key === "." && inputValue.includes("."))
+                      }
                     >
                       {key === "del" ? (
                         <Icon name="IconDelNumber" type="Svg" size={24} />
@@ -414,8 +429,11 @@ const TextInputNumber = ({
                         <Text
                           style={[
                             styles.keyText,
+                            key === "000" &&
+                              type === "float" &&
+                              styles.disabledKeyText,
                             key === "." &&
-                              type === "integer" &&
+                              inputValue.includes(".") &&
                               styles.disabledKeyText,
                           ]}
                         >

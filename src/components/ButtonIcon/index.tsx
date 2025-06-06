@@ -52,7 +52,7 @@ const ButtonIcon = ({
       activeOpacity={0.8}
       onPress={onPress}
       {...props}
-      disabled={disabled || false}
+      disabled={disabled || isLoading}
     >
       <View
         style={[
@@ -77,10 +77,11 @@ const ButtonIcon = ({
             borderRadius: size / 2,
           },
 
-          disabled && {
-            borderWidth: 0,
-            backgroundColor: colors.surfaceBrandDisabled,
-          },
+          disabled &&
+            !isLoading && {
+              borderWidth: 0,
+              backgroundColor: colors.surfaceBrandDisabled,
+            },
           style,
         ]}
         {...props}

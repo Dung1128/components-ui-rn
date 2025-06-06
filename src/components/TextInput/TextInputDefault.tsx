@@ -85,7 +85,12 @@ const TextInputDefault = ({
   const [inputValue, setInputValue] = React.useState(value || "");
 
   React.useEffect(() => {
-    setInputValue(value || "");
+    if (value === undefined) {
+      setInputValue("");
+      onChangeText?.("");
+    } else {
+      setInputValue(value || "");
+    }
   }, [value]);
 
   const handleChangeText = (text: string) => {
