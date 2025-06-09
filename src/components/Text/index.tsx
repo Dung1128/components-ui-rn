@@ -1,12 +1,12 @@
 import React from "react";
 import { Text as TextRN, TextProps, StyleSheet, Platform } from "react-native";
 import { memoDeepEqual } from "../../utils/function-utils";
-import colors from "../../theme/colors";
 import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
 
 export interface IText extends TextProps {
   size?: number;
+  lineHeight?: number;
   color?: string;
   center?: boolean;
   bold?: boolean;
@@ -18,18 +18,23 @@ export interface IText extends TextProps {
 const Text = (props: IText) => {
   const { children, onPress, theme: themeOverrides, ...rest } = props;
   const theme = useInternalTheme();
-
+  const { colors } = theme;
   delete rest.style;
   const _getStyle = () => {
     const style: any = {
       fontWeight: "normal",
-      color: colors.ink.INK100,
+      color: colors.textDefault,
       fontFamily: "Inter-Regular",
+      fontSize: 14,
+      lineHeight: 20,
     };
-    const { size = 14, center, color, bold, medium } = props;
+    const { size = 14, lineHeight, center, color, bold, medium } = props;
     style.color = theme.colors.textDefault || "black";
     if (size) {
       style.fontSize = size;
+    }
+    if (lineHeight) {
+      style.lineHeight = lineHeight;
     }
     if (color) {
       style.color = color;
