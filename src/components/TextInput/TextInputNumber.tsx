@@ -24,7 +24,7 @@ import {
 import ScaleButton from "../ScaleButton";
 import Text from "../Text";
 import View from "../View";
-import { useInternalTheme } from "../..//core/theming";
+import { useInternalTheme } from "../../core/theming";
 import { ThemeProp } from "../../types";
 import Spacer from "../Spacer";
 import Icon from "../Icon";
@@ -379,10 +379,13 @@ const TextInputNumber = ({
             backgroundColor={colors.surfacePrimaryDefault}
             style={styles.modalContent}
           >
-            <Text style={styles.modalTitle}>{label}</Text>
+            <Text style={[styles.modalTitle, styles.text18]}>{label}</Text>
             <View width={"100%"}>
               <View paddingHorizontal={SPACE_40}>
-                <Text numberOfLines={1} style={styles.valueText}>
+                <Text
+                  numberOfLines={1}
+                  style={[styles.text30, styles.valueText]}
+                >
                   {formatNumberInput(inputValue, formatDecimal) || "0"}
                 </Text>
               </View>
@@ -429,6 +432,7 @@ const TextInputNumber = ({
                         <Text
                           style={[
                             styles.keyText,
+                            styles.text22,
                             key === "000" &&
                               type === "float" &&
                               styles.disabledKeyText,
@@ -451,7 +455,7 @@ const TextInputNumber = ({
                 style={styles.actionButton}
                 onPress={onCloseModalKeyboard}
               >
-                <Text style={styles.actionText}>Đóng</Text>
+                <Text style={[styles.actionText, styles.text16]}>Đóng</Text>
               </TouchableOpacity>
               <Spacer
                 style={{
@@ -469,6 +473,7 @@ const TextInputNumber = ({
                 <Text
                   style={[
                     styles.actionText,
+                    styles.text16,
                     { color: colors.textBrandDefault },
                     !canSave && { color: colors.textSecondary },
                   ]}
@@ -513,14 +518,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 18,
     textAlign: "center",
     marginTop: 16,
     marginBottom: 8,
   },
 
   valueText: {
-    fontSize: 30,
     textAlign: "center",
   },
   clearButton: {
@@ -547,7 +550,6 @@ const styles = StyleSheet.create({
     height: 48,
   },
   keyText: {
-    fontSize: 22,
     fontWeight: "500",
   },
   actionRow: {
@@ -563,7 +565,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   actionText: {
-    fontSize: 16,
     fontWeight: "600",
   },
   disabledKey: {

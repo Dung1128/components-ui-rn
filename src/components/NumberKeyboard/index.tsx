@@ -169,10 +169,10 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
           backgroundColor={colors.surfacePrimaryDefault}
           style={styles.modalContent}
         >
-          <Text style={styles.modalTitle}>{label}</Text>
+          <Text style={[styles.text18, styles.modalTitle]}>{label}</Text>
           <View width={"100%"}>
             <View paddingHorizontal={SPACE_40}>
-              <Text numberOfLines={1} style={styles.valueText}>
+              <Text numberOfLines={1} style={[styles.text30, styles.valueText]}>
                 {formatNumberInput(inputValue, formatDecimal) || "0"}
               </Text>
             </View>
@@ -216,6 +216,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
                       <Text
                         style={[
                           styles.keyText,
+                          styles.text22,
                           key === "000" &&
                             type === "float" &&
                             styles.disabledKeyText,
@@ -238,7 +239,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
               style={styles.actionButton}
               onPress={handleClose}
             >
-              <Text style={styles.actionText}>Đóng</Text>
+              <Text style={[styles.actionText, styles.text16]}>Đóng</Text>
             </TouchableOpacity>
             <Spacer
               style={{ height: "100%" }}
@@ -251,7 +252,11 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
               onPress={handleSave}
             >
               <Text
-                style={[styles.actionText, { color: colors.textBrandDefault }]}
+                style={[
+                  styles.actionText,
+                  styles.text16,
+                  { color: colors.textBrandDefault },
+                ]}
               >
                 Lưu
               </Text>
@@ -278,13 +283,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 18,
     textAlign: "center",
     marginTop: 16,
     marginBottom: 8,
   },
   valueText: {
-    fontSize: 30,
     textAlign: "center",
   },
   clearButton: {
@@ -311,7 +314,6 @@ const styles = StyleSheet.create({
     height: 48,
   },
   keyText: {
-    fontSize: 22,
     fontWeight: "500",
   },
   actionRow: {
@@ -327,7 +329,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   actionText: {
-    fontSize: 16,
     fontWeight: "600",
   },
   disabledKey: {
