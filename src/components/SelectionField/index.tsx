@@ -38,7 +38,6 @@ export interface SelectionFieldProps extends TouchableOpacityProps {
   textProps?: IText;
   textColor?: string;
   labelColor?: string;
-  size?: number;
   textStyle?: TextStyle;
   labelStyle?: TextStyle;
   disabled?: boolean;
@@ -61,7 +60,6 @@ const SelectionField = ({
   disabled = false,
   textColor,
   labelColor,
-  size = 16,
   theme: themeOverrides,
   required = false,
   ...props
@@ -138,7 +136,6 @@ const SelectionField = ({
             <Text
               numberOfLines={1}
               color={getColor()}
-              size={size}
               style={[disabled && disabledTextStyle, textStyle]}
               {...textProps}
             >

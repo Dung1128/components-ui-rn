@@ -21,6 +21,8 @@ export interface NumberKeyboardProps {
   onChangeText?: (value: string) => void;
   /** Giá trị tối đa cho phép */
   maxValue?: number;
+  /** Giá trị tối thiểu cho phép */
+  minValue?: number;
   /** Loại input: integer hoặc float */
   type?: "integer" | "float";
   /** Số chữ số thập phân cho phép */
@@ -53,6 +55,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
   label = "",
   onChangeText,
   maxValue = 999999999999,
+  minValue = 0,
   type = "integer",
   formatDecimal = 3,
   visible,
@@ -63,6 +66,7 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
 
   const [inputValue, setInputValue] = useState<string>(value?.toString() || "");
   const [isFirstInput, setIsFirstInput] = useState<boolean>(true);
+  const [canSave, setCanSave] = useState<boolean>(true);
 
   useEffect(() => {
     if (visible) {
@@ -70,6 +74,16 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
       setIsFirstInput(true);
     }
   }, [visible, value]);
+
+  useEffect(() => {
+    const currentValue = Number(inputValue);
+    const minValueNumber = Number(minValue);
+    setCanSave(
+      !isNaN(currentValue) &&
+        !isNaN(minValueNumber) &&
+        currentValue >= minValueNumber
+    );
+  }, [inputValue, minValue]);
 
   const handleKeyPress = useCallback(
     (key: string) => {
@@ -81,7 +95,17 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
 
       if (key === "000") {
         if (type === "integer" && inputValue.length > 0) {
-          setInputValue((prev) => prev + "000");
+          const newInputValue = inputValue + "000";
+          const newValue = Number(newInputValue);
+          const maxValueNumber = Number(maxValue);
+
+          if (
+            !isNaN(newValue) &&
+            !isNaN(maxValueNumber) &&
+            newValue <= maxValueNumber
+          ) {
+            setInputValue(newInputValue);
+          }
           setIsFirstInput(false);
         }
         return;
@@ -89,7 +113,6 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
 
       if (key === ".") {
         if (type === "float" && !inputValue.includes(".")) {
-          // Nếu inputValue là "0" hoặc rỗng, giữ lại số 0 và thêm dấu "."
           if (inputValue === "0" || inputValue === "") {
             setInputValue("0.");
           } else {
@@ -104,6 +127,19 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
         setInputValue(key);
         setIsFirstInput(false);
         return;
+      }
+
+      // Kiểm tra nếu input bắt đầu bằng 0 và không có dấu chấm
+      if (inputValue === "0") {
+        if (key === ".") {
+          setInputValue("0.");
+          return;
+        } else if (key >= "1" && key <= "9") {
+          setInputValue(key);
+          return;
+        } else {
+          return;
+        }
       }
 
       const newInputValue = inputValue + key;
@@ -133,18 +169,20 @@ const NumberKeyboard: React.FC<NumberKeyboardProps> = ({
   );
 
   const handleClear = useCallback(() => {
-    setInputValue("0");
+    setInputValue("");
     setIsFirstInput(true);
   }, []);
 
   const handleSave = useCallback(() => {
+    if (!canSave) return;
+
     let finalValue = inputValue;
     if (inputValue.endsWith(".")) {
       finalValue = inputValue.slice(0, -1);
     }
     onChangeText?.(finalValue);
     onClose();
-  }, [inputValue, onChangeText, onClose]);
+  }, [inputValue, onChangeText, onClose, canSave]);
 
   const handleClose = useCallback(() => {
     onClose();

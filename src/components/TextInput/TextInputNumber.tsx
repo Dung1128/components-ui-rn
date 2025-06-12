@@ -138,8 +138,18 @@ const TextInputNumber = ({
     if (key === "del") {
       setInputValue((prev) => prev.slice(0, -1));
     } else if (key === "000") {
-      if (type === "integer" && inputValue.length > 0) {
-        setInputValue((prev) => prev + "000");
+      if (type === "integer") {
+        const newInputValue = inputValue + "000";
+        const newValue = Number(newInputValue);
+        const maxValueNumber = Number(maxValue);
+
+        if (
+          !isNaN(newValue) &&
+          !isNaN(maxValueNumber) &&
+          newValue <= maxValueNumber
+        ) {
+          setInputValue(newInputValue);
+        }
         setIsFirstInput(false);
       }
     } else if (key === ".") {
@@ -157,6 +167,19 @@ const TextInputNumber = ({
         setInputValue(key);
         setIsFirstInput(false);
       } else {
+        // Kiểm tra nếu input bắt đầu bằng 0 và không có dấu chấm
+        if (inputValue === "0") {
+          if (key === ".") {
+            setInputValue("0.");
+            return;
+          } else if (key >= "1" && key <= "9") {
+            setInputValue(key);
+            return;
+          } else {
+            return;
+          }
+        }
+
         const newInputValue = inputValue + key;
         const newValue = Number(newInputValue);
         const maxValueNumber = Number(maxValue);
@@ -168,13 +191,13 @@ const TextInputNumber = ({
         ) {
           if (inputValue.includes(".")) {
             const [intPart, decimalPart = ""] = inputValue.split(".");
-            if (intPart.length < 12 && decimalPart.length === 0) {
+            if (newInputValue.length <= 12 && decimalPart.length === 0) {
               setInputValue((prev) => prev + key);
-            } else if (decimalPart.length < 3) {
+            } else if (newInputValue.length <= 12 && decimalPart.length < 3) {
               setInputValue((prev) => prev + key);
             }
           } else {
-            if (inputValue.length < 12) {
+            if (newInputValue.length <= 12) {
               setInputValue((prev) => prev + key);
             }
           }
@@ -246,7 +269,14 @@ const TextInputNumber = ({
               borderRadius: BORDER_RADIUS_6,
             },
 
-            [styles.border, { borderColor: colors.borderPrimaryDefault }],
+            [
+              styles.border,
+              {
+                borderColor: isShowModalKeyboard
+                  ? colors.borderBrandDefault
+                  : colors.borderPrimaryDefault,
+              },
+            ],
 
             textError.length > 0 && [
               {
