@@ -218,6 +218,7 @@ const Toast = memoWithRef(
           row={!options.title}
           center={!options.title}
           full
+          activeOpacity={0.8}
           onPress={onPressToast}
           style={[
             styles.wrapContent,

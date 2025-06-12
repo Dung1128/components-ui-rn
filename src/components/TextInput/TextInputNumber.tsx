@@ -233,8 +233,6 @@ const TextInputNumber = ({
     return false;
   };
 
-  console.log(value, "value");
-
   const checkLabelEmpty = () => {
     if (label === undefined || label === null || label.toString() === "") {
       return true;

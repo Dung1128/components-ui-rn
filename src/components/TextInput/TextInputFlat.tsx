@@ -491,11 +491,6 @@ const TextInputFlat = ({
                   fontWeight,
                   color: inputTextColor,
                   textAlignVertical: multiline ? "top" : "center",
-                  textAlign: textAlign
-                    ? textAlign
-                    : I18nManager.getConstants().isRTL
-                    ? "right"
-                    : "left",
                   marginTop: Platform.OS === "android" ? SPACE_8 : SPACE_2,
                 },
                 contentStyle,

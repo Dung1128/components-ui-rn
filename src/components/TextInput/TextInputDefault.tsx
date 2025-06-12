@@ -376,11 +376,6 @@ const TextInputDefault = ({
                     fontWeight,
                     color: inputTextColor,
                     textAlignVertical: multiline ? "top" : "center",
-                    textAlign: textAlign
-                      ? textAlign
-                      : I18nManager.getConstants().isRTL
-                      ? "right"
-                      : "left",
                     height: height ? height : 48,
                     paddingTop: getPaddingTopValue(),
                     paddingBottom: multiline ? CONSTANTS.SPACE_4 : 0,
