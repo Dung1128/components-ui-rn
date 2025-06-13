@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SPACE_16, SPACE_8 } from "./dimensions";
 
 import white from "./white";

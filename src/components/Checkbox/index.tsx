@@ -49,7 +49,6 @@ const Checkbox = ({
   const checkboxColor = useCheckboxColor(isActive, disabled);
 
   const handlePress = useCallback(() => {
-    // setActive(!isActive);
     onPress?.();
   }, [isActive, onPress]);
 

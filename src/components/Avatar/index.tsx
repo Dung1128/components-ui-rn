@@ -26,7 +26,7 @@ interface AvatarProps {
 
 const Avatar = ({
   children,
-  name = "Sapo",
+  name = "N A",
   backgroundColor,
   style,
   textColor,

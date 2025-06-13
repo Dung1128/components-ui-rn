@@ -1,6 +1,7 @@
 export { ThemeColors } from "./styles/themes/tokens";
 export { CONSTANTS } from "./styles/themes/tokens";
 export { ThemeColors as ThemeColorsProps } from "./types";
+export { default as containerStyles } from "./theme/container-styles";
 export {
   useTheme,
   ThemeProvider,
@@ -9,10 +10,6 @@ export {
 } from "./core/theming";
 export * from "./styles/themes";
 
-export { default as shadow } from "./styles/shadow";
-export { default as overlay } from "./styles/overlay";
-export { default as configureFonts } from "./styles/fonts";
-export { default as ProgressBar } from "./components/ProgressBar";
 export { default as Switch } from "./components/Switch/Switch";
 export { default as TextInput } from "./components/TextInput/TextInput";
 export { default as Button } from "./components/Button";
@@ -35,14 +32,8 @@ export { default as NumberKeyboard } from "./components/NumberKeyboard";
 // Types
 export type { Props as SwitchProps } from "./components/Switch/Switch";
 export type { Props as TextInputProps } from "./components/TextInput/TextInput";
-export type { Props as TextInputAffixProps } from "./components/TextInput/Adornment/TextInputAffix";
 
-export type {
-  AppTheme,
-  ThemeBase,
-  MD3Elevation,
-  MD3TypescaleKey,
-} from "./types";
+export type { AppTheme, ThemeBase } from "./types";
 
 // Toast Manager
 export * from "./utils/toast-manager";

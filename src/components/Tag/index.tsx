@@ -11,7 +11,7 @@ interface TagProps {
   style?: StyleProp<ViewStyle>;
   title: string;
   borderRadius?: number;
-  onPress?: (val?: any) => void;
+  onPress?: (isActive: boolean) => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
@@ -40,15 +40,9 @@ const Tag = ({
 }: TagProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
-  const [active, setActive] = useState<boolean>(isActive);
 
   const handlePressTag = useCallback(() => {
-    setActive(!active);
-    onPress?.();
-  }, [active]);
-
-  useEffect(() => {
-    setActive(isActive);
+    onPress?.(!isActive);
   }, [isActive]);
 
   return (
@@ -70,7 +64,7 @@ const Tag = ({
         ]}
         onPress={handlePressTag}
         backgroundColor={
-          active
+          isActive
             ? colors.surfaceBrandInversePressed
             : colors.surfaceBrandInverseDefault
         }

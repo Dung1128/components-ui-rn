@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import { StyleProp, ViewStyle, StyleSheet, TextStyle } from "react-native";
 import View from "../View";
 import { CONSTANTS } from "../../styles/themes/tokens";
@@ -11,7 +11,7 @@ interface ChipBarProps {
   style?: StyleProp<ViewStyle>;
   title: string;
   borderRadius?: number;
-  onPress?: (val?: any) => void;
+  onPress?: (isActive: boolean) => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
@@ -38,16 +38,12 @@ const ChipBar = ({
 }: ChipBarProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
-  const [active, setActive] = useState<boolean>(isActive);
 
-  const handlePressChipBar = useCallback(() => {
-    setActive(!active);
-    onPress?.();
-  }, [active]);
-
-  useEffect(() => {
-    setActive(isActive);
-  }, [isActive]);
+  const handlePressChipBar = () => {
+    if (!disabled) {
+      onPress?.(!isActive);
+    }
+  };
 
   return (
     <View row>
@@ -68,10 +64,10 @@ const ChipBar = ({
         ]}
         onPress={handlePressChipBar}
         borderColor={
-          active ? colors.borderBrandDefault : colors.borderPrimaryDefault
+          isActive ? colors.borderBrandDefault : colors.borderPrimaryDefault
         }
         backgroundColor={
-          active
+          isActive
             ? colors.surfaceBrandInverseDefault
             : colors.backgroundSecondary
         }
@@ -81,7 +77,7 @@ const ChipBar = ({
           <Text
             numberOfLines={numberOfLines}
             ellipsizeMode={ellipsizeMode}
-            color={active ? colors.textBrandDefault : colors.textDefault}
+            color={isActive ? colors.textBrandDefault : colors.textDefault}
             style={[
               styles.text14,
               styles.textMedium,
