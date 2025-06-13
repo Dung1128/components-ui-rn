@@ -30,10 +30,9 @@ const RadioButton = ({
   const { colors } = theme;
   const [isActive, setActive] = useState<boolean>(checked);
 
-  const handlePressChipBar = useCallback(() => {
-    setActive(!isActive);
+  const handlePress = useCallback(() => {
     onPress?.();
-  }, [isActive]);
+  }, [onPress]);
 
   useEffect(() => {
     setActive(checked);
@@ -55,7 +54,7 @@ const RadioButton = ({
       disabled={disabled}
       alignCenter
       style={[style]}
-      onPress={handlePressChipBar}
+      onPress={handlePress}
     >
       {leftIcon ? (
         <View paddingRight={CONSTANTS.SPACE_8}>{leftIcon}</View>

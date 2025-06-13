@@ -48,7 +48,7 @@ const Checkbox = ({
   const [isActive, setActive] = useState<boolean>(checked);
   const checkboxColor = useCheckboxColor(isActive, disabled);
 
-  const handlePressChipBar = useCallback(() => {
+  const handlePress = useCallback(() => {
     // setActive(!isActive);
     onPress?.();
   }, [isActive, onPress]);
@@ -63,7 +63,7 @@ const Checkbox = ({
       disabled={disabled}
       alignCenter
       style={[style]}
-      onPress={handlePressChipBar}
+      onPress={handlePress}
     >
       {leftIcon ? (
         <View paddingRight={CONSTANTS.SPACE_8}>{leftIcon}</View>
