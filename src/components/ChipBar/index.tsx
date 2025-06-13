@@ -11,13 +11,13 @@ interface ChipBarProps {
   style?: StyleProp<ViewStyle>;
   title: string;
   borderRadius?: number;
-  onPress?: (isActive: boolean) => void;
+  onPress?: (value: boolean) => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   badge?: number;
-  isActive?: boolean;
+  checked?: boolean;
   ellipsizeMode?: "head" | "middle" | "tail" | "clip";
   numberOfLines?: number;
 }
@@ -32,7 +32,7 @@ const ChipBar = ({
   leftIcon,
   rightIcon,
   badge = 0,
-  isActive = false,
+  checked = false,
   ellipsizeMode = "tail",
   numberOfLines = 1,
 }: ChipBarProps) => {
@@ -41,7 +41,7 @@ const ChipBar = ({
 
   const handlePressChipBar = () => {
     if (!disabled) {
-      onPress?.(!isActive);
+      onPress?.(!checked);
     }
   };
 
@@ -64,10 +64,10 @@ const ChipBar = ({
         ]}
         onPress={handlePressChipBar}
         borderColor={
-          isActive ? colors.borderBrandDefault : colors.borderPrimaryDefault
+          checked ? colors.borderBrandDefault : colors.borderPrimaryDefault
         }
         backgroundColor={
-          isActive
+          checked
             ? colors.surfaceBrandInverseDefault
             : colors.backgroundSecondary
         }
@@ -77,7 +77,7 @@ const ChipBar = ({
           <Text
             numberOfLines={numberOfLines}
             ellipsizeMode={ellipsizeMode}
-            color={isActive ? colors.textBrandDefault : colors.textDefault}
+            color={checked ? colors.textBrandDefault : colors.textDefault}
             style={[
               styles.text14,
               styles.textMedium,

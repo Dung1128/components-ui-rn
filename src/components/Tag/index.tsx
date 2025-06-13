@@ -11,12 +11,12 @@ interface TagProps {
   style?: StyleProp<ViewStyle>;
   title: string;
   borderRadius?: number;
-  onPress?: (isActive: boolean) => void;
+  onPress?: (value: boolean) => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  isActive?: boolean;
+  checked?: boolean;
   ellipsizeMode?: "head" | "middle" | "tail" | "clip";
   numberOfLines?: number;
   hideRightIcon?: boolean;
@@ -32,7 +32,7 @@ const Tag = ({
   disabled = false,
   leftIcon,
   rightIcon,
-  isActive = false,
+  checked = false,
   ellipsizeMode = "tail",
   numberOfLines = 1,
   hideRightIcon = false,
@@ -42,8 +42,8 @@ const Tag = ({
   const { colors } = theme;
 
   const handlePressTag = useCallback(() => {
-    onPress?.(!isActive);
-  }, [isActive]);
+    onPress?.(!checked);
+  }, [checked]);
 
   return (
     <View row>
@@ -64,7 +64,7 @@ const Tag = ({
         ]}
         onPress={handlePressTag}
         backgroundColor={
-          isActive
+          checked
             ? colors.surfaceBrandInversePressed
             : colors.surfaceBrandInverseDefault
         }

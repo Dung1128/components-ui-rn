@@ -10,7 +10,7 @@ import Icon from "../Icon";
 interface RadioButtonProps {
   style?: StyleProp<ViewStyle>;
   content: string;
-  onPress?: () => void;
+  onPress?: (value: boolean) => void;
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   leftIcon?: React.ReactNode;
@@ -28,25 +28,20 @@ const RadioButton = ({
 }: RadioButtonProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
-  const [isActive, setActive] = useState<boolean>(checked);
 
   const handlePress = useCallback(() => {
-    onPress?.();
-  }, [onPress]);
-
-  useEffect(() => {
-    setActive(checked);
+    onPress?.(!checked);
   }, [checked]);
 
   const getColorCheckbox = useMemo(() => {
     if (disabled) {
       return colors.iconPrimaryDisabled;
     }
-    if (isActive) {
+    if (checked) {
       return colors.iconBrandDefault;
     }
     return colors.surfacePrimaryDefault;
-  }, [isActive, disabled]);
+  }, [checked, disabled]);
 
   return (
     <View
@@ -64,7 +59,7 @@ const RadioButton = ({
             name={
               disabled
                 ? "IconRadioDisable"
-                : isActive
+                : checked
                 ? "IconRadioActive"
                 : "IconRadio"
             }
