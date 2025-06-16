@@ -1,6 +1,6 @@
 {
   "name": "sapo-components-ui-rn",
-  "version": "1.0.81",
+  "version": "1.0.82",
   "description": "React Native UI Components Library",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -48,6 +48,7 @@
     "react-native-screens": ">=3.20.0",
     "react-native-svg": "^15.11.2",
     "react-native-vector-icons": "^9.2.0",
+    "use-debounce": "*",
     "use-latest-callback": "^0.2.3",
     "util": "^0.12.5"
   },
