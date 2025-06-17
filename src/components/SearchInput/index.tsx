@@ -5,6 +5,7 @@ import containerStyles from "../../theme/container-styles";
 import Icon from "../Icon";
 import TextInput from "../TextInput/TextInput";
 import { useInternalTheme } from "../../core/theming";
+import { useDebouncedCallback } from "use-debounce";
 
 interface SearchInputProps {
   style?: StyleProp<ViewStyle>;
@@ -19,6 +20,7 @@ interface SearchInputProps {
   onBlur?: () => void;
   onChangeText?: (text: string) => void;
   height?: number;
+  debounceTime?: number;
 }
 
 const SearchInput = ({
@@ -32,9 +34,15 @@ const SearchInput = ({
   onChangeText,
   style,
   height,
+  debounceTime = 500,
 }: SearchInputProps) => {
   const theme = useInternalTheme();
   const { colors } = theme;
+
+  const debouncedOnChangeText = useDebouncedCallback((text: string) => {
+    onChangeText?.(text);
+  }, debounceTime);
+
   return (
     <TextInput
       left={
@@ -52,7 +60,7 @@ const SearchInput = ({
       onFocus={onFocus}
       onBlur={onBlur}
       allowFontScaling={false}
-      onChangeText={onChangeText}
+      onChangeText={debouncedOnChangeText}
       style={[
         {
           height: height || 36,
