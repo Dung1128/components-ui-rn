@@ -158,11 +158,17 @@ const Button = ({
         >
           <Spacer width={left ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
           {!isLoading && left}
-          {left && <Spacer width={CONSTANTS.SPACE_8} />}
+          {left && (
+            <Spacer
+              width={
+                buttonSize === "small" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_8
+              }
+            />
+          )}
           {isLoading ? (
             <ActivityIndicator color={textStyle?.color || renderTextColor()} />
           ) : (
-            <View full>
+            <View full center>
               <Text
                 numberOfLines={1}
                 color={textColor || renderTextColor()}
@@ -176,7 +182,13 @@ const Button = ({
               </Text>
             </View>
           )}
-          {right && <Spacer width={CONSTANTS.SPACE_8} />}
+          {right && (
+            <Spacer
+              width={
+                buttonSize === "small" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_8
+              }
+            />
+          )}
           {!isLoading && right}
           <Spacer width={right ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
         </View>
@@ -191,7 +203,7 @@ const styles = StyleSheet.create({
     height: CONSTANTS.BUTTON_HEIGHT,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     minWidth: CONSTANTS.DEVICE_WIDTH / 4.5,
   },
   border: {
