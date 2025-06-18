@@ -162,17 +162,19 @@ const Button = ({
           {isLoading ? (
             <ActivityIndicator color={textStyle?.color || renderTextColor()} />
           ) : (
-            <Text
-              numberOfLines={1}
-              color={textColor || renderTextColor()}
-              size={size}
-              bold={bold}
-              medium={medium}
-              style={[disabled && disabledTextStyle, textStyle]}
-              {...textProps}
-            >
-              {title}
-            </Text>
+            <View full>
+              <Text
+                numberOfLines={1}
+                color={textColor || renderTextColor()}
+                size={size}
+                bold={bold}
+                medium={medium}
+                style={[disabled && disabledTextStyle, textStyle]}
+                {...textProps}
+              >
+                {title}
+              </Text>
+            </View>
           )}
           {right && <Spacer width={CONSTANTS.SPACE_8} />}
           {!isLoading && right}
