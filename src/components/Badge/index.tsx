@@ -112,7 +112,7 @@ const Badge = React.memo<BadgeProps>(
     style,
     textColor,
     textStyle,
-    type = "success",
+    type = "default",
     badgeSize = "large",
     mode = "default",
     textSize,
