@@ -7,7 +7,7 @@ import { StyleProp, ViewStyle, TextStyle, StyleSheet } from "react-native";
 import containerStyles from "@/theme/container-styles";
 
 type BadgeType = "success" | "error" | "info" | "warning" | "default";
-type BadgeSize = "default" | "small" | "tiny";
+type BadgeSize = "large" | "medium" | "small";
 type BadgeMode = "default" | "outline";
 type ProgressType = "full" | "half" | "empty" | "none";
 
@@ -28,19 +28,20 @@ interface BadgeProps {
 
 const BADGE_CONFIGS = {
   sizes: {
-    small: {
+    medium: {
       paddingHorizontal: CONSTANTS.SPACE_4,
       minWidth: 16,
       minHeight: 16,
       textSize: 10,
     },
-    default: {
+    large: {
       paddingHorizontal: CONSTANTS.SPACE_8,
       minWidth: 16,
+      minHeight: 24,
       textSize: 12,
     },
   },
-  tiny: {
+  small: {
     width: 8,
     height: 8,
     borderRadius: 4,
@@ -112,7 +113,7 @@ const Badge = React.memo<BadgeProps>(
     textColor,
     textStyle,
     type = "success",
-    badgeSize = "default",
+    badgeSize = "large",
     mode = "default",
     textSize,
     borderColor,
@@ -124,7 +125,7 @@ const Badge = React.memo<BadgeProps>(
     const { colors } = theme;
 
     const sizeStyles = useMemo(() => {
-      if (badgeSize === "tiny") return null;
+      if (badgeSize === "small") return null;
       return BADGE_CONFIGS.sizes[badgeSize];
     }, [badgeSize]);
 
@@ -155,12 +156,12 @@ const Badge = React.memo<BadgeProps>(
         info: {
           default: {
             borderWidth: 0,
-            backgroundColor: backgroundColor || colors.surfaceSecondaryDefault,
+            backgroundColor:
+              backgroundColor || colors.surfacePrimaryInverseDefault,
           },
           outline: {
-            borderColor: borderColor || colors.borderInfoDefault,
-            backgroundColor:
-              backgroundColor || colors.surfaceInfoInverseDefault,
+            borderColor: borderColor || colors.borderPrimaryDefault,
+            backgroundColor: backgroundColor || colors.surfaceSecondaryDefault,
           },
         },
         warning: {
@@ -202,7 +203,7 @@ const Badge = React.memo<BadgeProps>(
         },
         info: {
           default: colors.textOnFillDefault,
-          outline: colors.textInfoDefault,
+          outline: colors.textDefault,
         },
         warning: {
           default: colors.textOnFillDefault,
@@ -218,11 +219,11 @@ const Badge = React.memo<BadgeProps>(
     }, [colors, type, mode]);
 
     const finalTextSize = useMemo(() => {
-      if (badgeSize === "tiny") return 0;
+      if (badgeSize === "small") return 0;
       return textSize || BADGE_CONFIGS.sizes[badgeSize]?.textSize || 12;
     }, [textSize, badgeSize]);
 
-    if (badgeSize === "tiny") {
+    if (badgeSize === "small") {
       return (
         <View row style={style}>
           <ProgressCircle
