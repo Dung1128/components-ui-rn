@@ -388,7 +388,7 @@ const TextInputDefault = ({
           )}
         </View>
 
-        {!disabled && clearButton && inputValue ? (
+        {parentState.focused && !disabled && clearButton && inputValue ? (
           <TouchableOpacity
             onPress={handleClear}
             style={multiline ? styles.clearButtonMultiline : styles.clearButton}

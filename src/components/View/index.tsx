@@ -34,6 +34,7 @@ interface ViewProps {
   marginBottom?: number;
   marginLeft?: number;
   marginRight?: number;
+  margin?: number;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   alignEnd?: boolean;
@@ -88,6 +89,7 @@ const ViewCustom = ({
   marginBottom,
   marginLeft,
   marginRight,
+  margin,
   borderTopWidth,
   borderTopColor,
   borderLeftWidth,
@@ -146,6 +148,9 @@ const ViewCustom = ({
 
     if (marginVertical) {
       styleCustom.marginVertical = marginVertical;
+    }
+    if (margin) {
+      styleCustom.margin = margin;
     }
 
     if (paddingLeft) {

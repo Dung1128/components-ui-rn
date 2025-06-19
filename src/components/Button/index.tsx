@@ -28,7 +28,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   isLoading?: boolean;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  margin?: Number;
+  margin?: number;
   textProps?: IText;
   textColor?: string;
   bold?: boolean;
@@ -41,7 +41,9 @@ export interface ButtonProps extends TouchableOpacityProps {
   full?: boolean;
   theme?: ThemeProp;
   buttonSize?: "normal" | "small";
+  type?: "default" | "text";
   critical?: boolean;
+  width?: number;
 }
 const Button = ({
   style,
@@ -67,6 +69,8 @@ const Button = ({
   buttonSize = "normal",
   size = buttonSize === "small" ? 14 : 16,
   critical = false,
+  width,
+  type = "default",
   ...props
 }: ButtonProps) => {
   const theme = useInternalTheme();
@@ -121,6 +125,62 @@ const Button = ({
     }
   };
 
+  if (type === "text") {
+    return (
+      <ScaleButton
+        activeOpacity={0.8}
+        onPress={onPress}
+        {...props}
+        disabled={disabled || isLoading}
+      >
+        <View
+          width={width}
+          margin={margin}
+          style={[
+            {
+              height: CONSTANTS.BUTTON_HEIGHT,
+              alignItems: "center",
+              minWidth: CONSTANTS.DEVICE_WIDTH / 4.5,
+            },
+            {
+              borderRadius: CONSTANTS.BORDER_RADIUS_6,
+              paddingHorizontal: 0,
+            },
+            styles.small,
+            disabled && !isLoading && [styles.disabled],
+            isLoading && { justifyContent: "center" },
+            style,
+          ]}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator
+              color={textStyle?.color || colors.textBrandDefault}
+            />
+          ) : (
+            <View row>
+              {!isLoading && left}
+              {left && <Spacer width={CONSTANTS.SPACE_4} />}
+              <Text
+                numberOfLines={1}
+                color={textColor || colors.textBrandDefault}
+                size={size}
+                bold={bold}
+                medium={medium}
+                style={[disabled && disabledTextStyle, textStyle]}
+                {...textProps}
+              >
+                {title}
+              </Text>
+              {right && <Spacer width={CONSTANTS.SPACE_4} />}
+              {!isLoading && right}
+            </View>
+          )}
+        </View>
+      </ScaleButton>
+    );
+  }
+
   return (
     <View row={!full}>
       <ScaleButton
@@ -130,6 +190,8 @@ const Button = ({
         disabled={disabled || isLoading}
       >
         <View
+          width={width}
+          margin={margin}
           style={[
             styles.button,
             {
@@ -142,7 +204,6 @@ const Button = ({
             backgroundColor && { backgroundColor: backgroundColor },
             renderButtonStyle(),
             buttonSize === "small" && styles.small,
-
             disabled &&
               !isLoading && [
                 styles.disabled,
@@ -156,41 +217,47 @@ const Button = ({
           ]}
           disabled={isLoading}
         >
-          <Spacer width={left ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
-          {!isLoading && left}
-          {left && (
-            <Spacer
-              width={
-                buttonSize === "small" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_8
-              }
-            />
-          )}
           {isLoading ? (
             <ActivityIndicator color={textStyle?.color || renderTextColor()} />
           ) : (
-            <View full center>
-              <Text
-                numberOfLines={1}
-                color={textColor || renderTextColor()}
-                size={size}
-                bold={bold}
-                medium={medium}
-                style={[disabled && disabledTextStyle, textStyle]}
-                {...textProps}
-              >
-                {title}
-              </Text>
+            <View row>
+              <Spacer width={left ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
+              {!isLoading && left}
+              {left && (
+                <Spacer
+                  width={
+                    buttonSize === "small"
+                      ? CONSTANTS.SPACE_4
+                      : CONSTANTS.SPACE_8
+                  }
+                />
+              )}
+              <View center>
+                <Text
+                  numberOfLines={1}
+                  color={textColor || renderTextColor()}
+                  size={size}
+                  bold={bold}
+                  medium={medium}
+                  style={[disabled && disabledTextStyle, textStyle]}
+                  {...textProps}
+                >
+                  {title}
+                </Text>
+              </View>
+              {right && (
+                <Spacer
+                  width={
+                    buttonSize === "small"
+                      ? CONSTANTS.SPACE_4
+                      : CONSTANTS.SPACE_8
+                  }
+                />
+              )}
+              {!isLoading && right}
+              <Spacer width={right ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
             </View>
           )}
-          {right && (
-            <Spacer
-              width={
-                buttonSize === "small" ? CONSTANTS.SPACE_4 : CONSTANTS.SPACE_8
-              }
-            />
-          )}
-          {!isLoading && right}
-          <Spacer width={right ? CONSTANTS.SPACE_12 : CONSTANTS.SPACE_16} />
         </View>
       </ScaleButton>
     </View>
@@ -201,7 +268,6 @@ const styles = StyleSheet.create({
   disabled: { opacity: 0.6 },
   button: {
     height: CONSTANTS.BUTTON_HEIGHT,
-    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     minWidth: CONSTANTS.DEVICE_WIDTH / 4.5,

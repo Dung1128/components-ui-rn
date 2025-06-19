@@ -499,7 +499,7 @@ const TextInputFlat = ({
             {renderSuffix()}
           </View>
         </View>
-        {!disabled && clearButton && inputValue ? (
+        {parentState.focused && !disabled && clearButton && inputValue ? (
           <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
             <Icon name="IconClearText" type="Svg" size={24} />
           </TouchableOpacity>
