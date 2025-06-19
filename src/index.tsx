@@ -19,7 +19,13 @@ export { default as Toast } from "./components/Toast";
 export { default as View } from "./components/View";
 export { default as Spacer } from "./components/Spacer";
 export { default as Image } from "./components/Image";
-export { default as Badge } from "./components/Badge";
+export {
+  default as Badge,
+  type BadgeType,
+  type BadgeSize,
+  type BadgeMode,
+  type ProgressType,
+} from "./components/Badge";
 export { default as CountingDot } from "./components/CountingDot";
 export { default as ChipBar } from "./components/ChipBar";
 export { default as Checkbox } from "./components/Checkbox";

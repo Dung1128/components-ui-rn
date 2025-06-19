@@ -6,10 +6,10 @@ import { useInternalTheme } from "../../core/theming";
 import { StyleProp, ViewStyle, TextStyle, StyleSheet } from "react-native";
 import containerStyles from "@/theme/container-styles";
 
-type BadgeType = "success" | "error" | "info" | "warning" | "default";
-type BadgeSize = "large" | "medium" | "small";
-type BadgeMode = "default" | "outline";
-type ProgressType = "full" | "half" | "empty" | "none";
+export type BadgeType = "success" | "error" | "info" | "warning" | "default";
+export type BadgeSize = "large" | "medium" | "small";
+export type BadgeMode = "default" | "outline";
+export type ProgressType = "full" | "half" | "empty" | "none";
 
 interface BadgeProps {
   value?: string;
@@ -129,11 +129,34 @@ const Badge = React.memo<BadgeProps>(
       return BADGE_CONFIGS.sizes[badgeSize];
     }, [badgeSize]);
 
+    const getColorProgress = useMemo(() => {
+      const configs = {
+        success: {
+          color: colors.borderSuccessDefault,
+        },
+        error: {
+          color: colors.borderErrorDefault,
+        },
+        info: {
+          color: colors.iconPrimaryDefault,
+        },
+        warning: {
+          color: colors.borderWarningDefault,
+        },
+        default: {
+          color: colors.borderInfoDefault,
+        },
+      };
+
+      return configs[type];
+    }, [colors, type]);
+
     const typeStyles = useMemo(() => {
       const configs = {
         success: {
           default: {
             borderWidth: 0,
+            borderColor: borderColor || colors.borderSuccessDefault,
             backgroundColor: backgroundColor || colors.surfaceSuccessDefault,
           },
           outline: {
@@ -145,6 +168,7 @@ const Badge = React.memo<BadgeProps>(
         error: {
           default: {
             borderWidth: 0,
+            borderColor: borderColor || colors.borderErrorDefault,
             backgroundColor: backgroundColor || colors.surfaceCriticalDefault,
           },
           outline: {
@@ -156,6 +180,7 @@ const Badge = React.memo<BadgeProps>(
         info: {
           default: {
             borderWidth: 0,
+            borderColor: borderColor || colors.borderPrimaryDefault,
             backgroundColor:
               backgroundColor || colors.surfacePrimaryInverseDefault,
           },
@@ -167,6 +192,7 @@ const Badge = React.memo<BadgeProps>(
         warning: {
           default: {
             borderWidth: 0,
+            borderColor: borderColor || colors.borderWarningDefault,
             backgroundColor: backgroundColor || colors.surfaceWarningDefault,
           },
           outline: {
@@ -178,6 +204,7 @@ const Badge = React.memo<BadgeProps>(
         default: {
           default: {
             borderWidth: 0,
+            borderColor: borderColor || colors.borderInfoDefault,
             backgroundColor: backgroundColor || colors.surfaceInfoDefault,
           },
           outline: {
@@ -245,7 +272,10 @@ const Badge = React.memo<BadgeProps>(
         >
           {leftIcon && <View paddingRight={CONSTANTS.SPACE_4}>{leftIcon}</View>}
           {progressType !== "none" && (
-            <ProgressCircle progress={progressType} color={textColorStyle} />
+            <ProgressCircle
+              progress={progressType}
+              color={getColorProgress.color}
+            />
           )}
           <View paddingLeft={progressType !== "none" ? CONSTANTS.SPACE_4 : 0}>
             <Text
