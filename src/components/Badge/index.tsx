@@ -155,8 +155,7 @@ const Badge = React.memo<BadgeProps>(
         info: {
           default: {
             borderWidth: 0,
-            backgroundColor:
-              backgroundColor || colors.surfacePrimaryInverseDefault,
+            backgroundColor: backgroundColor || colors.surfaceSecondaryDefault,
           },
           outline: {
             borderColor: borderColor || colors.borderInfoDefault,
